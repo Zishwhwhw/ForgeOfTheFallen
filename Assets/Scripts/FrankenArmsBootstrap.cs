@@ -49,7 +49,7 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         var playerObject = new GameObject("Player");
         playerObject.transform.position = Vector3.zero;
         var renderer = playerObject.AddComponent<SpriteRenderer>();
-        renderer.sprite = RuntimeSpriteFactory.CreateSquare(32);
+        renderer.sprite = RuntimeSpriteFactory.CreatePlayer();
         renderer.color = PlayerColor;
         renderer.sortingOrder = 10;
 
@@ -75,7 +75,7 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         var stationObject = new GameObject("Fusion Station");
         stationObject.transform.position = new Vector3(-3f, 2.2f, 0f);
         var renderer = stationObject.AddComponent<SpriteRenderer>();
-        renderer.sprite = RuntimeSpriteFactory.CreateSquare(20);
+            renderer.sprite = RuntimeSpriteFactory.CreateDoor();
         renderer.color = new Color(0.7f, 0.25f, 0.95f, 1f);
         renderer.sortingOrder = 8;
         var player = GameObject.Find("Player");

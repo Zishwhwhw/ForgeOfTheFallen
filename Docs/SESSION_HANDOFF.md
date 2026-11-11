@@ -29,6 +29,8 @@
 - Added room variation: room numbers cycle through three enemy layouts with 3, 4, and 5 targets.
 - Added a physical right-side `RoomExit` trigger. Once its door opens, walking into it starts the next room; `N` remains as a keyboard shortcut.
 - Verified the active hierarchy includes the exit trigger and current Console ground truth remains at zero errors and warnings.
+- Replaced the flat square visuals with procedural point-filtered pixel sprites for the player, enemies, projectiles, coins, and doors. The sprites use transparent silhouettes and are generated at runtime, so no Inspector wiring is required.
+- Unity Editor remains `ready`; the one CLI recompile request returned HTTP 400, but Console ground truth shows compilation is not failed and has zero current errors or warnings. Play Mode starts successfully with the new sprites.
 
 ## Pending review
 
@@ -41,4 +43,4 @@
 
 1. Review the uncommitted Unity-generated setup changes and commit the desired ones.
 2. Replace the runtime demo stats with authored weapon assets and a real interaction range.
-3. Replace prototype squares with authored pixel sprites and a real room art pass.
+3. Replace procedural pixel sprites with authored sprite sheets and a real room art pass.

@@ -38,7 +38,7 @@ namespace FrankenArms
             var projectileObject = new GameObject("Projectile");
             projectileObject.transform.position = transform.position + (Vector3)(direction * 0.55f);
             var renderer = projectileObject.AddComponent<SpriteRenderer>();
-            renderer.sprite = RuntimeSpriteFactory.CreateSquare(8);
+            renderer.sprite = RuntimeSpriteFactory.CreateProjectile();
             renderer.color = new Color(1f, 0.75f, 0.25f, 1f);
             renderer.sortingOrder = 12;
             var collider = projectileObject.AddComponent<CircleCollider2D>();

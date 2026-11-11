@@ -56,7 +56,7 @@ namespace FrankenArms
             var enemyObject = new GameObject("Enemy Target");
             enemyObject.transform.position = position;
             var renderer = enemyObject.AddComponent<SpriteRenderer>();
-            renderer.sprite = RuntimeSpriteFactory.CreateSquare(24);
+            renderer.sprite = RuntimeSpriteFactory.CreateEnemy();
             renderer.color = new Color(0.95f, 0.25f, 0.3f, 1f);
             renderer.sortingOrder = 9;
             var collider = enemyObject.AddComponent<CircleCollider2D>();
@@ -81,7 +81,7 @@ namespace FrankenArms
             var reward = new GameObject("Room Reward");
             reward.transform.position = Vector3.zero;
             var renderer = reward.AddComponent<SpriteRenderer>();
-            renderer.sprite = RuntimeSpriteFactory.CreateSquare(16);
+            renderer.sprite = RuntimeSpriteFactory.CreateCoin();
             renderer.color = new Color(1f, 0.85f, 0.2f, 1f);
             renderer.sortingOrder = 11;
             var collider = reward.AddComponent<CircleCollider2D>();
@@ -105,7 +105,7 @@ namespace FrankenArms
             doorObject.transform.position = position;
             doorObject.transform.localScale = new Vector3(0.5f, 2.2f, 1f);
             var renderer = doorObject.AddComponent<SpriteRenderer>();
-            renderer.sprite = RuntimeSpriteFactory.CreateSquare(16);
+            renderer.sprite = RuntimeSpriteFactory.CreateDoor();
             renderer.sortingOrder = 8;
             var door = doorObject.AddComponent<RoomDoor>();
             door.Lock();
