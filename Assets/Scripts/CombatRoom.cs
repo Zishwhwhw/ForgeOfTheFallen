@@ -8,6 +8,11 @@ namespace FrankenArms
         private bool started;
         private bool cleared;
         private RoomDoor[] doors;
+        private int roomIndex = 1;
+        private RunSummaryUI summary;
+
+        internal int RoomIndex { get { return roomIndex; } }
+        internal bool IsCleared { get { return cleared; } }
 
         private void Start()
         {
@@ -28,6 +33,18 @@ namespace FrankenArms
             CreateDoors();
             for (var i = 0; i < positions.Length; i++) SpawnEnemy(positions[i]);
             Debug.Log("Combat room started: wave 1/1, enemies 3");
+        }
+
+        internal void StartNextRoom()
+        {
+            if (!cleared) return;
+            roomIndex++;
+            cleared = false;
+            started = false;
+            if (doors != null)
+                for (var i = 0; i < doors.Length; i++) doors[i].Lock();
+            BeginWave();
+            Debug.Log("Entered room " + roomIndex);
         }
 
         private void SpawnEnemy(Vector3 position)
@@ -51,6 +68,11 @@ namespace FrankenArms
             cleared = true;
             if (doors != null)
                 for (var i = 0; i < doors.Length; i++) doors[i].Open();
+            if (summary == null)
+            {
+                summary = gameObject.AddComponent<RunSummaryUI>();
+                summary.Initialize(this);
+            }
             Debug.Log("Combat room cleared: reward spawned");
             var reward = new GameObject("Room Reward");
             reward.transform.position = Vector3.zero;

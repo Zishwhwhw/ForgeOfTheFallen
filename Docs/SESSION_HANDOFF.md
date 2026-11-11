@@ -24,6 +24,8 @@
 - Added locked room doors that block the left and right exits until the wave is cleared; doors turn green and remove their colliders after the reward phase begins.
 - Added persistent credits through `PlayerPrefs`; collecting the room reward adds 10 credits and the HUD displays the saved balance.
 - Verified the live hierarchy contains two `/Room Door` objects with `BoxCollider2D`, three enemies with contact damage, and zero current Console errors or warnings.
+- Added a repeatable room loop and result panel: after a clear, the player sees the completed room and credits, then presses `N` to lock the doors and start the next room wave.
+- Verified the new runtime code compiles and starts Play Mode cleanly; current Console ground truth remains at zero errors and warnings.
 
 ## Pending review
 
@@ -36,4 +38,4 @@
 
 1. Review the uncommitted Unity-generated setup changes and commit the desired ones.
 2. Replace the runtime demo stats with authored weapon assets and a real interaction range.
-3. Add a room transition and a small persistent run summary.
+3. Add authored room layouts, an actual exit transition, and a full run summary screen.
