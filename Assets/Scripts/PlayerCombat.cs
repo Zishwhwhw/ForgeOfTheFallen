@@ -7,6 +7,7 @@ namespace FrankenArms
     {
         [SerializeField] private float projectileSpeed = 9f;
         [SerializeField] private float fireCooldown = 0.18f;
+        [SerializeField] private int damage = 1;
         private float cooldown;
 
         private void Update()
@@ -43,7 +44,14 @@ namespace FrankenArms
             var collider = projectileObject.AddComponent<CircleCollider2D>();
             collider.isTrigger = true;
             collider.radius = 0.12f;
-            projectileObject.AddComponent<Projectile>().Launch(direction, projectileSpeed);
+            projectileObject.AddComponent<Projectile>().Launch(direction, projectileSpeed, damage);
+        }
+
+        internal void ApplyFusion(int fusedDamage, float shotsPerSecond, float fusedProjectileSpeed)
+        {
+            damage = Mathf.Max(1, fusedDamage);
+            projectileSpeed = Mathf.Max(1f, fusedProjectileSpeed);
+            fireCooldown = 1f / Mathf.Max(0.5f, shotsPerSecond);
         }
     }
 }

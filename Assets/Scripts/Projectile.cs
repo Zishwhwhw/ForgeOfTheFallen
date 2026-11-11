@@ -6,11 +6,13 @@ namespace FrankenArms
     {
         private Vector2 velocity;
         private float lifetime;
+        private int damage;
 
-        internal void Launch(Vector2 direction, float speed)
+        internal void Launch(Vector2 direction, float speed, int damageAmount)
         {
             velocity = direction.normalized * speed;
             lifetime = 1.5f;
+            damage = damageAmount;
         }
 
         private void Update()
@@ -24,7 +26,7 @@ namespace FrankenArms
         {
             var enemy = other.GetComponent<EnemyTarget>();
             if (enemy == null) return;
-            enemy.TakeDamage(1);
+            enemy.TakeDamage(damage);
             Destroy(gameObject);
         }
     }
