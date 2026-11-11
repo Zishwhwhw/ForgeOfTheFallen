@@ -28,6 +28,7 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         BuildRoom();
         BuildPlayer();
         BuildEnemy();
+        BuildFusionStation();
         ConfigureCamera();
     }
 
@@ -73,6 +74,20 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         var collider = enemyObject.AddComponent<CircleCollider2D>();
         collider.radius = 0.38f;
         enemyObject.AddComponent<EnemyTarget>();
+    }
+
+    private static void BuildFusionStation()
+    {
+        var stationObject = new GameObject("Fusion Station");
+        stationObject.transform.position = new Vector3(-3f, 2.2f, 0f);
+        var renderer = stationObject.AddComponent<SpriteRenderer>();
+        renderer.sprite = RuntimeSpriteFactory.CreateSquare(20);
+        renderer.color = new Color(0.7f, 0.25f, 0.95f, 1f);
+        renderer.sortingOrder = 8;
+        var player = GameObject.Find("Player");
+        var playerRenderer = player.GetComponent<SpriteRenderer>();
+        var station = stationObject.AddComponent<FusionStation>();
+        station.Initialize(player.GetComponent<PlayerCombat>(), playerRenderer);
     }
 
     private static void ConfigureCamera()

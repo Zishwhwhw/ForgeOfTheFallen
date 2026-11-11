@@ -15,6 +15,8 @@
 - Recompiled and verified the live hierarchy: `Player` has `PlayerCombat` and `WeaponFusionDemo`; `Enemy Target` has `EnemyTarget`; current Console ground truth remains at zero errors and warnings.
 - Replaced the string-only fusion demo with runtime `WeaponPartDefinition` ScriptableObjects. Fusion now combines grip/barrel stats and applies the resulting damage, fire rate, projectile speed, and tint to the player weapon.
 - Recompiled and restarted Play Mode after the change; the same hierarchy loads with zero current Console errors or warnings.
+- Added a runtime `FusionStation` with three selectable outcomes: Ember Arc, Rapid Ember, and Heavy Arc. Options are available through the on-screen panel, mouse buttons, or keys `1`, `2`, and `3`; `F` toggles the panel.
+- Verified the live hierarchy includes `/Fusion Station`; Play Mode starts cleanly with zero current Console errors and warnings.
 
 ## Pending review
 
@@ -26,5 +28,5 @@
 ## Next steps
 
 1. Review the uncommitted Unity-generated setup changes and commit the desired ones.
-2. Add selectable fusion results and a small in-game fusion station UI.
+2. Replace the runtime demo stats with authored weapon assets and a real interaction range.
 3. Add a real room wave and reward flow around the combat loop.
