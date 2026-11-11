@@ -1,12 +1,12 @@
 # Publish this as a new GitHub repository
 
-The local Unity project is ready for Git, but this environment cannot create a GitHub repository or push it. Use the following steps once.
+The new GitHub repository is already connected as `origin` (`https://github.com/Zishwhwhw/FrankenArms.git`). The local branch is `main` and currently matches `origin/main`. Use the commands below only if you need to publish a new local commit.
 
-## 1. Create an empty repository on GitHub
+## GitHub repository
 
-On GitHub, choose **New repository**, name it `FrankenArms`, choose private or public, and leave **Add a README**, **.gitignore**, and **license** unchecked. Copy the HTTPS repository URL.
+If recreating the hosted repository later, choose **New repository**, name it `FrankenArms`, choose private or public, and leave **Add a README**, **.gitignore**, and **license** unchecked.
 
-## 2. Connect and push from PowerShell
+## Publish local commits from PowerShell
 
 Open PowerShell and run these commands, replacing `<OWNER>` with your GitHub username or organization:
 
@@ -18,7 +18,7 @@ git remote add origin https://github.com/<OWNER>/FrankenArms.git
 git push -u origin main
 ```
 
-The local repository is already initialized on branch `main`. Only create the GitHub remote and run the commands above. If you chose a different repository name, replace `FrankenArms` in the URL.
+The local repository is already initialized on branch `main` and has the `origin` remote configured. Do not repeat `git remote add` unless you deliberately replace the hosted repository. If Git says `origin` already exists, use `git remote set-url origin <URL>` only when changing remotes.
 
 If Git asks for your name and email before committing, set them for this repository, then repeat the commit:
 

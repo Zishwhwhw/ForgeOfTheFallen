@@ -11,16 +11,16 @@ The previous game was not copied into this project. The GDD is the design source
 
 ## Unity CLI
 
-Unity CLI is installed on this computer. Open this project with:
+Unity CLI is installed on this computer and connected to the open Editor. Open this project with:
 
 ```powershell
 unity open "D:\game\2dRoguelike\FrankenArmsFresh"
 ```
 
-To control a running Editor from the CLI, install the Unity Pipeline package after Unity Package Registry access is available:
+The Unity Pipeline package is installed. Check the live Editor connection with:
 
 ```powershell
-unity pipeline install --project-path "D:\game\2dRoguelike\FrankenArmsFresh"
+unity status --project-path "D:\game\2dRoguelike\FrankenArmsFresh"
 ```
 
-The current Codex environment cannot reach the registry because its proxy points to `127.0.0.1:9`. See `Docs/GITHUB_SETUP.md` for the remaining setup steps.
+The current Codex environment still has a placeholder network proxy at `127.0.0.1:9`, which may block package and CLI updates. See `Docs/GITHUB_SETUP.md` for troubleshooting.

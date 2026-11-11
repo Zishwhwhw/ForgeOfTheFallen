@@ -9,14 +9,15 @@ This is a new local Unity project started from the FrankenArms GDD supplied in `
 - Render pipeline: Universal 2D / URP 2D Renderer
 - Target: Windows PC, keyboard/mouse and gamepad
 - Main design document: `Docs/FrankenArms_GDD_RU.html`
-- Repository URL: to be created by the owner; see `Docs/GITHUB_SETUP.md`
+- Repository URL: `https://github.com/Zishwhwhw/FrankenArms.git`
 
-## Current environment limits
+## Current environment
 
 - Unity CLI `1.0.0-beta.13` and Unity Editor `6000.6.7f1` are installed.
-- Unity CLI can launch and batch-run projects. Live control of an open Editor requires `com.unity.pipeline`.
-- Pipeline installation is pending: the current environment routes HTTP(S) through unavailable `127.0.0.1:9`, and bypassing that proxy fails TLS. Do not claim live Editor control is ready until `unity status` finds this project.
-- Unity project creation through the CLI was interrupted by a Unity Licensing Client / local Package Manager failure. The local 2D template files were retained and prepared manually.
+- `com.unity.pipeline` `1.0.0-pre.1` is in the manifest, lockfile, and package cache.
+- Unity CLI reports the open Editor as `ready` for this project.
+- The CLI reports `1.0.0-beta.17` as available; the update has not been run.
+- The current session has a placeholder HTTP(S) proxy at `127.0.0.1:9`, so registry and CLI update requests may fail even though the installed package and live Editor connection work.
 
 ## Product principles
 

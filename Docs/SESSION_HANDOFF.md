@@ -5,18 +5,22 @@
 - Created a clean Universal 2D project shell from the cached Unity template.
 - Set the project version to Unity `6000.6.7f1` and product name to `FrankenArms`.
 - Copied the supplied GDD and its three concept images into `Docs/`.
-- Added project instructions, Git ignore rules, and steps for creating a hosted repository.
-- Kept all files from the previous project out of this new project.
+- Initialized local Git and connected `origin` to `https://github.com/Zishwhwhw/FrankenArms.git`.
+- Local `main` commit `3bc9b97` matches `origin/main`.
+- Unity CLI reports the Editor as `ready`; `com.unity.pipeline` `1.0.0-pre.1` is installed.
+- The active `SampleScene` contains the template Main Camera and Global Light 2D. Unity reports no compile failure, errors, or warnings.
+- Added the first runtime vertical-slice bootstrap: a generated test floor, orthographic camera setup, and a player with Rigidbody2D movement using WASD/arrow keys.
+- Verified in Play Mode through Unity CLI: `/Test Room Floor` and `/Player` appear in the active scene hierarchy, the player loop is ticking, and current Console ground truth reports zero errors and warnings.
 
-## Not completed / environment blockers
+## Pending review
 
-- The Unity CLI project-creation command stopped when Unity Licensing Client and the local Package Manager failed to start cleanly.
-- `com.unity.pipeline` is not installed. Registry access currently fails because the environment proxy is `127.0.0.1:9`; direct TLS also fails.
-- A GitHub repository has not been created. The owner must create an empty repository and follow `Docs/GITHUB_SETUP.md`.
-- No gameplay code has been written or tested yet.
+- The scene remains an authored template; the first room and player are intentionally generated at runtime by code.
+- Unity generated uncommitted changes after Pipeline installation and Editor startup: package manifest/lock, URP global settings, PlayerSettings, `.vsconfig`, and Project Auditor settings. Review them before the next commit.
+- The CLI is `1.0.0-beta.13`; it reports `1.0.0-beta.17` as available. No CLI update was performed.
+- Registry access from this Codex session may still fail because its proxy is `127.0.0.1:9`.
 
 ## Next steps
 
-1. Create an empty GitHub repository and connect this local repository.
-2. Resolve Unity Package Registry access, install `com.unity.pipeline`, and open this project with the installed Editor.
-3. Start the first vertical-slice implementation from the GDD: player movement, one test room, one enemy, and one weapon-fusion interaction.
+1. Review the uncommitted Unity-generated setup changes and commit the desired ones.
+2. Add the first enemy and basic projectile interaction.
+3. Add the two-item weapon-fusion data model and one test fusion interaction.
