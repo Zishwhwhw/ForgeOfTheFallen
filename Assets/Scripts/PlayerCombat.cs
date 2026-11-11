@@ -41,6 +41,12 @@ namespace FrankenArms
             renderer.sprite = RuntimeSpriteFactory.CreateProjectile();
             renderer.color = new Color(1f, 0.75f, 0.25f, 1f);
             renderer.sortingOrder = 12;
+            // Trigger callbacks require at least one Rigidbody2D on the pair.
+            // Projectiles are moved manually, so use a kinematic body and continuous detection.
+            var body = projectileObject.AddComponent<Rigidbody2D>();
+            body.bodyType = RigidbodyType2D.Kinematic;
+            body.gravityScale = 0f;
+            body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             var collider = projectileObject.AddComponent<CircleCollider2D>();
             collider.isTrigger = true;
             collider.radius = 0.12f;
