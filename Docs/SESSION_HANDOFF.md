@@ -33,6 +33,8 @@
 - Unity Editor remains `ready`; the one CLI recompile request returned HTTP 400, but Console ground truth shows compilation is not failed and has zero current errors or warnings. Play Mode starts successfully with the new sprites.
 - Added two-frame point-filtered idle animation for the player and enemies through `PixelAnimator`.
 - Verified the live hierarchy includes `PixelAnimator` on the player and all spawned enemies; Play Mode runs with zero current Console errors and warnings.
+- Added the first room art pass: tiled pixel floor texture, four pixel wall strips, and colliders that keep the player inside the arena.
+- Verified the live hierarchy contains North/South/West/East walls with `SpriteRenderer` and `BoxCollider2D`; Play Mode runs with zero current Console errors and warnings.
 
 ## Pending review
 

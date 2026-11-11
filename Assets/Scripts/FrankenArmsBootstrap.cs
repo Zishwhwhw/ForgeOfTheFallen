@@ -41,7 +41,32 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         floor.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         var renderer = floor.GetComponent<MeshRenderer>();
         renderer.material = CreateMaterial(FloorColor);
+        var floorTexture = RuntimeSpriteFactory.CreateFloorTile().texture;
+        floorTexture.wrapMode = TextureWrapMode.Repeat;
+        renderer.material.mainTexture = floorTexture;
+        renderer.material.mainTextureScale = new Vector2(16f, 10f);
         Object.Destroy(floor.GetComponent<MeshCollider>());
+        BuildRoomBounds();
+    }
+
+    private static void BuildRoomBounds()
+    {
+        CreateWall("North Wall", new Vector3(0f, 5f, 0f), new Vector3(16f, 1f, 1f));
+        CreateWall("South Wall", new Vector3(0f, -5f, 0f), new Vector3(16f, 1f, 1f));
+        CreateWall("West Wall", new Vector3(-8f, 0f, 0f), new Vector3(1f, 10f, 1f));
+        CreateWall("East Wall", new Vector3(8f, 0f, 0f), new Vector3(1f, 10f, 1f));
+    }
+
+    private static void CreateWall(string name, Vector3 position, Vector3 scale)
+    {
+        var wall = new GameObject(name);
+        wall.transform.position = position;
+        wall.transform.localScale = scale;
+        var renderer = wall.AddComponent<SpriteRenderer>();
+        renderer.sprite = RuntimeSpriteFactory.CreateWall();
+        renderer.sortingOrder = 6;
+        var collider = wall.AddComponent<BoxCollider2D>();
+        collider.size = Vector2.one;
     }
 
     private static void BuildPlayer()

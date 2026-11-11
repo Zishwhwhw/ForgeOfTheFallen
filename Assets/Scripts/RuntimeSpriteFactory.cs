@@ -91,5 +91,17 @@ namespace FrankenArms
             var palette = new[] { Color.clear, new Color(0.75f, 0.35f, 0.05f), new Color(1f, 0.85f, 0.2f), Color.white };
             return CreatePixelArt(new[] { "0110", "1231", "1231", "0110" }, palette, 12f);
         }
+
+        internal static Sprite CreateWall()
+        {
+            var palette = new[] { Color.clear, new Color(0.08f, 0.09f, 0.15f), new Color(0.18f, 0.2f, 0.3f), new Color(0.35f, 0.28f, 0.45f) };
+            return CreatePixelArt(new[] { "12223321", "12333321", "12223321", "11222211", "12223321", "12333321", "12223321", "11222211" }, palette, 8f);
+        }
+
+        internal static Sprite CreateFloorTile()
+        {
+            var palette = new[] { new Color(0.05f, 0.07f, 0.12f), new Color(0.07f, 0.1f, 0.17f), new Color(0.1f, 0.13f, 0.21f) };
+            return CreatePixelArt(new[] { "00110011", "01100110", "11001100", "10011001", "00110011", "01100110", "11001100", "10011001" }, palette, 8f);
+        }
     }
 }
