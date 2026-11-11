@@ -126,6 +126,7 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         camera.transform.position = new Vector3(0f, 0f, -10f);
         camera.backgroundColor = new Color(0.015f, 0.02f, 0.04f, 1f);
         camera.clearFlags = CameraClearFlags.SolidColor;
+        camera.gameObject.AddComponent<ScreenShake>();
     }
 
     private static Material CreateMaterial(Color color)

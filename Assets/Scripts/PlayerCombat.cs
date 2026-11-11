@@ -45,6 +45,12 @@ namespace FrankenArms
             collider.isTrigger = true;
             collider.radius = 0.12f;
             projectileObject.AddComponent<Projectile>().Launch(direction, projectileSpeed, damage);
+            var flash = new GameObject("Muzzle Flash");
+            flash.transform.position = projectileObject.transform.position;
+            var flashRenderer = flash.AddComponent<SpriteRenderer>();
+            flashRenderer.sprite = RuntimeSpriteFactory.CreateProjectile();
+            flashRenderer.sortingOrder = 13;
+            flash.AddComponent<ImpactBurst>().Initialize(new Color(1f, 0.85f, 0.3f, 1f), 0.12f, 0.45f);
         }
 
         internal void ApplyFusion(int fusedDamage, float shotsPerSecond, float fusedProjectileSpeed)

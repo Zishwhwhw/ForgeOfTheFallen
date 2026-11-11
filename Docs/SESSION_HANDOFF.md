@@ -35,6 +35,8 @@
 - Verified the live hierarchy includes `PixelAnimator` on the player and all spawned enemies; Play Mode runs with zero current Console errors and warnings.
 - Added the first room art pass: tiled pixel floor texture, four pixel wall strips, and colliders that keep the player inside the arena.
 - Verified the live hierarchy contains North/South/West/East walls with `SpriteRenderer` and `BoxCollider2D`; Play Mode runs with zero current Console errors and warnings.
+- Added combat feedback: two-frame idle animation, muzzle flashes, impact bursts, and camera shake on hits.
+- Verified `ScreenShake` is attached to the camera, enemies have `PixelAnimator`, and the current Console ground truth remains at zero errors and warnings.
 
 ## Pending review
 
