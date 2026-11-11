@@ -31,6 +31,8 @@
 - Verified the active hierarchy includes the exit trigger and current Console ground truth remains at zero errors and warnings.
 - Replaced the flat square visuals with procedural point-filtered pixel sprites for the player, enemies, projectiles, coins, and doors. The sprites use transparent silhouettes and are generated at runtime, so no Inspector wiring is required.
 - Unity Editor remains `ready`; the one CLI recompile request returned HTTP 400, but Console ground truth shows compilation is not failed and has zero current errors or warnings. Play Mode starts successfully with the new sprites.
+- Added two-frame point-filtered idle animation for the player and enemies through `PixelAnimator`.
+- Verified the live hierarchy includes `PixelAnimator` on the player and all spawned enemies; Play Mode runs with zero current Console errors and warnings.
 
 ## Pending review
 

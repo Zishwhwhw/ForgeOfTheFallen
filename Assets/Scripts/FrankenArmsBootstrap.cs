@@ -62,6 +62,7 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         playerObject.AddComponent<PlayerCombat>();
         playerObject.AddComponent<WeaponFusionDemo>();
         playerObject.AddComponent<PlayerHealth>();
+        playerObject.AddComponent<PixelAnimator>().Initialize(RuntimeSpriteFactory.CreatePlayerFrames());
     }
 
     private static void BuildCombatRoom()

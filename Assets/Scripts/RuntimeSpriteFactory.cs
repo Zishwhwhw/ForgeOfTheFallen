@@ -48,10 +48,30 @@ namespace FrankenArms
             return CreatePixelArt(new[] { "001111100", "011222110", "012442210", "012222210", "001333100", "011333110", "012222210", "012002210", "011001110", "010000010", "010000010" }, palette, 16f);
         }
 
+        internal static Sprite[] CreatePlayerFrames()
+        {
+            var palette = new[] { Color.clear, new Color(0.08f, 0.12f, 0.2f), new Color(0.25f, 0.85f, 0.95f), new Color(0.95f, 0.75f, 0.35f), Color.white };
+            return new[]
+            {
+                CreatePixelArt(new[] { "001111100", "011222110", "012442210", "012222210", "001333100", "011333110", "012222210", "012002210", "011001110", "010000010", "010000010" }, palette, 16f),
+                CreatePixelArt(new[] { "001111100", "011222110", "012442210", "012222210", "001333100", "011333110", "012222210", "011002110", "010001010", "010000010", "010000010" }, palette, 16f)
+            };
+        }
+
         internal static Sprite CreateEnemy()
         {
             var palette = new[] { Color.clear, new Color(0.35f, 0.05f, 0.12f), new Color(0.95f, 0.2f, 0.3f), new Color(1f, 0.65f, 0.7f), Color.white };
             return CreatePixelArt(new[] { "001111100", "012222210", "122442221", "122222221", "122222221", "012222210", "001111100", "010000010", "010000010" }, palette, 16f);
+        }
+
+        internal static Sprite[] CreateEnemyFrames()
+        {
+            var palette = new[] { Color.clear, new Color(0.35f, 0.05f, 0.12f), new Color(0.95f, 0.2f, 0.3f), new Color(1f, 0.65f, 0.7f), Color.white };
+            return new[]
+            {
+                CreatePixelArt(new[] { "001111100", "012222210", "122442221", "122222221", "122222221", "012222210", "001111100", "010000010", "010000010" }, palette, 16f),
+                CreatePixelArt(new[] { "001111100", "012222210", "122442221", "122222221", "012222210", "012222210", "001111100", "010000010", "010000010" }, palette, 16f)
+            };
         }
 
         internal static Sprite CreateDoor()

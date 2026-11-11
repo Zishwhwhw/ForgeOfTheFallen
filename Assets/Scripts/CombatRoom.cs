@@ -63,6 +63,7 @@ namespace FrankenArms
             collider.radius = 0.38f;
             enemyObject.AddComponent<EnemyTarget>().Initialize(this);
             enemyObject.AddComponent<EnemyContactDamage>();
+            enemyObject.AddComponent<PixelAnimator>().Initialize(RuntimeSpriteFactory.CreateEnemyFrames());
         }
 
         internal void EnemyDefeated()
