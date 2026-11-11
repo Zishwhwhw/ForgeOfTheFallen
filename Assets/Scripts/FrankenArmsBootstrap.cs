@@ -27,6 +27,7 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
     {
         BuildRoom();
         BuildPlayer();
+        BuildEnemy();
         ConfigureCamera();
     }
 
@@ -47,7 +48,7 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         var playerObject = new GameObject("Player");
         playerObject.transform.position = Vector3.zero;
         var renderer = playerObject.AddComponent<SpriteRenderer>();
-        renderer.sprite = CreateSquareSprite();
+        renderer.sprite = RuntimeSpriteFactory.CreateSquare(32);
         renderer.color = PlayerColor;
         renderer.sortingOrder = 10;
 
@@ -57,6 +58,21 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         var collider = playerObject.AddComponent<CircleCollider2D>();
         collider.radius = 0.38f;
         playerObject.AddComponent<PlayerMovement>();
+        playerObject.AddComponent<PlayerCombat>();
+        playerObject.AddComponent<WeaponFusionDemo>();
+    }
+
+    private static void BuildEnemy()
+    {
+        var enemyObject = new GameObject("Enemy Target");
+        enemyObject.transform.position = new Vector3(3f, 0f, 0f);
+        var renderer = enemyObject.AddComponent<SpriteRenderer>();
+        renderer.sprite = RuntimeSpriteFactory.CreateSquare(24);
+        renderer.color = new Color(0.95f, 0.25f, 0.3f, 1f);
+        renderer.sortingOrder = 9;
+        var collider = enemyObject.AddComponent<CircleCollider2D>();
+        collider.radius = 0.38f;
+        enemyObject.AddComponent<EnemyTarget>();
     }
 
     private static void ConfigureCamera()
@@ -84,18 +100,5 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         return material;
     }
 
-    private static Sprite CreateSquareSprite()
-    {
-        var texture = new Texture2D(32, 32, TextureFormat.RGBA32, false)
-        {
-            filterMode = FilterMode.Point,
-            wrapMode = TextureWrapMode.Clamp
-        };
-        var pixels = new Color[32 * 32];
-        for (var i = 0; i < pixels.Length; i++) pixels[i] = Color.white;
-        texture.SetPixels(pixels);
-        texture.Apply();
-        return Sprite.Create(texture, new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32f);
-    }
 }
 }

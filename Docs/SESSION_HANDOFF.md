@@ -11,6 +11,8 @@
 - The active `SampleScene` contains the template Main Camera and Global Light 2D. Unity reports no compile failure, errors, or warnings.
 - Added the first runtime vertical-slice bootstrap: a generated test floor, orthographic camera setup, and a player with Rigidbody2D movement using WASD/arrow keys.
 - Verified in Play Mode through Unity CLI: `/Test Room Floor` and `/Player` appear in the active scene hierarchy, the player loop is ticking, and current Console ground truth reports zero errors and warnings.
+- Added one red enemy target, projectile firing with left mouse/Space, hit-point removal, and a first fusion demonstration on `F`: `Ember Pistol + Arc Grip -> Ember Arc`.
+- Recompiled and verified the live hierarchy: `Player` has `PlayerCombat` and `WeaponFusionDemo`; `Enemy Target` has `EnemyTarget`; current Console ground truth remains at zero errors and warnings.
 
 ## Pending review
 
@@ -22,5 +24,5 @@
 ## Next steps
 
 1. Review the uncommitted Unity-generated setup changes and commit the desired ones.
-2. Add the first enemy and basic projectile interaction.
-3. Add the two-item weapon-fusion data model and one test fusion interaction.
+2. Replace the fusion demonstration with ScriptableObject weapon definitions and selectable results.
+3. Add a real room wave and reward flow around the combat loop.
