@@ -38,6 +38,7 @@ namespace FrankenArms
         private void OnGUI()
         {
             GUI.Label(new Rect(20f, 218f, 240f, 24f), defeated ? "DEFEATED // Press R to restart" : string.Format("HP {0}/{1}", currentHealth, maxHealth));
+            GUI.Label(new Rect(20f, 242f, 240f, 24f), string.Format("Credits {0}", RunProgress.Credits));
         }
     }
 }

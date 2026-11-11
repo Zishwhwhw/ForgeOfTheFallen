@@ -7,6 +7,7 @@ namespace FrankenArms
         private int remaining;
         private bool started;
         private bool cleared;
+        private RoomDoor[] doors;
 
         private void Start()
         {
@@ -24,6 +25,7 @@ namespace FrankenArms
                 new Vector3(-2.5f, -2f, 0f)
             };
             remaining = positions.Length;
+            CreateDoors();
             for (var i = 0; i < positions.Length; i++) SpawnEnemy(positions[i]);
             Debug.Log("Combat room started: wave 1/1, enemies 3");
         }
@@ -47,6 +49,8 @@ namespace FrankenArms
             remaining--;
             if (remaining > 0 || cleared) return;
             cleared = true;
+            if (doors != null)
+                for (var i = 0; i < doors.Length; i++) doors[i].Open();
             Debug.Log("Combat room cleared: reward spawned");
             var reward = new GameObject("Room Reward");
             reward.transform.position = Vector3.zero;
@@ -58,6 +62,28 @@ namespace FrankenArms
             collider.isTrigger = true;
             collider.radius = 0.35f;
             reward.AddComponent<CoinPickup>();
+        }
+
+        private void CreateDoors()
+        {
+            doors = new[]
+            {
+                CreateDoor(new Vector3(-7.5f, 0f, 0f)),
+                CreateDoor(new Vector3(7.5f, 0f, 0f))
+            };
+        }
+
+        private static RoomDoor CreateDoor(Vector3 position)
+        {
+            var doorObject = new GameObject("Room Door");
+            doorObject.transform.position = position;
+            doorObject.transform.localScale = new Vector3(0.5f, 2.2f, 1f);
+            var renderer = doorObject.AddComponent<SpriteRenderer>();
+            renderer.sprite = RuntimeSpriteFactory.CreateSquare(16);
+            renderer.sortingOrder = 8;
+            var door = doorObject.AddComponent<RoomDoor>();
+            door.Lock();
+            return door;
         }
     }
 }

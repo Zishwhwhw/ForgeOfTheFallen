@@ -21,6 +21,9 @@
 - Verified the live hierarchy contains `/Combat Room` and three `/Enemy Target` instances; the current Console reports zero errors and warnings.
 - Added player HP, contact damage, invulnerability frames, and a defeat overlay. Press `R` after defeat to reload the scene and start a fresh run.
 - Verified the live hierarchy: `Player` has `PlayerHealth`, spawned enemies have `EnemyContactDamage`, projectiles are active, and current Console ground truth remains at zero errors and warnings.
+- Added locked room doors that block the left and right exits until the wave is cleared; doors turn green and remove their colliders after the reward phase begins.
+- Added persistent credits through `PlayerPrefs`; collecting the room reward adds 10 credits and the HUD displays the saved balance.
+- Verified the live hierarchy contains two `/Room Door` objects with `BoxCollider2D`, three enemies with contact damage, and zero current Console errors or warnings.
 
 ## Pending review
 
@@ -33,4 +36,4 @@
 
 1. Review the uncommitted Unity-generated setup changes and commit the desired ones.
 2. Replace the runtime demo stats with authored weapon assets and a real interaction range.
-3. Add room doors and a persistent run result/credits flow.
+3. Add a room transition and a small persistent run summary.
