@@ -39,6 +39,7 @@ namespace FrankenArms
             var collider = enemyObject.AddComponent<CircleCollider2D>();
             collider.radius = 0.38f;
             enemyObject.AddComponent<EnemyTarget>().Initialize(this);
+            enemyObject.AddComponent<EnemyContactDamage>();
         }
 
         internal void EnemyDefeated()
