@@ -37,6 +37,8 @@
 - Verified the live hierarchy contains North/South/West/East walls with `SpriteRenderer` and `BoxCollider2D`; Play Mode runs with zero current Console errors and warnings.
 - Added combat feedback: two-frame idle animation, muzzle flashes, impact bursts, and camera shake on hits.
 - Verified `ScreenShake` is attached to the camera, enemies have `PixelAnimator`, and the current Console ground truth remains at zero errors and warnings.
+- Added a repeatable local playtest checklist in `Docs/PLAYTEST.md` covering combat, fusion, room progression, rewards, defeat/restart, and credit persistence.
+- Final vertical-slice verification: Unity `6000.6.7f1` Editor is `ready` in Play Mode, the loop is ticking, compilation is not failed, and Console ground truth reports zero errors and zero warnings.
 
 ## Pending review
 
@@ -47,6 +49,6 @@
 
 ## Next steps
 
-1. Review the uncommitted Unity-generated setup changes and commit the desired ones.
-2. Replace the runtime demo stats with authored weapon assets and a real interaction range.
-3. Replace procedural pixel sprites with authored sprite sheets and a real room art pass.
+1. Replace procedural pixel sprites with authored sprite sheets when final art is available.
+2. Replace the runtime fusion candidates with authored weapon assets and a real interaction range.
+3. Add additional rooms, enemy archetypes, and progression content beyond this vertical slice.
