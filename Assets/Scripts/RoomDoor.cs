@@ -6,6 +6,12 @@ namespace FrankenArms
     {
         private Collider2D doorCollider;
         private SpriteRenderer renderer;
+        private RoomExit exit;
+
+        internal void SetExit(RoomExit roomExit)
+        {
+            exit = roomExit;
+        }
 
         internal void Lock()
         {
@@ -20,6 +26,7 @@ namespace FrankenArms
         {
             if (doorCollider != null) doorCollider.enabled = false;
             if (renderer != null) renderer.color = new Color(0.25f, 0.85f, 0.45f, 1f);
+            if (exit != null) exit.Open();
         }
     }
 }

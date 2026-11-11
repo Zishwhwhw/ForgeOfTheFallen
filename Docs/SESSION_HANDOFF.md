@@ -26,6 +26,9 @@
 - Verified the live hierarchy contains two `/Room Door` objects with `BoxCollider2D`, three enemies with contact damage, and zero current Console errors or warnings.
 - Added a repeatable room loop and result panel: after a clear, the player sees the completed room and credits, then presses `N` to lock the doors and start the next room wave.
 - Verified the new runtime code compiles and starts Play Mode cleanly; current Console ground truth remains at zero errors and warnings.
+- Added room variation: room numbers cycle through three enemy layouts with 3, 4, and 5 targets.
+- Added a physical right-side `RoomExit` trigger. Once its door opens, walking into it starts the next room; `N` remains as a keyboard shortcut.
+- Verified the active hierarchy includes the exit trigger and current Console ground truth remains at zero errors and warnings.
 
 ## Pending review
 
@@ -38,4 +41,4 @@
 
 1. Review the uncommitted Unity-generated setup changes and commit the desired ones.
 2. Replace the runtime demo stats with authored weapon assets and a real interaction range.
-3. Add authored room layouts, an actual exit transition, and a full run summary screen.
+3. Replace prototype squares with authored pixel sprites and a real room art pass.

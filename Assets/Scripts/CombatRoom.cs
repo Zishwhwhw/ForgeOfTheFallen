@@ -23,16 +23,20 @@ namespace FrankenArms
         {
             if (started) return;
             started = true;
-            var positions = new[]
-            {
-                new Vector3(3f, 0f, 0f),
-                new Vector3(-2.5f, 2f, 0f),
-                new Vector3(-2.5f, -2f, 0f)
-            };
+            var positions = GetWavePositions();
             remaining = positions.Length;
             CreateDoors();
             for (var i = 0; i < positions.Length; i++) SpawnEnemy(positions[i]);
-            Debug.Log("Combat room started: wave 1/1, enemies 3");
+            Debug.Log(string.Format("Combat room {0} started: enemies {1}", roomIndex, positions.Length));
+        }
+
+        private Vector3[] GetWavePositions()
+        {
+            if (roomIndex % 3 == 2)
+                return new[] { new Vector3(3f, 0f), new Vector3(-2.5f, 2f), new Vector3(-2.5f, -2f), new Vector3(0f, 3f) };
+            if (roomIndex % 3 == 0)
+                return new[] { new Vector3(3f, 2.5f), new Vector3(3f, -2.5f), new Vector3(-3f, 0f), new Vector3(0f, 2.5f), new Vector3(0f, -2.5f) };
+            return new[] { new Vector3(3f, 0f), new Vector3(-2.5f, 2f), new Vector3(-2.5f, -2f) };
         }
 
         internal void StartNextRoom()
@@ -90,12 +94,12 @@ namespace FrankenArms
         {
             doors = new[]
             {
-                CreateDoor(new Vector3(-7.5f, 0f, 0f)),
-                CreateDoor(new Vector3(7.5f, 0f, 0f))
+                CreateDoor(new Vector3(-7.5f, 0f, 0f), false),
+                CreateDoor(new Vector3(7.5f, 0f, 0f), true)
             };
         }
 
-        private static RoomDoor CreateDoor(Vector3 position)
+        private RoomDoor CreateDoor(Vector3 position, bool isExit)
         {
             var doorObject = new GameObject("Room Door");
             doorObject.transform.position = position;
@@ -105,6 +109,12 @@ namespace FrankenArms
             renderer.sortingOrder = 8;
             var door = doorObject.AddComponent<RoomDoor>();
             door.Lock();
+            if (isExit)
+            {
+                var exit = doorObject.AddComponent<RoomExit>();
+                exit.Initialize(this);
+                door.SetExit(exit);
+            }
             return door;
         }
     }
