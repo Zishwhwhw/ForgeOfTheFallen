@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712db4a4d70463a4ebe41cb97d1361ce, type: 3}
+  m_Name: ShockBarrel
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponBarrelSO
+  barrelName: "\u0428\u043E\u043A\u0435\u0440"
+  description: "Wymienna lufa: obra\u017Cenia, \u017Cywio\u0142 i rozrzut."
+  flavorText: "Uziemienie jest zaleceniem, nie gwarancj\u0105."
+  rarity: 0
+  barrelColor: {r: 1, g: 1, b: 0.3, a: 1}
+  icon: {fileID: 21300000, guid: 94fa59c573afcf04993543403a17e734, type: 3}
+  heldSprite: {fileID: 21300000, guid: 94fa59c573afcf04993543403a17e734, type: 3}
+  muzzlePoint: {x: 0.4375, y: 0}
+  twoHanded: 1
+  projectilePrefab: {fileID: 5211602812047723394, guid: 69d29962c77c3f349837851ec44a7f8a, type: 3}
+  baseDamage: 7
+  projectileSpeed: 20
+  bulletsPerShot: 3
+  spreadAngle: 10
+  element: 3
+  isGambleBarrel: 0
+  jackpotChance: 0.16666667
+  misfireChance: 0.16666667

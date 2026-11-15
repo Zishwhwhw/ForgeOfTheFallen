@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d19f4904b1ef3742b6843b227a533ff, type: 3}
+  m_Name: Sniper_Grip
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponGripSO
+  gripName: "\u0421\u043D\u0430\u0439\u043F\u0435\u0440\u0441\u043A\u0438\u0439 \u043F\u0440\u0438\u043A\u043B\u0430\u0434"
+  description: "Wymienna r\u0119koje\u015B\u0107: szybkostrzelno\u015B\u0107 i mno\u017Cnik obra\u017Ce\u0144."
+  flavorText: "Cierpliwo\u015B\u0107 tak\u017Ce jest rodzajem amunicji."
+  rarity: 0
+  gripColor: {r: 0.3, g: 0.4, b: 0.3, a: 1}
+  icon: {fileID: 21300000, guid: b81c67da172e85f438e2b6355fd07a47, type: 3}
+  heldSprite: {fileID: 21300000, guid: b81c67da172e85f438e2b6355fd07a47, type: 3}
+  barrelSocket: {x: 0.234375, y: 0.09375}
+  offHandPoint: {x: 0.328125, y: 0.015625}
+  fireRate: 0.8
+  damageMultiplier: 4
+  knockbackForce: 9
+  moveSpeedBonus: 0
+  critChance: 0

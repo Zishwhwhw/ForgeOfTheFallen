@@ -7,12 +7,24 @@ namespace FrankenArms
         private Vector2 velocity;
         private float lifetime;
         private int damage;
+        private bool budgetAcquired;
 
         internal void Launch(Vector2 direction, float speed, int damageAmount)
         {
+            budgetAcquired = ProjectileBudget.TryAcquire();
+            if (!budgetAcquired)
+            {
+                Destroy(gameObject);
+                return;
+            }
             velocity = direction.normalized * speed;
             lifetime = 1.5f;
             damage = damageAmount;
+        }
+
+        private void OnDestroy()
+        {
+            if (budgetAcquired) ProjectileBudget.Release();
         }
 
         private void Update()
@@ -27,6 +39,7 @@ namespace FrankenArms
             var enemy = other.GetComponent<EnemyTarget>();
             if (enemy == null) return;
             enemy.TakeDamage(damage);
+            GameAudio.Play("Hit", 0.6f);
             ScreenShake.Pulse(0.08f, 0.04f);
             var burst = new GameObject("Impact Burst");
             burst.transform.position = transform.position;

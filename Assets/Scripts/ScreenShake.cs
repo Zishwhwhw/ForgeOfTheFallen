@@ -17,6 +17,7 @@ namespace FrankenArms
 
         internal static void Pulse(float duration, float amount)
         {
+            if (!GameSettings.ScreenShake) return;
             if (instance == null) return;
             instance.remaining = Mathf.Max(instance.remaining, duration);
             instance.strength = Mathf.Max(instance.strength, amount);

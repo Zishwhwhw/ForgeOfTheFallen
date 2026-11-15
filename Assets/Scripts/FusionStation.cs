@@ -5,37 +5,37 @@ namespace FrankenArms
 {
     public sealed class FusionStation : MonoBehaviour
     {
-        private sealed class Candidate
-        {
-            internal string Name;
-            internal int Damage;
-            internal float Rate;
-            internal float Speed;
-            internal Color Tint;
-        }
-
-        private Candidate[] candidates;
+        private WeaponFusionRecipe[] candidates;
         private PlayerCombat combat;
         private SpriteRenderer playerRenderer;
-        private bool open = true;
-        private string status = "Choose a fusion result";
+        private Transform player;
+        private CombatRoom room;
+        private bool open;
+        private const float InteractionRange = 2.35f;
+        private string status = "Walk to the forge and press F";
 
-        internal void Initialize(PlayerCombat target, SpriteRenderer targetRenderer)
+        internal void Initialize(PlayerCombat target, SpriteRenderer targetRenderer, Transform playerTransform)
         {
             combat = target;
             playerRenderer = targetRenderer;
-            candidates = new[]
-            {
-                new Candidate { Name = "Ember Arc", Damage = 3, Rate = 5.5f, Speed = 9.5f, Tint = new Color(1f, 0.45f, 0.2f, 1f) },
-                new Candidate { Name = "Rapid Ember", Damage = 2, Rate = 9f, Speed = 10f, Tint = new Color(1f, 0.75f, 0.2f, 1f) },
-                new Candidate { Name = "Heavy Arc", Damage = 5, Rate = 2.5f, Speed = 12f, Tint = new Color(0.55f, 0.8f, 1f, 1f) }
-            };
+            player = playerTransform;
+            room = FindAnyObjectByType<CombatRoom>();
+            candidates = Resources.LoadAll<WeaponFusionRecipe>("Content/Fusions");
+            if (candidates.Length == 0)
+                status = "No fusion recipes installed";
         }
 
         private void Update()
         {
             var keyboard = Keyboard.current;
             if (keyboard == null) return;
+            if (!IsAvailable()) { open = false; return; }
+            var inRange = player != null && Vector2.Distance(player.position, transform.position) <= InteractionRange;
+            if (!inRange)
+            {
+                open = false;
+                return;
+            }
             if (keyboard.fKey.wasPressedThisFrame) open = !open;
             if (!open || candidates == null) return;
             if (keyboard.digit1Key.wasPressedThisFrame) Choose(0);
@@ -46,14 +46,32 @@ namespace FrankenArms
         private void Choose(int index)
         {
             var candidate = candidates[index];
-            combat.ApplyFusion(candidate.Damage, candidate.Rate, candidate.Speed);
-            if (playerRenderer != null) playerRenderer.color = candidate.Tint;
-            status = "Equipped: " + candidate.Name;
+            combat.ApplyFusion(candidate.damage, candidate.shotsPerSecond, candidate.projectileSpeed);
+            Achievements.Unlock("first_fusion");
+            if (playerRenderer != null) playerRenderer.color = candidate.tint;
+            GameAudio.Play("ButtonPress", 0.6f);
+            status = "Equipped: " + candidate.displayName;
+        }
+
+        private bool IsAvailable()
+        {
+            return room == null || room.CurrentNodeType == RoomNodeType.Forge || room.RoomKind.Contains("FORGE");
         }
 
         private void OnGUI()
         {
-            if (!open || candidates == null) return;
+            var inRange = player != null && Vector2.Distance(player.position, transform.position) <= InteractionRange;
+            if (!IsAvailable()) return;
+            if (!inRange)
+            {
+                GUI.Label(new Rect(20f, Screen.height - 30f, 380f, 24f), "FORGE: move closer   [F] interact");
+                return;
+            }
+            if (!open || candidates == null)
+            {
+                GUI.Label(new Rect(20f, Screen.height - 30f, 380f, 24f), "FORGE: [F] open fusion choices");
+                return;
+            }
             var panel = new Rect(20f, 20f, 360f, 185f);
             GUI.Box(panel, "FRANKEN ARM // FUSION STATION");
             GUI.Label(new Rect(35f, 50f, 330f, 24f), status);
@@ -61,7 +79,7 @@ namespace FrankenArms
             {
                 var candidate = candidates[i];
                 var y = 78f + i * 32f;
-                if (GUI.Button(new Rect(35f, y, 330f, 25f), string.Format("{0}. {1}  |  DMG {2}  |  {3:0.0}/s", i + 1, candidate.Name, candidate.Damage, candidate.Rate)))
+                if (GUI.Button(new Rect(35f, y, 330f, 25f), string.Format("{0}. {1}  |  DMG {2}  |  {3:0.0}/s", i + 1, candidate.displayName, candidate.damage, candidate.shotsPerSecond)))
                     Choose(i);
             }
             GUI.Label(new Rect(35f, 175f, 330f, 20f), "Press F to close the station");

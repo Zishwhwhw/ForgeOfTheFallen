@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace FrankenArms
 {
@@ -12,20 +13,39 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
     private static readonly Color FloorColor = new(0.08f, 0.10f, 0.15f, 1f);
     private static readonly Color PlayerColor = new(0.25f, 0.85f, 0.95f, 1f);
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void RegisterSceneFlow()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void CreateRuntimeSlice()
     {
+        EnsureRuntimeSlice(SceneManager.GetActiveScene());
+    }
+
+    private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        EnsureRuntimeSlice(scene);
+    }
+
+    private static void EnsureRuntimeSlice(Scene scene)
+    {
+        if (scene.name != SceneFlow.Run)
+            return;
         if (FindAnyObjectByType<FrankenArmsBootstrap>() != null)
             return;
 
         var bootstrap = new GameObject("FrankenArms Runtime Slice");
         bootstrap.AddComponent<FrankenArmsBootstrap>();
-        DontDestroyOnLoad(bootstrap);
     }
 
-    private void Awake()
-    {
-        BuildRoom();
+        private void Awake()
+        {
+            RunStats.BeginRun();
+            BuildRoom();
         BuildPlayer();
         BuildCombatRoom();
         BuildFusionStation();
@@ -41,7 +61,10 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         floor.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         var renderer = floor.GetComponent<MeshRenderer>();
         renderer.material = CreateMaterial(FloorColor);
-        var floorTexture = RuntimeSpriteFactory.CreateFloorTile().texture;
+        var authoredFloor = Resources.Load<Texture2D>("Art/Generated/dungeon-floor-v1");
+        var floorTexture = authoredFloor != null ? authoredFloor : RuntimeSpriteFactory.CreateFloorTile().texture;
+        floorTexture.filterMode = FilterMode.Point;
+        renderer.material.color = authoredFloor != null ? Color.white : FloorColor;
         floorTexture.wrapMode = TextureWrapMode.Repeat;
         renderer.material.mainTexture = floorTexture;
         renderer.material.mainTextureScale = new Vector2(16f, 10f);
@@ -75,7 +98,7 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         playerObject.transform.position = Vector3.zero;
         var renderer = playerObject.AddComponent<SpriteRenderer>();
         renderer.sprite = RuntimeSpriteFactory.CreatePlayer();
-        renderer.color = PlayerColor;
+        renderer.color = Color.white;
         renderer.sortingOrder = 10;
 
         var body = playerObject.AddComponent<Rigidbody2D>();
@@ -84,10 +107,31 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         var collider = playerObject.AddComponent<CircleCollider2D>();
         collider.radius = 0.38f;
         playerObject.AddComponent<PlayerMovement>();
+        playerObject.AddComponent<PlayerDash>();
+        playerObject.AddComponent<PlayerMana>();
+        playerObject.AddComponent<PlayerArmor>();
+        playerObject.AddComponent<StatusEffectController>();
         playerObject.AddComponent<PlayerCombat>();
-        playerObject.AddComponent<WeaponFusionDemo>();
         playerObject.AddComponent<PlayerHealth>();
+        playerObject.AddComponent<RunHUD>();
+        playerObject.AddComponent<RunMinimapUI>();
+        playerObject.AddComponent<PauseController>();
         playerObject.AddComponent<PixelAnimator>().Initialize(RuntimeSpriteFactory.CreatePlayerFrames());
+        playerObject.AddComponent<HeroSelectionController>();
+        playerObject.AddComponent<HeroActiveAbilityController>();
+        BuildPet(playerObject.transform);
+    }
+
+    private static void BuildPet(Transform player)
+    {
+        var petObject = new GameObject("Pet Dog");
+        petObject.transform.position = player.position + new Vector3(-0.75f, -0.75f, 0f);
+        petObject.transform.localScale = new Vector3(0.62f, 0.62f, 1f);
+        var renderer = petObject.AddComponent<SpriteRenderer>();
+        renderer.sprite = RuntimeSpriteFactory.CreatePlayer();
+        renderer.color = new Color(0.82f, 0.62f, 0.35f, 1f);
+        renderer.sortingOrder = 9;
+        petObject.AddComponent<PetDog>();
     }
 
     private static void BuildCombatRoom()
@@ -107,7 +151,13 @@ public sealed class FrankenArmsBootstrap : MonoBehaviour
         var player = GameObject.Find("Player");
         var playerRenderer = player.GetComponent<SpriteRenderer>();
         var station = stationObject.AddComponent<FusionStation>();
-        station.Initialize(player.GetComponent<PlayerCombat>(), playerRenderer);
+        station.Initialize(player.GetComponent<PlayerCombat>(), playerRenderer, player.transform);
+        var importedBridge = stationObject.AddComponent<ImportedModuleForgeBridge>();
+        importedBridge.Initialize(player.GetComponent<PlayerCombat>(), playerRenderer, player.transform);
+        var shop = stationObject.AddComponent<RunShopStation>();
+        shop.Initialize(player.GetComponent<PlayerHealth>(), player.GetComponent<PlayerMana>(), player.transform);
+        var shrine = stationObject.AddComponent<RunShrineStation>();
+        shrine.Initialize(player.GetComponent<PlayerHealth>(), player.GetComponent<PlayerMana>(), player.transform);
     }
 
     private static void ConfigureCamera()

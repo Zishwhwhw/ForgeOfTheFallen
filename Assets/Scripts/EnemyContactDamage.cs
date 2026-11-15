@@ -7,7 +7,11 @@ namespace FrankenArms
         private void OnCollisionEnter2D(Collision2D collision)
         {
             var player = collision.collider.GetComponent<PlayerHealth>();
-            if (player != null) player.TakeDamage(1);
+            if (player != null)
+            {
+                player.TakeDamage(1);
+                GameAudio.Play("Hit", 0.7f);
+            }
         }
     }
 }
