@@ -27,6 +27,9 @@ namespace FotF.State
         public float DashTimeLeft;
         public float InvulnerableLeft;
 
+        /// <summary>Золото забега (GDD §9.3: только внутри забега).</summary>
+        public int Gold;
+
         public readonly WeaponSlotState[] Weapons = { new WeaponSlotState(), new WeaponSlotState() };
         public int ActiveSlot;
 

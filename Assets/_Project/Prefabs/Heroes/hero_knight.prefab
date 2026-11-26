@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1350256970307307676}
   - component: {fileID: 6913741092692184595}
   - component: {fileID: 5812759165398191688}
+  - component: {fileID: 1590156249172094371}
   m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
@@ -91,7 +92,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
   m_BlendShapeWeights: []
 --- !u!114 &5812759165398191688
 MonoBehaviour:
@@ -107,6 +108,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: FotF.View::FotF.View.Animation.DirectionalSpriteAnimator
   animationSet: {fileID: 11400000, guid: 1b4d63f0c951d7c4a97f3af0a2e764bb, type: 2}
   startClip: idle
+--- !u!114 &1590156249172094371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307555230394265649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b1cac2f6df5ea46b387469291a050c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FotF.View::FotF.View.Combat.SpriteFlash
+  target: {fileID: 6913741092692184595}
+  flashMaterial: {fileID: 2100000, guid: 6bad4b2b3bda3544abb2de245377e638, type: 2}
+  seconds: 0.05
 --- !u!1 &2959171517677071164
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,6 +135,7 @@ GameObject:
   - component: {fileID: 7586369533824103803}
   - component: {fileID: 1089063830857609474}
   - component: {fileID: 2236496821087230261}
+  - component: {fileID: 3385270013259935701}
   m_Layer: 9
   m_Name: hero_knight
   m_TagString: Untagged
@@ -213,7 +230,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2959171517677071164}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d19ad3c48fc1b942bc4f5cb064247a5, type: 3}
   m_Name: 
@@ -224,7 +241,22 @@ MonoBehaviour:
   body: {fileID: 5812759165398191688}
   weapon: {fileID: 3625781101647176681}
   worldCamera: {fileID: 0}
+  flash: {fileID: 1590156249172094371}
+  interactRadius: 1.4
   seed: 12345
+--- !u!210 &3385270013259935701
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2959171517677071164}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!1 &2961852637541224110
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 656594709402904781}
   - component: {fileID: 3625781101647176681}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WeaponPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +283,7 @@ Transform:
   m_GameObject: {fileID: 2961852637541224110}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -280,7 +312,7 @@ MonoBehaviour:
   hittableMask:
     serializedVersion: 2
     m_Bits: 3072
-  holdDistance: 0.45
+  holdDistance: 0.3
 --- !u!1 &3579409321919455171
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +322,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6304164670876405314}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 3579409321919455171}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6, y: 0, z: 0}
+  m_LocalPosition: {x: 0.45, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -322,7 +354,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6755468628439744726}
   - component: {fileID: 7646544791052220890}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WeaponSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7643040659904859682}
   - component: {fileID: 365483092318012725}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SwingFx
   m_TagString: Untagged
   m_Icon: {fileID: 0}

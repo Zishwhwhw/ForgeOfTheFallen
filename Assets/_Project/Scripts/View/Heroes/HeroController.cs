@@ -29,6 +29,9 @@ namespace FotF.View.Heroes
         [SerializeField] DirectionalSpriteAnimator body;
         [SerializeField] WeaponView weapon;
         [SerializeField] Camera worldCamera;
+        [SerializeField] SpriteFlash flash;
+        [Tooltip("Радиус взаимодействия клавишей E, юниты")]
+        [SerializeField] float interactRadius = 1.4f;
         [SerializeField] int seed = 12345;
 
         public HeroState State { get; } = new HeroState();
@@ -37,7 +40,11 @@ namespace FotF.View.Heroes
         public Team Team => Team.Player;
 
         Rigidbody2D _rb;
-        InputAction _move, _aim, _fire, _dash, _swap;
+        InputAction _move, _aim, _fire, _dash, _swap, _interact;
+        readonly System.Collections.Generic.List<Collider2D> _near = new System.Collections.Generic.List<Collider2D>();
+
+        /// <summary>Ближайший объект для E (для подсказки в HUD).</summary>
+        public World.IInteractable Focus { get; private set; }
         VitalsConfig _vitals;
         DashConfig _dashCfg;
         IRandom _rng;
@@ -62,6 +69,7 @@ namespace FotF.View.Heroes
             var map = controls.FindActionMap("Player", true);
             _move = map.FindAction("Move", true); _aim = map.FindAction("Aim", true);
             _fire = map.FindAction("Fire", true); _dash = map.FindAction("Dash", true); _swap = map.FindAction("Swap", true);
+            _interact = map.FindAction("Interact", true);
         }
 
         void OnEnable() { controls.FindActionMap("Player").Enable(); }
@@ -81,7 +89,16 @@ namespace FotF.View.Heroes
             Vitals.Tick(State, _vitals, dt);
             Dash.Tick(State, _dashCfg, dt);
             foreach (var s in State.Weapons) WeaponAttack.Tick(s, dt);
-            if (State.IsDead) return;
+            if (State.IsDead)
+            {
+                // GDD §3.1: быстрый перезапуск; в срезе — панель итогов и «В убежище», здесь — рестарт сцены
+                if (_interact.WasPressedThisFrame())
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(gameObject.scene.buildIndex >= 0 ? gameObject.scene.buildIndex : 0);
+                return;
+            }
+
+            Focus = FindInteractable();
+            if (Focus != null && _interact.WasPressedThisFrame()) Focus.Interact(this);
 
             _moveInput = Vector2.ClampMagnitude(_move.ReadValue<Vector2>(), 1f);
             Vector2 screen = _aim.ReadValue<Vector2>();
@@ -120,9 +137,28 @@ namespace FotF.View.Heroes
 
         public void TakeHit(in HitInfo hit)
         {
+            if (State.IsDead) return;
             var result = Vitals.ApplyDamage(State, hit.Amount, _vitals);
+            if (!result.Blocked && flash) flash.Flash();
             Damaged?.Invoke(hit, result);
-            if (result.Killed) Died?.Invoke();
+            if (result.Killed) { body.Play("idle", true); Died?.Invoke(); }
+        }
+
+        public void AddGold(int amount) => State.Gold += Mathf.Max(0, amount);
+
+        World.IInteractable FindInteractable()
+        {
+            var filter = new ContactFilter2D { useTriggers = true };
+            Physics2D.OverlapCircle(transform.position, interactRadius, filter, _near);
+            World.IInteractable best = null; float bestD = float.MaxValue;
+            foreach (var c in _near)
+            {
+                var it = c.GetComponentInParent<World.IInteractable>();
+                if (it == null || !it.CanInteract) continue;
+                float d = (it.Position - transform.position).sqrMagnitude;
+                if (d < bestD) { bestD = d; best = it; }
+            }
+            return best;
         }
     }
 }

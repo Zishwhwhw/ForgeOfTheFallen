@@ -1,16 +1,31 @@
 using FotF.View.Heroes;
+using FotF.View.World;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace FotF.View.UI
 {
-    /// <summary>HUD серой коробки: HP / броня / мана и оружие в руках. Только отображает State.</summary>
+    /// <summary>HUD серой коробки: HP / броня / мана, оружие, золото, подсказка E, объявления комнаты, смерть.</summary>
     public sealed class HeroHudView : MonoBehaviour
     {
         [SerializeField] HeroController hero;
+        [SerializeField] RoomController room;
         [SerializeField] Image hpFill, armorFill, manaFill;
         [SerializeField] TextMeshProUGUI hpText, armorText, manaText, weaponText, dashText;
+        [SerializeField] TextMeshProUGUI goldText, promptText, announceText, deathText;
+        [SerializeField] float announceSeconds = 2f;
+
+        float _announceLeft;
+
+        void OnEnable() { if (room) room.Announce += OnAnnounce; }
+        void OnDisable() { if (room) room.Announce -= OnAnnounce; }
+
+        void OnAnnounce(string text)
+        {
+            if (!announceText) return;
+            announceText.text = text; announceText.enabled = true; _announceLeft = announceSeconds;
+        }
 
         void LateUpdate()
         {
@@ -21,6 +36,10 @@ namespace FotF.View.UI
             Set(manaFill, manaText, s.Mana, s.MaxMana);
             if (weaponText) weaponText.text = $"[{s.ActiveSlot + 1}] {s.ActiveWeapon.WeaponId}   (Q — сменить)";
             if (dashText) dashText.text = s.DashCharges > 0 ? "Рывок: готов" : $"Рывок: {s.DashRechargeLeft:0.0} с";
+            if (goldText) goldText.text = $"Золото: {s.Gold}";
+            if (promptText) { var f = hero.Focus; promptText.text = f != null && !s.IsDead ? f.Prompt : ""; }
+            if (deathText) deathText.enabled = s.IsDead;
+            if (announceText && _announceLeft > 0f && (_announceLeft -= Time.unscaledDeltaTime) <= 0f) announceText.enabled = false;
         }
 
         static void Set(Image fill, TextMeshProUGUI text, int value, int max)
