@@ -1,20 +1,35 @@
-# FrankenArms project instructions
+# Forge of the Fallen — инструкции для агентов (Claude Code, Codex, Gemini)
 
-Before implementing gameplay, read:
+Игра: Forge of the Fallen (репозиторий FrankenArms) — Unity 6 2D top-down roguelike со сплавом двух оружий. Владелец — геймдизайнер и финальный судья качества.
 
-1. `Docs/PROJECT_CONTEXT.md`
-2. `Docs/SESSION_HANDOFF.md`
-3. `Docs/DECISIONS.md`
-4. `Docs/FrankenArms_GDD_RU.html`
+## Читать перед работой
+1. `Docs/GDD.md` — единственный источник геймдизайна. Работаем по §2 (вертикальный срез).
+2. `Docs/ARCHITECTURE.md` — слои, сцены, папки. Обязательно.
+3. `Research/07_ART_BIBLE_SPEC.md` — для любого арта.
+4. `Docs/DECISIONS.md`, `Docs/WORKBOARD.md`.
+Архив, не источник истины: тег `legacy-prototype`, `Docs/FrankenArms_GDD_RU.html`, `Research/*`.
 
-The GDD is authoritative for game design. This is a clean project; do not bring back the deleted game's assets, scenes, or scripts unless the owner asks for them.
+## Главные правила
+- **Сцены и префабы, не спавн кодом.** Всё видимое собирается в редакторе и правится в Inspector; код только инстанцирует готовые префабы. Никаких сцен/UI из `new GameObject` в `Start()` (п.141, G7).
+- **Данные вне кода.** Числа контента — только в ScriptableObject; у контента стабильные ID (A2, E1, G6).
+- **Не придумывай дизайн.** Нет ответа в GDD или помечено «◆»/«открытый вопрос» — спроси владельца, не реализуй молча (G4, C20). Вопросы владельцу — кнопками (варианты + рекомендация).
+- **Сначала план.** Крупная задача: план (этапы, файлы, допущения, вопросы) → одобрение → код (B3).
+- **Маленькие поставки.** Задача → реализация → проверка → плейтест владельца → правка GDD → следующий шаг (B4).
+- **ТЗ проверяемое.** Числа, состояния, критерии готовности (B5).
+- **Проверка.** Компиляция без ошибок, Unity Console чистая, EditMode-тесты зелёные, скриншот/запуск сцены. «Готово» говорит владелец после плейтеста (B14, G3).
+- **Коммит только рабочего состояния** (F3). Ветки/коммиты/PR — сам, без согласования. Не коммитить `Library/`, `Temp/`, `Logs/`, `UserSettings/`, IDE-файлы.
+- **Параллельная работа.** Отметься в `Docs/WORKBOARD.md` до начала, сними отметку после (B8).
+- **Ошибка → правило.** Повторившаяся ошибка агента добавляется сюда короткой строкой (B10). Удачный процесс → короткий шаблон в `Docs/howto/` (B11).
+- **Не копировать чужое.** Ни ассеты, ни UI, ни узнаваемые образы (Soul Knight и др.). Референсы — только для приёмов (B12, C13, G9).
+- **Ассеты и плагины** — только с записью лицензии в `Docs/DECISIONS.md`.
+- **Не плодить документы** без пользы (G5). Не делать игру «одним промптом» (G1).
+- **Арт после интереса.** Сначала серая коробка и плейтест, финальный арт — по art bible позже (D1, G8, п.151).
 
-## Technical direction
+## Ночные прогоны (п.149)
+Можно: системы, тесты, контент по данным. Утром — отчёт (что сделано, что не проверено, что сломано) и плейтест владельца. Ночью нельзя: менять GDD, архитектуру, удалять чужую работу.
 
-- Unity `6000.6.7f1`, Universal 2D / URP 2D.
-- Use Unity Input System for player input.
-- Use ScriptableObjects for content definitions.
-- Build dungeon routes as controlled graphs and place reviewed room templates; do not use pure random walk or global BSP.
-- Keep work small, update `Docs/SESSION_HANDOFF.md` after each substantial task, and check Unity Console after code changes.
-- Do not commit Unity caches (`Library`, `Temp`, `Logs`, `UserSettings`) or generated IDE files.
-- Do not add asset packs or plugins without recording their license and decision in `Docs/DECISIONS.md`.
+## Формат багов и отзывов (B15)
+`Сейчас → Должно быть → Шаги воспроизведения → Сцена/коммит`.
+
+## Ошибки агентов (дополнять)
+- Старый прототип собирал игрока, врагов и UI через `new GameObject`/`OnGUI` — так не делать (Research/01_PROJECT_AUDIT.md).

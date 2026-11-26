@@ -1,26 +1,13 @@
-# FrankenArms
+# Forge of the Fallen
 
-Fresh Unity project for the game described in [`Docs/FrankenArms_GDD_RU.html`](Docs/FrankenArms_GDD_RU.html).
+2D top-down roguelike на Unity 6: сплавляешь два оружия в кузнице падшего кузнеца и спускаешься к его Сердцу.
+Репозиторий исторически называется FrankenArms.
 
-- Unity Editor: `6000.6.7f1`
-- Template: Universal 2D (URP 2D Renderer)
-- First target: Windows PC
-- Design and technical decisions: `Docs/`
+- Геймдизайн: [`Docs/GDD.md`](Docs/GDD.md)
+- Архитектура: [`Docs/ARCHITECTURE.md`](Docs/ARCHITECTURE.md)
+- Правила для агентов: [`AGENTS.md`](AGENTS.md)
+- Решения и лицензии: [`Docs/DECISIONS.md`](Docs/DECISIONS.md)
+- Исследования (видео, арт-референсы, инструменты, art bible): [`Research/`](Research)
+- Старый прототип: тег `legacy-prototype`
 
-The previous game was not copied into this project. The GDD is the design source of truth.
-
-## Unity CLI
-
-Unity CLI is installed on this computer and connected to the open Editor. Open this project with:
-
-```powershell
-unity open "D:\game\2dRoguelike\FrankenArmsFresh"
-```
-
-The Unity Pipeline package is installed. Check the live Editor connection with:
-
-```powershell
-unity status --project-path "D:\game\2dRoguelike\FrankenArmsFresh"
-```
-
-The current Codex environment still has a placeholder network proxy at `127.0.0.1:9`, which may block package and CLI updates. See `Docs/GITHUB_SETUP.md` for troubleshooting.
+Unity: 6000.x, Universal 2D (URP 2D). Цель — Windows PC (Steam). Вертикальный срез — середина января 2027.
