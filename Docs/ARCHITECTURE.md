@@ -1,4 +1,4 @@
-# Scrapheart — архитектура
+# Forge of the Fallen — архитектура
 
 Версия 1.0 · 26.11.2026. Принято: правила A1–A9, G6–G7 (`Research/RULES_DIGEST.md`), п.141 (сцены), п.151 (серая коробка на целевой архитектуре).
 Изменения этого файла — только с согласия владельца, запись в `Docs/DECISIONS.md`.
@@ -69,7 +69,7 @@ Assets/
     EditMode/        тесты Logic
     PlayMode/        дымовые тесты сцен
 ```
-Assembly Definitions: `Scrapheart.Data`, `Scrapheart.Logic`, `Scrapheart.State`, `Scrapheart.View`, `Scrapheart.Tests.*`. Logic не ссылается на View.
+Assembly Definitions: `FotF.Data`, `FotF.Logic`, `FotF.State`, `FotF.View`, `FotF.Tests.*`. Logic не ссылается на View.
 
 ## 7. Правила для агентов (код)
 - Не создавать новую систему, не проверив существующие (A1); не дублировать (G6).

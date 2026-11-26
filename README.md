@@ -1,4 +1,4 @@
-# Scrapheart: Forge of Franken
+# Forge of the Fallen
 
 2D top-down roguelike на Unity 6: сплавляешь два оружия в кузнице падшего кузнеца и спускаешься к его Сердцу.
 Репозиторий исторически называется FrankenArms.

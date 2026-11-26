@@ -1,6 +1,6 @@
-# Scrapheart — инструкции для агентов (Claude Code, Codex, Gemini)
+# Forge of the Fallen — инструкции для агентов (Claude Code, Codex, Gemini)
 
-Игра: Scrapheart (репозиторий FrankenArms) — Unity 6 2D top-down roguelike со сплавом двух оружий. Владелец — геймдизайнер и финальный судья качества.
+Игра: Forge of the Fallen (репозиторий FrankenArms) — Unity 6 2D top-down roguelike со сплавом двух оружий. Владелец — геймдизайнер и финальный судья качества.
 
 ## Читать перед работой
 1. `Docs/GDD.md` — единственный источник геймдизайна. Работаем по §2 (вертикальный срез).
