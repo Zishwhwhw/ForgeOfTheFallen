@@ -12,6 +12,7 @@
 | 2026-11-26 | Палитра Endesga 32, PPU 32, тайл 32 px, база 640×360 | Единый масштаб и стиль | п.92, 150; Research/07_ART_BIBLE_SPEC.md | Active |
 | 2026-11-26 | Убраны пакеты collab-proxy, visualscripting, learn.iet-framework; `com.unity.pipeline` оставлен (мост Unity CLI ↔ Editor) | Не нужны проекту | Research/01_PROJECT_AUDIT.md | Active |
 | 2026-11-26 | Ассеты третьих сторон в проекте: нет. ART_REFS.md — только референсы | Решение владельца «только рефы, только бесплатные» | Research/ART_REFS.md | Active |
+| 2026-11-26 | Steam: раскрываем AI-контент, который игрок видит/слышит (арт, звук, текст, маркетинг); AI-код — уточнить по официальной странице перед релизом | Steam Content Survey (правка янв. 2026) | Research/03_AI_GAMEDEV_ARTICLES.md | Active, перепроверить перед Steam |
 
 ## Лицензии ассетов
 | Ассет | Источник | Лицензия | Где лежит | Дата |
