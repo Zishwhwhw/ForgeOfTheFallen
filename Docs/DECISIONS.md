@@ -12,9 +12,15 @@
 | 2026-11-26 | Палитра Endesga 32, PPU 32, тайл 32 px, база 640×360 | Единый масштаб и стиль | п.92, 150; Research/07_ART_BIBLE_SPEC.md | Active |
 | 2026-11-26 | Убраны пакеты collab-proxy, visualscripting, learn.iet-framework; `com.unity.pipeline` оставлен (мост Unity CLI ↔ Editor) | Не нужны проекту | Research/01_PROJECT_AUDIT.md | Active |
 | 2026-11-26 | Ассеты третьих сторон в проекте: нет. ART_REFS.md — только референсы | Решение владельца «только рефы, только бесплатные» | Research/ART_REFS.md | Active |
+| 2026-11-26 | Свет: 2D-спрайты + карты нормалей (`_NormalMap`) + URP 2D Lights + ShadowCaster2D; без перехода на 3D-рендер (вариант «как Graveyard Keeper 2» отклонён) | Сравнение на одной сценке (стена, бочки, факел): 2D чище читается и не меняет архитектуру; 3D-тени атмосфернее, но темнее и требуют URP 3D | `Assets/_Project/Sandbox/LightingTest/LightingTest_2D.unity` | Active; ступенчатое затухание света — отдельной задачей |
 | 2026-11-26 | Steam: раскрываем AI-контент, который игрок видит/слышит (арт, звук, текст, маркетинг); AI-код — уточнить по официальной странице перед релизом | Steam Content Survey (правка янв. 2026) | Research/03_AI_GAMEDEV_ARTICLES.md | Active, перепроверить перед Steam |
 
 ## Лицензии ассетов
 | Ассет | Источник | Лицензия | Где лежит | Дата |
 |---|---|---|---|---|
-| — | — | — | — | — |
+| Инструмент: ComfyUI portable v0.46.0 (nvidia_cu126) | github.com/Comfy-Org/ComfyUI | GPL-3.0 (только инструмент, в билд не входит; выход генерации лицензией не связан) | `D:\AI\ComfyUI` (вне репозитория) | 2026-11-26 |
+| Модель: SDXL base 1.0 (`sd_xl_base_1.0.safetensors`) | huggingface.co/stabilityai/stable-diffusion-xl-base-1.0 | CreativeML OpenRAIL++-M: коммерческое использование выхода разрешено, с ограничениями по назначению (Attachment A) | `D:\AI\ComfyUI\...\models\checkpoints` | 2026-11-26 |
+| Модель: SDXL VAE fp16-fix (`sdxl.vae.safetensors`) | huggingface.co/madebyollin/sdxl-vae-fp16-fix | MIT | `D:\AI\ComfyUI\...\models\vae` | 2026-11-26 |
+| LoRA: Pixel Art XL (`pixel-art-xl.safetensors`) | huggingface.co/nerijs/pixel-art-xl | CreativeML OpenRAIL-M: коммерческое использование выхода разрешено, с ограничениями по назначению | `D:\AI\ComfyUI\...\models\loras` | 2026-11-26 |
+
+Арт, сделанный этими моделями, — AI-контент: раскрывать в Steam (см. строку выше про Content Survey) и чистить вручную перед приёмкой (D10).
