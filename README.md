@@ -1,7 +1,7 @@
 # Forge of the Fallen
 
 2D top-down roguelike на Unity 6: сплавляешь два оружия в кузнице падшего кузнеца и спускаешься к его Сердцу.
-Репозиторий исторически называется FrankenArms.
+Репозиторий: github.com/Zishwhwhw/ForgeOfTheFallen (раньше FrankenArms).
 
 - Геймдизайн: [`Docs/GDD.md`](Docs/GDD.md)
 - Архитектура: [`Docs/ARCHITECTURE.md`](Docs/ARCHITECTURE.md)

@@ -1,6 +1,6 @@
 # Forge of the Fallen — Game Design Document
 
-Версия 2.0 · 26.11.2026 · рабочее название репозитория: FrankenArms
+Версия 2.0 · 26.11.2026 · репозиторий: ForgeOfTheFallen (бывш. FrankenArms)
 Источник решений: `Research/GDD_QA_2026-11-24.md` (п.1–151), контент среза: `Research/SLICE_CONTENT_DRAFT.md`, правила процесса: `Research/RULES_DIGEST.md`.
 Ссылка «(п.N)» — номер решения владельца. «◆» — предложение Claude, ждёт утверждения. Старый GDD (`Docs/FrankenArms_GDD_RU.html`) — архив, при расхождении прав этот файл.
 
