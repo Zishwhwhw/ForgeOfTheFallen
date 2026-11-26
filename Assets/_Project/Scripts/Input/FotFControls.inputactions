@@ -1,0 +1,34 @@
+{
+    "name": "FotFControls",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "a1f5c3d2-0001-4c1e-9a10-000000000001",
+            "actions": [
+                { "name": "Move", "type": "Value", "id": "a1f5c3d2-0002-4c1e-9a10-000000000002", "expectedControlType": "Vector2", "processors": "", "interactions": "", "initialStateCheck": true },
+                { "name": "Aim", "type": "Value", "id": "a1f5c3d2-0003-4c1e-9a10-000000000003", "expectedControlType": "Vector2", "processors": "", "interactions": "", "initialStateCheck": true },
+                { "name": "Fire", "type": "Button", "id": "a1f5c3d2-0004-4c1e-9a10-000000000004", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
+                { "name": "Dash", "type": "Button", "id": "a1f5c3d2-0005-4c1e-9a10-000000000005", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
+                { "name": "Swap", "type": "Button", "id": "a1f5c3d2-0006-4c1e-9a10-000000000006", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
+                { "name": "Interact", "type": "Button", "id": "a1f5c3d2-0007-4c1e-9a10-000000000007", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false }
+            ],
+            "bindings": [
+                { "name": "WASD", "id": "b1f5c3d2-0001-4c1e-9a10-000000000001", "path": "2DVector", "interactions": "", "processors": "", "groups": "", "action": "Move", "isComposite": true, "isPartOfComposite": false },
+                { "name": "up", "id": "b1f5c3d2-0002-4c1e-9a10-000000000002", "path": "<Keyboard>/w", "interactions": "", "processors": "", "groups": "KeyboardMouse", "action": "Move", "isComposite": false, "isPartOfComposite": true },
+                { "name": "down", "id": "b1f5c3d2-0003-4c1e-9a10-000000000003", "path": "<Keyboard>/s", "interactions": "", "processors": "", "groups": "KeyboardMouse", "action": "Move", "isComposite": false, "isPartOfComposite": true },
+                { "name": "left", "id": "b1f5c3d2-0004-4c1e-9a10-000000000004", "path": "<Keyboard>/a", "interactions": "", "processors": "", "groups": "KeyboardMouse", "action": "Move", "isComposite": false, "isPartOfComposite": true },
+                { "name": "right", "id": "b1f5c3d2-0005-4c1e-9a10-000000000005", "path": "<Keyboard>/d", "interactions": "", "processors": "", "groups": "KeyboardMouse", "action": "Move", "isComposite": false, "isPartOfComposite": true },
+                { "name": "", "id": "b1f5c3d2-0006-4c1e-9a10-000000000006", "path": "<Mouse>/position", "interactions": "", "processors": "", "groups": "KeyboardMouse", "action": "Aim", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "b1f5c3d2-0007-4c1e-9a10-000000000007", "path": "<Mouse>/leftButton", "interactions": "", "processors": "", "groups": "KeyboardMouse", "action": "Fire", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "b1f5c3d2-0008-4c1e-9a10-000000000008", "path": "<Keyboard>/space", "interactions": "", "processors": "", "groups": "KeyboardMouse", "action": "Dash", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "b1f5c3d2-0009-4c1e-9a10-000000000009", "path": "<Mouse>/rightButton", "interactions": "", "processors": "", "groups": "KeyboardMouse", "action": "Dash", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "b1f5c3d2-0010-4c1e-9a10-000000000010", "path": "<Keyboard>/q", "interactions": "", "processors": "", "groups": "KeyboardMouse", "action": "Swap", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "b1f5c3d2-0011-4c1e-9a10-000000000011", "path": "<Mouse>/scroll/y", "interactions": "", "processors": "", "groups": "KeyboardMouse", "action": "Swap", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "b1f5c3d2-0012-4c1e-9a10-000000000012", "path": "<Keyboard>/e", "interactions": "", "processors": "", "groups": "KeyboardMouse", "action": "Interact", "isComposite": false, "isPartOfComposite": false }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        { "name": "KeyboardMouse", "bindingGroup": "KeyboardMouse", "devices": [ { "devicePath": "<Keyboard>", "isOptional": false, "isOR": false }, { "devicePath": "<Mouse>", "isOptional": false, "isOR": false } ] }
+    ]
+}

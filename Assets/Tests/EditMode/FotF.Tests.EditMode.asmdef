@@ -3,6 +3,8 @@
     "rootNamespace": "FotF.Tests",
     "references": [
         "FotF.Editor",
+        "FotF.Logic",
+        "FotF.State",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

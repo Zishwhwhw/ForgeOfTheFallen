@@ -25,4 +25,7 @@
 | Модель: SDXL VAE fp16-fix (`sdxl.vae.safetensors`) | huggingface.co/madebyollin/sdxl-vae-fp16-fix | MIT | `D:\AI\ComfyUI\...\models\vae` | 2026-11-26 |
 | LoRA: Pixel Art XL (`pixel-art-xl.safetensors`) | huggingface.co/nerijs/pixel-art-xl | CreativeML OpenRAIL-M: коммерческое использование выхода разрешено, с ограничениями по назначению | `D:\AI\ComfyUI\...\models\loras` | 2026-11-26 |
 
+| Шрифт LiberationSans (TMP Essential Resources) + динамический ассет `font_ui_dynamic` (кириллица) | Unity TextMeshPro / Liberation Fonts | SIL OFL 1.1 (файл рядом со шрифтом). Временно, до пиксельного шрифта по Art Bible | `Assets/TextMesh Pro/Fonts`, `Assets/_Project/Art/UI/Fonts` | 2026-11-27 |
+| Спрайты PixelLab: Рыцарь X2 (idle/run/dash), меч, гвоздомёт, манекен, тайлсет комнаты R3 | pixellab.ai (подписка Tier 1), запросы в `ArtSource/manifest.json` | По ToS PixelLab (проверить коммерческие права до релиза); AI-контент | `Assets/_Project/Art/Sprites`, `Art/Tiles/Castle` | 2026-11-27 |
+
 Арт, сделанный этими моделями, — AI-контент: раскрывать в Steam (см. строку выше про Content Survey) и чистить вручную перед приёмкой (D10).

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abf5a32b75130764b8c976c8562bc713, type: 3}
+  m_Name: weapon_eternal_sword
+  m_EditorClassIdentifier: FotF.Data::FotF.Data.WeaponDefinition
+  id: weapon.eternal_sword
+  nameKey: weapon.eternal_sword.name
+  family: 0
+  rarity: 0
+  element: 0
+  attackType: 0
+  damage: 18
+  critChance: 0.05
+  attacksPerSecond: 2.5
+  manaCost: 0
+  projectilesPerShot: 1
+  spreadDegrees: 0
+  projectileSpeed: 14
+  projectileLifetime: 1.2
+  stunSeconds: 0
+  meleeRadius: 1.6
+  meleeArcDegrees: 130
+  cutsProjectiles: 1
+  sprite: {fileID: 21300000, guid: cd816e50da9432940bc8bfc98aefc022, type: 3}
+  spriteForwardAngle: 225
+  gripPixel: {x: 0, y: 0}

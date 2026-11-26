@@ -1,0 +1,22 @@
+{
+    "name": "FotF.View",
+    "rootNamespace": "FotF.View",
+    "references": [
+        "FotF.Data",
+        "FotF.Logic",
+        "FotF.State",
+        "Unity.InputSystem",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

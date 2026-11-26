@@ -1,0 +1,16 @@
+{
+    "name": "FotF.Logic",
+    "rootNamespace": "FotF.Logic",
+    "references": [
+        "FotF.State"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}
