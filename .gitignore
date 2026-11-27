@@ -32,3 +32,7 @@ Desktop.ini
 # Google service account keys (balance sheet access) — never commit
 *service-account*.json
 *.key.json
+
+# Python cache
+__pycache__/
+*.pyc
