@@ -1,0 +1,29 @@
+{
+  "kind": "encounter",
+  "version": 1,
+  "_note": "Значения серой коробки",
+  "items": [
+    {
+      "id": "encounter.greybox",
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

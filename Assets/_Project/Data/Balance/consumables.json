@@ -1,0 +1,52 @@
+{
+  "kind": "item",
+  "version": 1,
+  "_note": "GDD §7.9",
+  "items": [
+    {
+      "id": "item.potion_hp_small",
+      "nameKey": "item.potion_hp_small.name",
+      "heal": 25,
+      "mana": 0,
+      "price": 30
+    },
+    {
+      "id": "item.potion_hp_big",
+      "nameKey": "item.potion_hp_big.name",
+      "heal": 60,
+      "mana": 0,
+      "price": 70
+    },
+    {
+      "id": "item.potion_mana",
+      "nameKey": "item.potion_mana.name",
+      "heal": 0,
+      "mana": 80,
+      "price": 40
+    },
+    {
+      "id": "item.potion_mixed",
+      "nameKey": "item.potion_mixed.name",
+      "heal": 30,
+      "mana": 40,
+      "price": 50
+    },
+    {
+      "id": "item.bomb",
+      "nameKey": "item.bomb.name",
+      "heal": 0,
+      "mana": 0,
+      "price": 40,
+      "areaDamage": 40,
+      "breaksSecretWalls": true
+    },
+    {
+      "id": "item.chest_heart",
+      "nameKey": "item.chest_heart.name",
+      "heal": 20,
+      "mana": 0,
+      "price": null,
+      "_note": "Только из сундука"
+    }
+  ]
+}

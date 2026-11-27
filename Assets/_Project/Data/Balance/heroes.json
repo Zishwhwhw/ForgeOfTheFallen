@@ -1,0 +1,45 @@
+{
+  "kind": "hero",
+  "version": 1,
+  "_note": "GDD §4.1–4.2; Рыцарь — значения серой коробки",
+  "items": [
+    {
+      "id": "hero.knight",
+      "nameKey": "hero.knight.name",
+      "maxHp": 120,
+      "maxArmor": 60,
+      "maxMana": 150,
+      "armorRegenDelay": 3,
+      "armorRegenPerSecond": 30,
+      "moveSpeed": 5,
+      "dashCharges": 1,
+      "dashCooldown": 1,
+      "dashDuration": 0.18,
+      "dashDistance": 3,
+      "dashInvulnerability": 0.25,
+      "ultimateCooldown": 60,
+      "startWeapon": "weapon.eternal_sword",
+      "unlockedFromStart": true,
+      "_note": "Dash: щитовой рывок, толкает врагов. Навык: блок/контрудар. Ульта: 10 с бастиона"
+    },
+    {
+      "id": "hero.mage",
+      "nameKey": "hero.mage.name",
+      "maxHp": 80,
+      "maxArmor": 30,
+      "maxMana": 250,
+      "armorRegenDelay": 3,
+      "armorRegenPerSecond": null,
+      "moveSpeed": null,
+      "dashCharges": 1,
+      "dashCooldown": 1,
+      "dashDuration": null,
+      "dashDistance": null,
+      "dashInvulnerability": null,
+      "ultimateCooldown": 60,
+      "startWeapon": "weapon.spark_staff",
+      "unlockedFromStart": false,
+      "_note": "Dash: короткое парение сквозь угрозу. Навык: цепная молния. Ульта: грозовая сфера. Открытие за кристаллы"
+    }
+  ]
+}

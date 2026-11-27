@@ -1,0 +1,756 @@
+{
+ "_note": "Схема баланса (ARCHITECTURE §8). Поля = поля ScriptableObject. calibrate: допускается null (импорт оставляет значение SO по умолчанию). Поля с '_' — комментарии.",
+ "enums": {
+  "Rarity": [
+   "Common",
+   "Rare",
+   "Epic",
+   "Legendary",
+   "Franken"
+  ],
+  "Element": [
+   "Physical",
+   "Fire",
+   "Ice",
+   "Lightning",
+   "Poison",
+   "Rust",
+   "Dark",
+   "Holy",
+   "Blood"
+  ],
+  "AttackType": [
+   "Melee",
+   "Projectile"
+  ],
+  "WeaponFamily": [
+   "Sword",
+   "Sledgehammer",
+   "Pistol",
+   "Shotgun",
+   "Rifle",
+   "Bow",
+   "Crossbow",
+   "Staff"
+  ],
+  "HoldType": [
+   "OneHandMelee",
+   "TwoHandHeavy",
+   "Pistol",
+   "TwoHandGun",
+   "Staff",
+   "Bow"
+  ],
+  "SizeClass": [
+   "S",
+   "M",
+   "L"
+  ],
+  "EnemyTier": [
+   "Normal",
+   "Elite",
+   "MiniBoss"
+  ],
+  "Stacking": [
+   "None",
+   "RefreshTimer",
+   "Accumulate"
+  ],
+  "AttackShape": [
+   "Circle",
+   "Ring",
+   "Fan",
+   "Line"
+  ]
+ },
+ "kinds": {
+  "weapon": {
+   "file": "weapons.json",
+   "so": "WeaponDefinition",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "nameKey": {
+     "type": "string"
+    },
+    "displayName": {
+     "type": "string"
+    },
+    "family": {
+     "type": "enum",
+     "enum": "WeaponFamily"
+    },
+    "rarity": {
+     "type": "enum",
+     "enum": "Rarity"
+    },
+    "element": {
+     "type": "enum",
+     "enum": "Element"
+    },
+    "attackType": {
+     "type": "enum",
+     "enum": "AttackType"
+    },
+    "damage": {
+     "type": "int",
+     "min": 0
+    },
+    "critChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1
+    },
+    "attacksPerSecond": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "manaCost": {
+     "type": "int",
+     "min": 0
+    },
+    "projectilesPerShot": {
+     "type": "int",
+     "min": 1
+    },
+    "spreadDegrees": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "projectileSpeed": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "projectileLifetime": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "stunSeconds": {
+     "type": "number",
+     "min": 0
+    },
+    "meleeRadius": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "meleeArcDegrees": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "cutsProjectiles": {
+     "type": "bool"
+    },
+    "statusChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1,
+     "calibrate": true
+    },
+    "holdType": {
+     "type": "enum",
+     "enum": "HoldType"
+    },
+    "sizeClass": {
+     "type": "enum",
+     "enum": "SizeClass"
+    },
+    "special": {
+     "type": "object",
+     "nullable": true,
+     "fields": {
+      "type": {
+       "type": "string"
+      },
+      "values": {
+       "type": "map"
+      }
+     }
+    }
+   }
+  },
+  "hero": {
+   "file": "heroes.json",
+   "so": "HeroDefinition",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "nameKey": {
+     "type": "string"
+    },
+    "maxHp": {
+     "type": "int",
+     "min": 1
+    },
+    "maxArmor": {
+     "type": "int",
+     "min": 0
+    },
+    "maxMana": {
+     "type": "int",
+     "min": 0
+    },
+    "armorRegenDelay": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "armorRegenPerSecond": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "moveSpeed": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "dashCharges": {
+     "type": "int",
+     "min": 1
+    },
+    "dashCooldown": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "dashDuration": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "dashDistance": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "dashInvulnerability": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "ultimateCooldown": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "startWeapon": {
+     "type": "ref",
+     "to": "weapon"
+    },
+    "unlockedFromStart": {
+     "type": "bool"
+    }
+   }
+  },
+  "enemy": {
+   "file": "enemies.json",
+   "so": "EnemyDefinition",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "nameKey": {
+     "type": "string"
+    },
+    "tier": {
+     "type": "enum",
+     "enum": "EnemyTier"
+    },
+    "maxHp": {
+     "type": "int",
+     "min": 1
+    },
+    "attackDamage": {
+     "type": "int",
+     "min": 0,
+     "calibrate": true
+    },
+    "windupSeconds": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "moveSpeed": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "attackRange": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "strikeRadius": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "strikeArcDegrees": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "recoverSeconds": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "aggroRange": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "goldMin": {
+     "type": "int",
+     "min": 0
+    },
+    "goldMax": {
+     "type": "int",
+     "min": 0
+    },
+    "special": {
+     "type": "object",
+     "nullable": true,
+     "fields": {
+      "type": {
+       "type": "string"
+      },
+      "values": {
+       "type": "map"
+      }
+     }
+    },
+    "parents": {
+     "type": "list",
+     "nullable": true,
+     "items": {
+      "type": "ref",
+      "to": "enemy"
+     }
+    }
+   }
+  },
+  "boss": {
+   "file": "bosses.json",
+   "so": "BossDefinition",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "nameKey": {
+     "type": "string"
+    },
+    "maxHp": {
+     "type": "int",
+     "min": 1
+    },
+    "rageAtHpFraction": {
+     "type": "number",
+     "min": 0,
+     "max": 1
+    },
+    "rageSpeedMultiplier": {
+     "type": "number",
+     "min": 0
+    },
+    "phases": {
+     "type": "list",
+     "items": {
+      "type": "object",
+      "fields": {
+       "untilHpFraction": {
+        "type": "number",
+        "min": 0,
+        "max": 1
+       },
+       "minions": {
+        "type": "object",
+        "optional": true,
+        "fields": {
+         "count": {
+          "type": "int",
+          "min": 0
+         },
+         "maxHp": {
+          "type": "int",
+          "min": 0
+         }
+        }
+       },
+       "attacks": {
+        "type": "list",
+        "items": {
+         "type": "object",
+         "fields": {
+          "id": {
+           "type": "string"
+          },
+          "damage": {
+           "type": "int",
+           "min": 0
+          },
+          "windupSeconds": {
+           "type": "number",
+           "min": 0,
+           "calibrate": true
+          },
+          "shape": {
+           "type": "enum",
+           "enum": "AttackShape"
+          },
+          "count": {
+           "type": "int",
+           "min": 1,
+           "optional": true
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "reward": {
+     "type": "object",
+     "fields": {
+      "healFraction": {
+       "type": "number",
+       "min": 0,
+       "max": 1
+      },
+      "passiveChoices": {
+       "type": "int",
+       "min": 0
+      },
+      "fistDropChance": {
+       "type": "number",
+       "min": 0,
+       "max": 1,
+       "calibrate": true
+      },
+      "crystals": {
+       "type": "int",
+       "min": 0,
+       "calibrate": true
+      }
+     }
+    }
+   }
+  },
+  "passive": {
+   "file": "passives.json",
+   "so": "PassiveDefinition",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "nameKey": {
+     "type": "string"
+    },
+    "displayName": {
+     "type": "string"
+    },
+    "effect": {
+     "type": "string"
+    },
+    "values": {
+     "type": "map"
+    }
+   }
+  },
+  "status": {
+   "file": "statuses.json",
+   "so": "StatusDefinition",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "element": {
+     "type": "enum",
+     "enum": "Element"
+    },
+    "tickDamage": {
+     "type": "number",
+     "min": 0,
+     "optional": true,
+     "calibrate": true
+    },
+    "tickSeconds": {
+     "type": "number",
+     "min": 0,
+     "optional": true,
+     "calibrate": true
+    },
+    "durationSeconds": {
+     "type": "number",
+     "min": 0,
+     "optional": true,
+     "calibrate": true
+    },
+    "slowFraction": {
+     "type": "number",
+     "min": 0,
+     "max": 1,
+     "optional": true,
+     "calibrate": true
+    },
+    "stunSeconds": {
+     "type": "number",
+     "min": 0,
+     "optional": true,
+     "calibrate": true
+    },
+    "stacking": {
+     "type": "enum",
+     "enum": "Stacking"
+    },
+    "maxStacks": {
+     "type": "int",
+     "min": 1
+    },
+    "freezeAtStacks": {
+     "type": "int",
+     "min": 1,
+     "optional": true
+    },
+    "freezeSeconds": {
+     "type": "number",
+     "min": 0,
+     "optional": true,
+     "calibrate": true
+    },
+    "bossResist": {
+     "type": "number",
+     "min": 0,
+     "max": 1,
+     "calibrate": true
+    }
+   }
+  },
+  "curse": {
+   "file": "curses.json",
+   "so": "CurseDefinition",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "nameKey": {
+     "type": "string"
+    },
+    "displayName": {
+     "type": "string"
+    },
+    "bonus": {
+     "type": "object",
+     "fields": {
+      "effect": {
+       "type": "string"
+      },
+      "values": {
+       "type": "map"
+      }
+     }
+    },
+    "penalty": {
+     "type": "object",
+     "fields": {
+      "effect": {
+       "type": "string"
+      },
+      "values": {
+       "type": "map"
+      }
+     }
+    }
+   }
+  },
+  "item": {
+   "file": "consumables.json",
+   "so": "ConsumableDefinition",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "nameKey": {
+     "type": "string"
+    },
+    "heal": {
+     "type": "int",
+     "min": 0
+    },
+    "mana": {
+     "type": "int",
+     "min": 0
+    },
+    "price": {
+     "type": "int",
+     "min": 0,
+     "calibrate": true
+    },
+    "areaDamage": {
+     "type": "int",
+     "min": 0,
+     "optional": true
+    },
+    "breaksSecretWalls": {
+     "type": "bool",
+     "optional": true
+    }
+   }
+  },
+  "constants": {
+   "file": "constants.json",
+   "so": "BalanceConstants",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "critChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1
+    },
+    "critMultiplier": {
+     "type": "number",
+     "min": 0
+    },
+    "weaponPrice": {
+     "type": "map"
+    },
+    "weaponSellbackFraction": {
+     "type": "number",
+     "min": 0,
+     "max": 1
+    },
+    "gold": {
+     "type": "map"
+    },
+    "chestLoot": {
+     "type": "map"
+    },
+    "healing": {
+     "type": "map"
+    },
+    "miniBossRoomChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1
+    },
+    "corpseLimitPerFloor": {
+     "type": "int",
+     "min": 0
+    },
+    "passiveChoicesPerFloor": {
+     "type": "int",
+     "min": 0
+    }
+   }
+  },
+  "fusion": {
+   "file": "fusion.json",
+   "so": "FusionRulesDefinition",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "dominantWeight": {
+     "type": "number",
+     "min": 0.5,
+     "max": 1
+    },
+    "jackpotChance": {
+     "type": "number",
+     "min": 0,
+     "max": 0.1
+    },
+    "floorOfBestParent": {
+     "type": "number",
+     "min": 0,
+     "max": 1
+    },
+    "ritualSeconds": {
+     "type": "number",
+     "min": 0
+    },
+    "reforgeLimit": {
+     "type": "int",
+     "min": 0
+    },
+    "reforgePrice": {
+     "type": "int",
+     "min": 0,
+     "calibrate": true
+    }
+   }
+  },
+  "encounter": {
+   "file": "encounters.json",
+   "so": "EncounterDefinition",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "delayBetweenWaves": {
+     "type": "number",
+     "min": 0
+    },
+    "waves": {
+     "type": "list",
+     "items": {
+      "type": "object",
+      "fields": {
+       "groups": {
+        "type": "list",
+        "items": {
+         "type": "object",
+         "fields": {
+          "enemy": {
+           "type": "ref",
+           "to": "enemy"
+          },
+          "count": {
+           "type": "int",
+           "min": 1
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "gamefeel": {
+   "file": "gamefeel.json",
+   "so": "GameFeelSettings",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "enemyHitFlashSeconds": {
+     "type": "number",
+     "min": 0
+    },
+    "killMicroPauseSeconds": {
+     "type": "number",
+     "min": 0
+    },
+    "hitStopSeconds": {
+     "type": "number",
+     "min": 0,
+     "calibrate": true
+    },
+    "death": {
+     "type": "map"
+    }
+   }
+  }
+ }
+}

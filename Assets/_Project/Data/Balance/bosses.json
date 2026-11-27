@@ -1,0 +1,84 @@
+{
+  "kind": "boss",
+  "version": 1,
+  "_note": "GDD §7.7",
+  "items": [
+    {
+      "id": "boss.armor_golem",
+      "nameKey": "boss.armor_golem.name",
+      "maxHp": 1500,
+      "rageAtHpFraction": 0.15,
+      "rageSpeedMultiplier": 1.25,
+      "phases": [
+        {
+          "untilHpFraction": 0.66,
+          "attacks": [
+            {
+              "id": "fist_slam",
+              "damage": 30,
+              "windupSeconds": 1.0,
+              "shape": "Circle"
+            },
+            {
+              "id": "shockwave",
+              "damage": 20,
+              "windupSeconds": null,
+              "shape": "Ring"
+            },
+            {
+              "id": "helmet_throw",
+              "damage": 15,
+              "windupSeconds": null,
+              "shape": "Fan",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "untilHpFraction": 0.33,
+          "minions": {
+            "count": 2,
+            "maxHp": 150
+          },
+          "attacks": [
+            {
+              "id": "shield_ram",
+              "damage": 20,
+              "windupSeconds": null,
+              "shape": "Line"
+            },
+            {
+              "id": "stomp",
+              "damage": 25,
+              "windupSeconds": null,
+              "shape": "Circle"
+            }
+          ]
+        },
+        {
+          "untilHpFraction": 0.0,
+          "attacks": [
+            {
+              "id": "bullet_ring",
+              "damage": 10,
+              "windupSeconds": null,
+              "shape": "Ring"
+            },
+            {
+              "id": "core_dash",
+              "damage": 35,
+              "windupSeconds": null,
+              "shape": "Line"
+            }
+          ]
+        }
+      ],
+      "reward": {
+        "healFraction": 0.5,
+        "passiveChoices": 3,
+        "fistDropChance": null,
+        "crystals": null
+      }
+    }
+  ]
+}

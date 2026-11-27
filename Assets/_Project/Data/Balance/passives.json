@@ -1,0 +1,139 @@
+{
+  "kind": "passive",
+  "version": 1,
+  "_note": "GDD §7.2",
+  "items": [
+    {
+      "id": "passive.second_dash",
+      "nameKey": "passive.second_dash.name",
+      "displayName": "Второй рывок",
+      "effect": "ExtraDashCharge",
+      "values": {
+        "charges": 1
+      }
+    },
+    {
+      "id": "passive.reflecting_blade",
+      "nameKey": "passive.reflecting_blade.name",
+      "displayName": "Отражающий клинок",
+      "effect": "MeleeReflectsProjectiles",
+      "values": {}
+    },
+    {
+      "id": "passive.stray_bullet",
+      "nameKey": "passive.stray_bullet.name",
+      "displayName": "Шальная пуля",
+      "effect": "BulletRicochet",
+      "values": {
+        "bounces": 2
+      }
+    },
+    {
+      "id": "passive.piercing_tip",
+      "nameKey": "passive.piercing_tip.name",
+      "displayName": "Сквозной наконечник",
+      "effect": "ArrowPierce",
+      "values": {
+        "pierce": 1
+      }
+    },
+    {
+      "id": "passive.bounce",
+      "nameKey": "passive.bounce.name",
+      "displayName": "Отскок",
+      "effect": "StaffRicochet",
+      "values": {
+        "bounces": 1
+      }
+    },
+    {
+      "id": "passive.fireproof",
+      "nameKey": "passive.fireproof.name",
+      "displayName": "Огнеупорность",
+      "effect": "BurnImmunity",
+      "values": {}
+    },
+    {
+      "id": "passive.thrift",
+      "nameKey": "passive.thrift.name",
+      "displayName": "Бережливость",
+      "effect": "FreeManaChance",
+      "values": {
+        "chance": 0.25
+      }
+    },
+    {
+      "id": "passive.dash_shadow",
+      "nameKey": "passive.dash_shadow.name",
+      "displayName": "Тень рывка",
+      "effect": "CritAfterDash",
+      "values": {}
+    },
+    {
+      "id": "passive.chain_reaction",
+      "nameKey": "passive.chain_reaction.name",
+      "displayName": "Цепная реакция",
+      "effect": "StatusSpreadOnDeath",
+      "values": {}
+    },
+    {
+      "id": "passive.magnet",
+      "nameKey": "passive.magnet.name",
+      "displayName": "Магнит",
+      "effect": "Magnet",
+      "values": {
+        "manaOrbBonus": 0.5
+      }
+    },
+    {
+      "id": "passive.iron_vow",
+      "nameKey": "passive.iron_vow.name",
+      "displayName": "Железный обет",
+      "effect": "IronVow",
+      "values": {
+        "hpSetTo": 1,
+        "armorMultiplier": 2,
+        "armorRegenSeconds": 1.5
+      }
+    },
+    {
+      "id": "passive.glass_cannon",
+      "nameKey": "passive.glass_cannon.name",
+      "displayName": "Стеклянная пушка",
+      "effect": "GlassCannon",
+      "values": {
+        "damageBonus": 0.4,
+        "maxHpPenalty": 0.3
+      }
+    },
+    {
+      "id": "passive.greed",
+      "nameKey": "passive.greed.name",
+      "displayName": "Жадность",
+      "effect": "Greed",
+      "values": {
+        "goldBonus": 0.5,
+        "priceIncrease": 0.2
+      }
+    },
+    {
+      "id": "passive.berserk",
+      "nameKey": "passive.berserk.name",
+      "displayName": "Берсерк",
+      "effect": "Berserk",
+      "values": {
+        "maxDamageBonus": 0.6,
+        "potionHealMultiplier": 0.5
+      }
+    },
+    {
+      "id": "passive.double_holster",
+      "nameKey": "passive.double_holster.name",
+      "displayName": "Двойная кобура",
+      "effect": "DoubleHolster",
+      "values": {
+        "firstShotMultiplier": 2
+      }
+    }
+  ]
+}

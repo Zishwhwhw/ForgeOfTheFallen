@@ -1,0 +1,311 @@
+{
+  "kind": "enemy",
+  "version": 1,
+  "_note": "GDD §7.4–7.6",
+  "items": [
+    {
+      "id": "enemy.skeleton_swordsman",
+      "nameKey": "enemy.skeleton_swordsman.name",
+      "tier": "Normal",
+      "maxHp": 40,
+      "attackDamage": 12,
+      "windupSeconds": 0.5,
+      "moveSpeed": 2.2,
+      "attackRange": 1.1,
+      "strikeRadius": 1.3,
+      "strikeArcDegrees": 110,
+      "recoverSeconds": 0.6,
+      "aggroRange": 12,
+      "goldMin": 1,
+      "goldMax": 3,
+      "special": null,
+      "parents": null,
+      "_note": "Значения поведения — из серой коробки"
+    },
+    {
+      "id": "enemy.skeleton_archer",
+      "nameKey": "enemy.skeleton_archer.name",
+      "tier": "Normal",
+      "maxHp": 30,
+      "attackDamage": 10,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 1,
+      "goldMax": 3,
+      "special": {
+        "type": "KeepDistance",
+        "values": {
+          "aimLine": true
+        }
+      },
+      "parents": null
+    },
+    {
+      "id": "enemy.skeleton_shieldbearer",
+      "nameKey": "enemy.skeleton_shieldbearer.name",
+      "tier": "Normal",
+      "maxHp": 70,
+      "attackDamage": 14,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 1,
+      "goldMax": 3,
+      "special": {
+        "type": "FrontShield",
+        "values": {
+          "blocksProjectiles": true
+        }
+      },
+      "parents": null
+    },
+    {
+      "id": "enemy.rat",
+      "nameKey": "enemy.rat.name",
+      "tier": "Normal",
+      "maxHp": 12,
+      "attackDamage": 6,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 1,
+      "goldMax": 3,
+      "special": {
+        "type": "Pack",
+        "values": {
+          "packMin": 4,
+          "packMax": 6,
+          "poisonChance": 0.2
+        }
+      },
+      "parents": null
+    },
+    {
+      "id": "enemy.bat",
+      "nameKey": "enemy.bat.name",
+      "tier": "Normal",
+      "maxHp": 15,
+      "attackDamage": 8,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 1,
+      "goldMax": 3,
+      "special": {
+        "type": "Dive",
+        "values": {}
+      },
+      "parents": null
+    },
+    {
+      "id": "enemy.slime",
+      "nameKey": "enemy.slime.name",
+      "tier": "Normal",
+      "maxHp": 50,
+      "attackDamage": 8,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 1,
+      "goldMax": 3,
+      "special": {
+        "type": "Split",
+        "values": {
+          "stages": [
+            {
+              "count": 2,
+              "maxHp": 20
+            },
+            {
+              "count": 4,
+              "maxHp": 8
+            }
+          ]
+        }
+      },
+      "parents": null
+    },
+    {
+      "id": "enemy.cultist",
+      "nameKey": "enemy.cultist.name",
+      "tier": "Normal",
+      "maxHp": 35,
+      "attackDamage": 10,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 1,
+      "goldMax": 3,
+      "special": {
+        "type": "HealBeam",
+        "values": {
+          "healPerSecond": null,
+          "shield": null
+        }
+      },
+      "parents": null
+    },
+    {
+      "id": "enemy.mimic",
+      "nameKey": "enemy.mimic.name",
+      "tier": "Normal",
+      "maxHp": 90,
+      "attackDamage": 20,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 1,
+      "goldMax": 3,
+      "special": {
+        "type": "Mimic",
+        "values": {
+          "chestReward": false
+        }
+      },
+      "parents": null
+    },
+    {
+      "id": "enemy.gargoyle",
+      "nameKey": "enemy.gargoyle.name",
+      "tier": "Normal",
+      "maxHp": 80,
+      "attackDamage": 10,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 1,
+      "goldMax": 3,
+      "special": {
+        "type": "StatueUntilLast",
+        "values": {
+          "diveDamage": 18
+        }
+      },
+      "parents": null
+    },
+    {
+      "id": "enemy.chimera_rat_bat",
+      "nameKey": "enemy.chimera_rat_bat.name",
+      "tier": "Elite",
+      "maxHp": 22,
+      "attackDamage": null,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 8,
+      "goldMax": 12,
+      "special": null,
+      "parents": [
+        "enemy.rat",
+        "enemy.bat"
+      ],
+      "_note": "HP = сумма родителей × 0.8"
+    },
+    {
+      "id": "enemy.chimera_shield_gargoyle",
+      "nameKey": "enemy.chimera_shield_gargoyle.name",
+      "tier": "Elite",
+      "maxHp": 120,
+      "attackDamage": null,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 8,
+      "goldMax": 12,
+      "special": null,
+      "parents": [
+        "enemy.skeleton_shieldbearer",
+        "enemy.gargoyle"
+      ]
+    },
+    {
+      "id": "enemy.chimera_archer_cultist",
+      "nameKey": "enemy.chimera_archer_cultist.name",
+      "tier": "Elite",
+      "maxHp": 52,
+      "attackDamage": null,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 8,
+      "goldMax": 12,
+      "special": null,
+      "parents": [
+        "enemy.skeleton_archer",
+        "enemy.cultist"
+      ]
+    },
+    {
+      "id": "enemy.captain_of_the_guard",
+      "nameKey": "enemy.captain_of_the_guard.name",
+      "tier": "MiniBoss",
+      "maxHp": 400,
+      "attackDamage": 18,
+      "windupSeconds": null,
+      "moveSpeed": null,
+      "attackRange": null,
+      "strikeRadius": null,
+      "strikeArcDegrees": null,
+      "recoverSeconds": null,
+      "aggroRange": null,
+      "goldMin": 40,
+      "goldMax": 40,
+      "special": {
+        "type": "Captain",
+        "values": {
+          "maxDamage": 25,
+          "summonAtHpFraction": 0.5,
+          "summonCount": 2,
+          "summon": "enemy.skeleton_swordsman"
+        }
+      },
+      "parents": null,
+      "_note": "Шансовая комната ~30% этажей"
+    }
+  ]
+}

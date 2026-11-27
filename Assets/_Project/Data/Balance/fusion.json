@@ -1,0 +1,17 @@
+{
+  "kind": "fusion",
+  "version": 1,
+  "_note": "GDD §6",
+  "items": [
+    {
+      "id": "fusion.rules",
+      "dominantWeight": 0.7,
+      "jackpotChance": 0.025,
+      "floorOfBestParent": 0.9,
+      "ritualSeconds": 3.2,
+      "reforgeLimit": 1,
+      "reforgePrice": null,
+      "_note": "GDD §6.2–6.3. dominantWeight — открытый вопрос владельцу (в GDD нет). Реплики Франкена — локализация, не баланс"
+    }
+  ]
+}

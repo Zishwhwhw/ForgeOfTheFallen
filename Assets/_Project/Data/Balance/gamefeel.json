@@ -1,0 +1,23 @@
+{
+  "kind": "gamefeel",
+  "version": 1,
+  "_note": "GDD §10.2",
+  "items": [
+    {
+      "id": "gamefeel.default",
+      "enemyHitFlashSeconds": 0.05,
+      "killMicroPauseSeconds": 0.025,
+      "hitStopSeconds": null,
+      "death": {
+        "flashSeconds": 0.15,
+        "squashSeconds": 0.15,
+        "squashScaleY": 0.2,
+        "squashScaleX": 1.3,
+        "corpseDarken": 0.5,
+        "bossLieSeconds": 1.5,
+        "bossDissolveSeconds": 1.0
+      },
+      "_note": "GDD §10.2 (решение 27.11)"
+    }
+  ]
+}

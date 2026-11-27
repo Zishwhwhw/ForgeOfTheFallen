@@ -1,0 +1,47 @@
+{
+  "kind": "status",
+  "version": 1,
+  "_note": "GDD §7.3. Броня защищает от яда и горения (§4.1)",
+  "items": [
+    {
+      "id": "status.burn",
+      "element": "Fire",
+      "tickDamage": null,
+      "tickSeconds": null,
+      "durationSeconds": null,
+      "stacking": "RefreshTimer",
+      "maxStacks": 1,
+      "bossResist": null
+    },
+    {
+      "id": "status.cold",
+      "element": "Ice",
+      "slowFraction": null,
+      "durationSeconds": null,
+      "stacking": "Accumulate",
+      "maxStacks": 3,
+      "freezeAtStacks": 3,
+      "freezeSeconds": null,
+      "bossResist": null,
+      "_note": "Боссы — высокий резист"
+    },
+    {
+      "id": "status.shock",
+      "element": "Lightning",
+      "stunSeconds": null,
+      "stacking": "None",
+      "maxStacks": 1,
+      "bossResist": null
+    },
+    {
+      "id": "status.poison",
+      "element": "Poison",
+      "tickDamage": null,
+      "tickSeconds": null,
+      "durationSeconds": null,
+      "stacking": "Accumulate",
+      "maxStacks": 5,
+      "bossResist": null
+    }
+  ]
+}

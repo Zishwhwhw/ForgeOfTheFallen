@@ -1,0 +1,42 @@
+{
+  "kind": "constants",
+  "version": 1,
+  "_note": "GDD §4.1, §7.9, §8; лимит трупов — R5",
+  "items": [
+    {
+      "id": "constants.slice",
+      "critChance": 0.05,
+      "critMultiplier": 2,
+      "weaponPrice": {
+        "Common": 60,
+        "Rare": 120,
+        "Epic": 220
+      },
+      "weaponSellbackFraction": 0.5,
+      "gold": {
+        "normalMin": 1,
+        "normalMax": 3,
+        "eliteMin": 8,
+        "eliteMax": 12,
+        "miniBoss": 40,
+        "chestMin": 10,
+        "chestMax": 25,
+        "expectedPerFloorMin": 150,
+        "expectedPerFloorMax": 200
+      },
+      "chestLoot": {
+        "goldOrPotion": 0.6,
+        "weapon": 0.3,
+        "bombOrRare": 0.1,
+        "maxWeaponsPerFloor": 2
+      },
+      "healing": {
+        "afterBossFraction": 0.5,
+        "fountainMaxHpBonus": 15
+      },
+      "miniBossRoomChance": 0.3,
+      "corpseLimitPerFloor": 300,
+      "passiveChoicesPerFloor": 3
+    }
+  ]
+}

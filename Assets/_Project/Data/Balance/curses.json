@@ -1,0 +1,75 @@
+{
+  "kind": "curse",
+  "version": 1,
+  "_note": "GDD §7.8. Святилище снимает одно проклятие вместе с плюсом",
+  "items": [
+    {
+      "id": "curse.blood",
+      "nameKey": "curse.blood.name",
+      "displayName": "Сделка крови",
+      "bonus": {
+        "effect": "ManaPerKill",
+        "values": {
+          "mana": 1
+        }
+      },
+      "penalty": {
+        "effect": "PotionHealMultiplier",
+        "values": {
+          "multiplier": 0.5
+        }
+      }
+    },
+    {
+      "id": "curse.greed",
+      "nameKey": "curse.greed.name",
+      "displayName": "Сделка жадности",
+      "bonus": {
+        "effect": "GoldMultiplier",
+        "values": {
+          "multiplier": 2
+        }
+      },
+      "penalty": {
+        "effect": "MimicChestChance",
+        "values": {
+          "chance": 0.2
+        }
+      }
+    },
+    {
+      "id": "curse.darkness",
+      "nameKey": "curse.darkness.name",
+      "displayName": "Сделка тьмы",
+      "bonus": {
+        "effect": "CritBonus",
+        "values": {
+          "bonus": 0.25
+        }
+      },
+      "penalty": {
+        "effect": "LightRadiusMultiplier",
+        "values": {
+          "multiplier": null
+        }
+      }
+    },
+    {
+      "id": "curse.haste",
+      "nameKey": "curse.haste.name",
+      "displayName": "Сделка спешки",
+      "bonus": {
+        "effect": "SpeedAndFireRate",
+        "values": {
+          "bonus": 0.25
+        }
+      },
+      "penalty": {
+        "effect": "MaxHpFlat",
+        "values": {
+          "amount": -25
+        }
+      }
+    }
+  ]
+}
