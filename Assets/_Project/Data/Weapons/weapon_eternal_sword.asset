@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: FotF.Data::FotF.Data.WeaponDefinition
   id: weapon.eternal_sword
   nameKey: weapon.eternal_sword.name
+  displayName: "\u0412\u0435\u0447\u043D\u044B\u0439 \u043C\u0435\u0447"
   family: 0
   rarity: 0
   element: 0

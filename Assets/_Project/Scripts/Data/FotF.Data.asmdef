@@ -1,7 +1,9 @@
 {
     "name": "FotF.Data",
     "rootNamespace": "FotF.Data",
-    "references": [],
+    "references": [
+        "FotF.State"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

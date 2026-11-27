@@ -48,7 +48,6 @@ namespace FotF.View.Heroes
         VitalsConfig _vitals;
         DashConfig _dashCfg;
         IRandom _rng;
-        readonly WeaponDefinition[] _slots = new WeaponDefinition[2];
         Vector2 _moveInput, _aimDir = Vector2.down, _dashDir;
 
         public Vector2 AimDirection => _aimDir;
@@ -62,8 +61,8 @@ namespace FotF.View.Heroes
             _dashCfg = new DashConfig(hero.dashCharges, hero.dashCooldown, hero.dashDuration, hero.dashInvulnerability);
             Vitals.Init(State, _vitals);
             Dash.Init(State, _dashCfg);
-            Equip(0, hero.startWeapon);
-            Equip(1, secondWeapon);
+            SetSlot(0, WeaponFactory.Create(hero.startWeapon));
+            SetSlot(1, WeaponFactory.Create(secondWeapon));
             if (worldCamera == null) worldCamera = Camera.main;
 
             var map = controls.FindActionMap("Player", true);
@@ -75,12 +74,33 @@ namespace FotF.View.Heroes
         void OnEnable() { controls.FindActionMap("Player").Enable(); }
         void OnDisable() { controls.FindActionMap("Player").Disable(); }
 
-        public void Equip(int slot, WeaponDefinition def)
+        /// <summary>Положить экземпляр в слот (null — очистить).</summary>
+        public void SetSlot(int slot, WeaponInstance w)
         {
-            _slots[slot] = def;
-            State.Weapons[slot].WeaponId = def ? def.id : null;
+            State.Weapons[slot].Instance = w;
+            State.Weapons[slot].WeaponId = w?.DefinitionId;
             State.Weapons[slot].CooldownLeft = 0f;
-            if (slot == State.ActiveSlot) weapon.Show(def);
+            if (slot == State.ActiveSlot) weapon.Show(w);
+        }
+
+        /// <summary>Подобрать с пола (GDD §5.1): в пустой слот, иначе текущее оружие возвращается вызывающему (упадёт на пол).</summary>
+        public WeaponInstance PickUp(WeaponInstance w)
+        {
+            int empty = State.Weapons[0].IsEmpty ? 0 : State.Weapons[1].IsEmpty ? 1 : -1;
+            if (empty >= 0) { SetSlot(empty, w); State.ActiveSlot = empty; weapon.Show(w); return null; }
+            var dropped = State.ActiveWeapon.Instance;
+            SetSlot(State.ActiveSlot, w);
+            return dropped;
+        }
+
+        /// <summary>Отдать оружие из рук (на плиту кузницы). Слот пустеет; активным становится другой, если он не пуст.</summary>
+        public WeaponInstance TakeActiveWeapon()
+        {
+            var w = State.ActiveWeapon.Instance;
+            if (w == null) return null;
+            SetSlot(State.ActiveSlot, null);
+            if (!State.Weapons[1 - State.ActiveSlot].IsEmpty) { State.ActiveSlot = 1 - State.ActiveSlot; weapon.Show(State.ActiveWeapon.Instance); }
+            return w;
         }
 
         void Update()
@@ -110,15 +130,15 @@ namespace FotF.View.Heroes
             if (_swap.WasPressedThisFrame())
             {
                 WeaponAttack.Swap(State);
-                weapon.Show(_slots[State.ActiveSlot]);
+                weapon.Show(State.ActiveWeapon.Instance);
             }
             if (_dash.WasPressedThisFrame() && Dash.TryStart(State, _dashCfg))
                 _dashDir = _moveInput.sqrMagnitude > 0.01f ? _moveInput.normalized : _aimDir;
 
-            var def = _slots[State.ActiveSlot];
-            if (def != null && _fire.IsPressed() && !State.IsDashing)
+            var w = State.ActiveWeapon.Instance;
+            if (w != null && _fire.IsPressed() && !State.IsDashing)
             {
-                var stats = new WeaponStats(def.damage, def.attacksPerSecond, def.manaCost, def.critChance);
+                var stats = new WeaponStats(w.Damage, w.AttacksPerSecond, w.ManaCost, w.CritChance);
                 if (WeaponAttack.TryAttack(State, State.ActiveWeapon, stats) == WeaponAttack.Result.Fired)
                     weapon.Attack(_aimDir, Team, _rng);
             }

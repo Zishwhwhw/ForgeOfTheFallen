@@ -1,4 +1,4 @@
-using FotF.View.Heroes;
+﻿using FotF.View.Heroes;
 using FotF.View.World;
 using TMPro;
 using UnityEngine;
@@ -34,7 +34,7 @@ namespace FotF.View.UI
             Set(hpFill, hpText, s.Hp, s.MaxHp);
             Set(armorFill, armorText, s.Armor, s.MaxArmor);
             Set(manaFill, manaText, s.Mana, s.MaxMana);
-            if (weaponText) weaponText.text = $"[{s.ActiveSlot + 1}] {s.ActiveWeapon.WeaponId}   (Q — сменить)";
+            if (weaponText) { var w = s.ActiveWeapon.Instance; weaponText.text = w == null ? "(руки пусты)" : $"[{s.ActiveSlot + 1}] {w.DisplayName}  урон {w.Damage}  мана {w.ManaCost}{(w.IsHybrid ? "  ФРАНКЕН" : "")}{(w.IsJackpot ? " ★" : "")}   (Q — сменить)"; }
             if (dashText) dashText.text = s.DashCharges > 0 ? "Рывок: готов" : $"Рывок: {s.DashRechargeLeft:0.0} с";
             if (goldText) goldText.text = $"Золото: {s.Gold}";
             if (promptText) { var f = hero.Focus; promptText.text = f != null && !s.IsDead ? f.Prompt : ""; }
@@ -49,3 +49,4 @@ namespace FotF.View.UI
         }
     }
 }
+

@@ -13,6 +13,8 @@ namespace FotF.Data
         public string id;
         [Tooltip("Ключ локализации названия")]
         public string nameKey;
+        [Tooltip("Название до подключения локализации (RU)")]
+        public string displayName;
         public WeaponFamily family;
         public Rarity rarity;
         public Element element = Element.Physical;

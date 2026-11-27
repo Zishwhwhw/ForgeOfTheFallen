@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: FotF.Data::FotF.Data.WeaponDefinition
   id: weapon.nailgun
   nameKey: weapon.nailgun.name
+  displayName: "\u0413\u0432\u043E\u0437\u0434\u043E\u043C\u0451\u0442"
   family: 2
   rarity: 0
   element: 0

@@ -4,6 +4,8 @@ namespace FotF.State
     public sealed class WeaponSlotState
     {
         public string WeaponId;
+        /// <summary>Экземпляр в руке (статы для атаки; у гибрида — свои).</summary>
+        public WeaponInstance Instance;
         /// <summary>Секунд до следующей атаки.</summary>
         public float CooldownLeft;
         public bool IsEmpty => string.IsNullOrEmpty(WeaponId);

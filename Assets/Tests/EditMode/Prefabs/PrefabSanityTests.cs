@@ -25,6 +25,21 @@ namespace FotF.Tests.Prefabs
             Assert.AreEqual(LayerMask.NameToLayer("Enemy"), AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Enemies/enemy_skeleton_swordsman.prefab").layer);
         }
 
+        [TestCase("Assets/_Project/Prefabs/Interactables/prop_forge.prefab", "ForgeView", "rules,catalog,plateA,plateB,dropPoint,pickupPrefab")]
+        [TestCase("Assets/_Project/Prefabs/Interactables/pickup_weapon.prefab", "WeaponPickupView", "catalog,icon,detail,label")]
+        [TestCase("Assets/_Project/Prefabs/Heroes/hero_knight.prefab", "WeaponView", "catalog,weaponRenderer,detailRenderer")]
+        public void FusionPrefabs_HaveRequiredReferences(string path, string component, string fields)
+        {
+            var root = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            Assert.IsNotNull(root, path);
+            MonoBehaviour mb = null;
+            foreach (var c in root.GetComponentsInChildren<MonoBehaviour>(true)) if (c != null && c.GetType().Name == component) mb = c;
+            Assert.IsNotNull(mb, $"{path}: нет {component}");
+            var so = new SerializedObject(mb);
+            foreach (var f in fields.Split(','))
+                Assert.IsNotNull(so.FindProperty(f).objectReferenceValue, $"{path}: {component}.{f} не назначен");
+        }
+
         [Test]
         public void AllProjectPrefabs_HaveEnabledScripts_AndNoMissingScripts()
         {
