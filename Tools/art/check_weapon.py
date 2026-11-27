@@ -3,8 +3,8 @@
 Usage:
   python3 Tools/art/check_weapon.py <png> <S|M|L> [--grip X,Y] [--fix OUT.png]
 
-Checks: canvas allowed for the size class and a multiple of 8, weapon length (opaque bbox width,
-weapon drawn pointing right) inside the class range, every opaque pixel is Endesga 32, alpha only
+Checks: canvas allowed for the size class and a multiple of 8, weapon length (opaque bbox; bbox diagonal
+for diagonal sprites) inside the class range, every opaque pixel is Endesga 32, alpha only
 0/255, not a 2x upscale, the grip pixel (if given) lands on an opaque pixel.
 --fix writes a copy snapped to Endesga 32 with hard alpha (it does not resize). Exit code 1 on any failure.
 """
@@ -22,8 +22,8 @@ PALETTE = [tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)) for h in ENDESGA32]
 # class: (min length, max length, allowed canvases)
 CLASSES = {
     "S": (12, 16, {(16, 16)}),
-    "M": (24, 32, {(32, 16), (32, 24), (16, 32)}),
-    "L": (40, 48, {(48, 16), (48, 24)}),
+    "M": (24, 36, {(32, 16), (32, 24), (16, 32), (32, 32)}),
+    "L": (40, 48, {(48, 16), (48, 24), (48, 48)}),
 }
 
 
@@ -65,7 +65,9 @@ def check(path, cls, grip=None):
     if not bbox:
         errors.append("sprite is empty")
     else:
-        length = max(bbox[2] - bbox[0], bbox[3] - bbox[1])
+        bw, bh = bbox[2] - bbox[0], bbox[3] - bbox[1]
+        # diagonal sprites (spriteForwardAngle ~45/225): length is the bbox diagonal
+        length = round((bw ** 2 + bh ** 2) ** 0.5) if min(bw, bh) >= 0.6 * max(bw, bh) else max(bw, bh)
         if not lo <= length <= hi:
             errors.append(f"length {length}px outside class {cls} range {lo}-{hi}px")
     if is_2x_upscale(im):
