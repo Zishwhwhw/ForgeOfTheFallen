@@ -7,6 +7,7 @@
 2. `Docs/ARCHITECTURE.md` — слои, сцены, папки. Обязательно.
 3. `Research/07_ART_BIBLE_SPEC.md` — для любого арта.
 4. `Docs/DECISIONS.md`, `Docs/WORKBOARD.md`.
+5. `Docs/SESSION_CONTEXT.md` — где остановилась прошлая сессия, открытые вопросы, техфакты. Обновляй в конце своей сессии.
 Архив, не источник истины: тег `legacy-prototype`, `Docs/FrankenArms_GDD_RU.html`, `Research/*`.
 
 ## Главные правила
