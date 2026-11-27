@@ -9,6 +9,13 @@ ENDESGA32 = ["#be4a2f","#d77643","#ead4aa","#e4a672","#b86f50","#733e39","#3e273
 
 def key():
     k = os.environ.get("PIXELLAB_KEY")
+    if not k and sys.platform == "win32":
+        import winreg  # переменная пользователя, заданная через SetEnvironmentVariable(..., 'User')
+        try:
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment") as reg:
+                k = winreg.QueryValueEx(reg, "PIXELLAB_KEY")[0]
+        except OSError:
+            sys.exit("PIXELLAB_KEY не задан: [Environment]::SetEnvironmentVariable('PIXELLAB_KEY', '<ключ>', 'User')")
     if not k:
         k = subprocess.run(["security", "find-generic-password", "-a", os.environ["USER"], "-s", "PIXELLAB_KEY", "-w"],
                            capture_output=True, text=True, check=True).stdout.strip()
