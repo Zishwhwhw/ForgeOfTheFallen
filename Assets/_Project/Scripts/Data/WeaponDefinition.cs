@@ -51,7 +51,11 @@ namespace FotF.Data
         public Sprite sprite;
         [Tooltip("Куда смотрит ствол/клинок на картинке, градусы (0 — вправо, 225 — вниз-влево)")]
         public float spriteForwardAngle;
-        [Tooltip("Точка хвата в пикселях спрайта (Art Bible §2)")]
+        [Tooltip("Точка хвата в пикселях спрайта, от левого нижнего угла (Art Bible §5.1). (0,0) — держать за центр")]
         public Vector2 gripPixel;
+        [Tooltip("Дуло / навершие в пикселях спрайта, от левого нижнего угла: отсюда вылетает снаряд. (0,0) — общая точка muzzle")]
+        public Vector2 muzzlePixel;
+        [Tooltip("Запечённые RotSprite-углы (кадр i смотрит на i·360/N°, хват в центре кадра). Пусто — сырой поворот. Tools/art/bake_weapon_rotations.py")]
+        public Sprite[] rotatedSprites = System.Array.Empty<Sprite>();
     }
 }

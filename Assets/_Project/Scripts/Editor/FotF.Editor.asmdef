@@ -1,7 +1,10 @@
 {
     "name": "FotF.Editor",
     "rootNamespace": "FotF.EditorTools",
-    "references": [],
+    "references": [
+        "FotF.Data",
+        "FotF.View"
+    ],
     "includePlatforms": [
         "Editor"
     ],

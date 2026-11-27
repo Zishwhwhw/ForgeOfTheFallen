@@ -125,6 +125,9 @@ namespace FotF.View.Heroes
             AimWorldPoint = worldCamera.ScreenToWorldPoint(new Vector3(screen.x, screen.y, -worldCamera.transform.position.z));
             Vector2 toAim = AimWorldPoint - (Vector2)transform.position;
             if (toAim.sqrMagnitude > 0.01f) _aimDir = toAim.normalized;
+            body.SetFacing(_aimDir);
+            weapon.SetHand(HandLocal(), body.CurrentFacing == DirectionalSpriteAnimator.Facing.Up);
+            weapon.SetBob(body.CurrentBobPixels);
             weapon.Aim(_aimDir);
 
             if (_swap.WasPressedThisFrame())
@@ -143,7 +146,6 @@ namespace FotF.View.Heroes
                     weapon.Attack(_aimDir, Team, _rng);
             }
 
-            body.SetFacing(_aimDir);
             body.Play(State.IsDashing ? "dash" : _moveInput.sqrMagnitude > 0.01f ? "run" : "idle");
         }
 
@@ -162,6 +164,20 @@ namespace FotF.View.Heroes
             if (!result.Blocked && flash) flash.Flash();
             Damaged?.Invoke(hit, result);
             if (result.Killed) { body.Play("idle", true); Died?.Invoke(); }
+        }
+
+        /// <summary>Точка руки с оружием по направлению взгляда (HeroDefinition, пиксели → юниты; влево — зеркало бока).</summary>
+        Vector2 HandLocal()
+        {
+            const float ppu = 32f;
+            switch (body.CurrentFacing)
+            {
+                case DirectionalSpriteAnimator.Facing.Up: return hero.handNorthPixels / ppu;
+                case DirectionalSpriteAnimator.Facing.Side:
+                    var p = hero.handSidePixels / ppu;
+                    return body.IsFlipped ? new Vector2(-p.x, p.y) : p;
+                default: return hero.handSouthPixels / ppu;
+            }
         }
 
         public void AddGold(int amount) => State.Gold += Mathf.Max(0, amount);

@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1162134693303326332, guid: a6d1cb0351a75bf45a030b18a5bca697, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
     - target: {fileID: 5465266958642121846, guid: a6d1cb0351a75bf45a030b18a5bca697, type: 3}
       propertyPath: m_Name
       value: prop_forge
@@ -270,6 +274,10 @@ PrefabInstance:
       propertyPath: initialWeapon
       value: 
       objectReference: {fileID: 11400000, guid: e90e6873b060e174db123d4af6bc3754, type: 2}
+    - target: {fileID: 3308809686160264056, guid: bff869e9181826e43a633c02ac66dee6, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
     - target: {fileID: 8093369933366035351, guid: bff869e9181826e43a633c02ac66dee6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
@@ -6692,6 +6700,8 @@ MonoBehaviour:
   aimLead: 0.2
   maxLead: 2.5
   smoothTime: 0.12
+  roomBounds: {fileID: 381515596}
+  boundsPadding: 1
 --- !u!114 &2123029141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6795,7 +6805,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.59375
+  orthographic size: 5.625
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

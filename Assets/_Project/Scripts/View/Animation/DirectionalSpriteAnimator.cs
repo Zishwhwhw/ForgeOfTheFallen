@@ -19,6 +19,9 @@ namespace FotF.View.Animation
 
         public bool IsFinished => _clip != null && !_clip.loop && _time * _clip.fps >= Frames(_clip, _facing).Length;
         public Facing CurrentFacing => _facing;
+        public bool IsFlipped => _flip;
+        /// <summary>Покачивание тела на текущем кадре, пиксели (+ вверх): по нему двигается оружие в руке.</summary>
+        public int CurrentBobPixels { get; private set; }
 
         void Awake() { _renderer = GetComponent<SpriteRenderer>(); Play(startClip, true); }
 
@@ -48,8 +51,13 @@ namespace FotF.View.Animation
             int i = (int)(_time * _clip.fps);
             i = _clip.loop ? i % frames.Length : Mathf.Min(i, frames.Length - 1);
             _renderer.sprite = frames[i];
-            _renderer.flipX = _flip;
+            _renderer.flipX = _facing == Facing.Up ? animationSet.mirrorUp : _flip;
+            var bob = Bob(_clip, _facing);
+            CurrentBobPixels = i < bob.Length ? bob[i] : 0;
         }
+
+        static int[] Bob(SpriteAnimationSet.Clip c, Facing f) =>
+            (f == Facing.Up ? c.bobUp : f == Facing.Side ? c.bobSide : c.bobDown) ?? System.Array.Empty<int>();
 
         static Sprite[] Frames(SpriteAnimationSet.Clip c, Facing f) =>
             f == Facing.Up ? c.up : f == Facing.Side ? c.side : c.down;

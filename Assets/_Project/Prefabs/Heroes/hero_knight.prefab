@@ -407,7 +407,7 @@ MonoBehaviour:
   hittableMask:
     serializedVersion: 2
     m_Bits: 3072
-  holdDistance: 0.3
+  holdDistance: 0
   frankenTint: {r: 1, g: 0.78431374, b: 0.6039216, a: 1}
 --- !u!1 &3579409321919455171
 GameObject:

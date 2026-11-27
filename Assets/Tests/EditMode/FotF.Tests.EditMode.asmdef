@@ -5,6 +5,7 @@
         "FotF.Editor",
         "FotF.Logic",
         "FotF.State",
+        "FotF.View",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

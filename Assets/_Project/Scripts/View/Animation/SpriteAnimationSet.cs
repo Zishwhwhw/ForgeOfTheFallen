@@ -19,9 +19,15 @@ namespace FotF.View.Animation
             public Sprite[] down = Array.Empty<Sprite>();
             public Sprite[] side = Array.Empty<Sprite>();
             public Sprite[] up = Array.Empty<Sprite>();
+            [Tooltip("Покачивание тела по кадрам, пиксели (+ вверх). Заполняется меню FotF/Art/Bake Body Bob по самим спрайтам")]
+            public int[] bobDown = Array.Empty<int>();
+            public int[] bobSide = Array.Empty<int>();
+            public int[] bobUp = Array.Empty<int>();
         }
 
         public Clip[] clips = Array.Empty<Clip>();
+        [Tooltip("Зеркалить кадры «спиной»: у PixelLab-рыцаря X2 щит в них не на той стороне (спина симметрична)")]
+        public bool mirrorUp;
 
         public Clip Find(string clipName)
         {

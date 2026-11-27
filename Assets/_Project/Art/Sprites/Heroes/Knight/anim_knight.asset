@@ -43,6 +43,9 @@ MonoBehaviour:
     - {fileID: 3889702, guid: 3d29b26fb4c86814cbd5b5dfb9806ed2, type: 3}
     - {fileID: -1831930519, guid: 3d29b26fb4c86814cbd5b5dfb9806ed2, type: 3}
     - {fileID: -1865861761, guid: 3d29b26fb4c86814cbd5b5dfb9806ed2, type: 3}
+    bobDown: 0000000000000000ffffffffffffffffffffffffffffffffffffffff00000000i
+    bobSide: 0000000000000000ffffffffffffffffffffffffffffffff0000000000000000i
+    bobUp: 000000000000000000000000ffffffffffffffffffffffffffffffffffffffffi
   - name: run
     fps: 12
     loop: 1
@@ -73,6 +76,9 @@ MonoBehaviour:
     - {fileID: 59703867, guid: 06c235e4dc227e1459fd479b4de25cf3, type: 3}
     - {fileID: -890156276, guid: 06c235e4dc227e1459fd479b4de25cf3, type: 3}
     - {fileID: 1809627984, guid: 06c235e4dc227e1459fd479b4de25cf3, type: 3}
+    bobDown: feffffff0000000000000000fefffffffeffffff0000000000000000feffffffi
+    bobSide: fbfffffffdfffffffdfffffffbfffffffbfffffffdfffffffdfffffffbffffffi
+    bobUp: fdfffffffeffffff00000000fffffffffdfffffffeffffff00000000ffffffffi
   - name: dash
     fps: 40
     loop: 0
@@ -103,3 +109,7 @@ MonoBehaviour:
     - {fileID: -1964378223, guid: 7a1ca83bc6e9e5148b6accc189eb5d5b, type: 3}
     - {fileID: -868704064, guid: 7a1ca83bc6e9e5148b6accc189eb5d5b, type: 3}
     - {fileID: 1811080374, guid: 7a1ca83bc6e9e5148b6accc189eb5d5b, type: 3}
+    bobDown: 00000000f4fffffff3fffffff3fffffff5ffffffefffffffeffffffff3ffffffi
+    bobSide: 00000000fcfffffffbfffffffbfffffffbfffffffbfffffffdfffffffeffffffi
+    bobUp: fefffffffafffffffafffffffafffffff7fffffff5fffffff5fffffffaffffffi
+  mirrorUp: 1

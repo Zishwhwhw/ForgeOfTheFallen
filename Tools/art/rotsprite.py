@@ -37,3 +37,19 @@ if __name__ == "__main__":
         aim = i * 360.0 / steps
         rotsprite(canvas, aim - fwd, (n // 2, n // 2)).save(os.path.join(out, f"{name}_{int(round(aim * 100)):05d}.png"))
     print(f"{steps} angles -> {out} (grip at canvas centre {n // 2},{n // 2})")
+
+
+def bake_frames(src, grip_unity, fwd, steps, out_dir, name):
+    """`steps` RotSprite frames as separate PNGs out_dir/name_00.png… (aim i*360/steps, CCW from +x),
+    grip at each frame's centre pixel. grip_unity counts from the bottom-left (WeaponDefinition.gripPixel).
+    Frame side is a multiple of 8 (Art Bible §2)."""
+    import os
+    im = Image.open(src).convert("RGBA")
+    gx, gy = int(grip_unity[0]), im.height - 1 - int(grip_unity[1])
+    n = 2 * max(im.size) + 8
+    n += (-n) % 8
+    canvas = Image.new("RGBA", (n, n)); canvas.alpha_composite(im, (n // 2 - gx, n // 2 - gy))
+    os.makedirs(out_dir, exist_ok=True)
+    for i in range(steps):
+        rotsprite(canvas, i * 360.0 / steps - fwd, (n // 2, n // 2)).save(os.path.join(out_dir, f"{name}_{i:02d}.png"))
+    return n

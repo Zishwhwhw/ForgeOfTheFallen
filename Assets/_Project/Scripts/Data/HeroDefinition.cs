@@ -31,6 +31,14 @@ namespace FotF.Data
         [Tooltip("Неуязвимость во время и сразу после рывка, с (калибровать)")]
         public float dashInvulnerability = 0.25f;
 
+        [Header("Рука с оружием (Art Bible §5.1), пиксели от точки опоры у ног")]
+        [Tooltip("Лицом к камере: правая рука героя — слева от зрителя")]
+        public Vector2 handSouthPixels = new Vector2(-9, 12);
+        [Tooltip("Боком, взгляд вправо (влево — зеркально): передняя рука")]
+        public Vector2 handSidePixels = new Vector2(4, 12);
+        [Tooltip("Спиной: правая рука — справа от зрителя, оружие за телом")]
+        public Vector2 handNorthPixels = new Vector2(8, 12);
+
         [Header("Старт")]
         public WeaponDefinition startWeapon;
     }
