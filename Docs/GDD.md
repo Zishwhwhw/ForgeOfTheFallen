@@ -400,6 +400,40 @@ HP 400, урон 18–25. Скелет с алебардой: выпад по л
 ### 10.4 Локализация
 Срез: RU / EN / PL (п.123). 1.0: RU, EN, UA, PL, DE, ES, ZH-Hans, PT-BR (п.61). Тексты — по ID (E1).
 
+
+### 10.5 Промпты генерации ассетов (27.11.2026)
+Все промпты собираются из **одного ядра стиля** + шаблона под тип ассета, чтобы всё выглядело одной игрой. Промпты пишем по-английски: генераторы понимают его лучше. `{…}` — подставляемые поля. Числа размеров берутся из Art Bible §2 и §5.1. Выбор вариантов — `Research/concepts/sheets/CHOICES.md`, клиент PixelLab — `Tools/art/pl.py`. «◆» — шаблон ещё не проверен на деле.
+
+**Ядро стиля (STYLE CORE)** — вставляется в каждый визуальный промпт:
+> crisp pixel art, no anti-aliasing, Endesga 32 palette only, 1px dark outline in the object's own colour family (not pure black), light from top-left, one shade and one highlight per material, chibi proportions (head ~1/2 of height). World "Forge of the Fallen": a castle swallowed by a forge-factory; everything is scrap riveted together, stitched with brass staples and weld seams, rust and dark steel, glowing ember-orange heart cores. Cold steel blues (#3a4466 #5a6988 #8b9bb4) against hot furnace light (#f77622 #feae34). Warm dark fairy tale, light humor, no blood.
+
+**Запреты (NEGATIVE)** — дописываются в конец или передаются как negative:
+> no blood, no gore, no text or letters, no realistic rendering, no soft gradients, no semi-transparent pixels, not Soul Knight style, no copyrighted characters.
+
+**Общие параметры PixelLab:** `target_palette` = Endesga 32 (`pl.ENDESGA32`), `no_background: true`, `view: "low top-down"`. Эталон стиля — Рыцарь X2 (`7398c648…`, состояние `NoSword`), его спрайт подаётся как style/reference image.
+
+| Тип | Инструмент и вызов | Размер | Шаблон промпта (+ STYLE CORE + NEGATIVE) |
+|---|---|---|---|
+| **Концепт-лист** | Codex (`codex exec`, low effort), 1 картинка 16:9 | — | `{SUBJECT} DESIGN SHEET for a 2D top-down pixel-art roguelike. Layout: 3x2 grid of 6 cells on plain navy #262b44, big white number 1..6; each cell = {one subject in 3 variants a, b, c / one full variant}. {list of 6 cells}. Match the attached hero sprite's pixel style and scale. No text except numbers and letters.` + референсы: спрайт Рыцаря ×8, концепт настроения `v2/g3.jpg` |
+| **Герой (тело)** | PixelLab `create-character-pro` (4 напр.) → состояние без оружия `create-character-state` | холст 64, рост 48 px | `chibi {class} hero with a big head, {silhouette features}, {materials: steel/leather/brass}, {element accents}, empty open hands, no weapon` |
+| **Враг** | PixelLab `create-character-pro`, `method: create_from_concept` (вырезка из листа) + reference = скелет S2 | 48 (крыса/мышь — 24–32 в холсте 48) ◆ масштаб — GDD §13 | `chibi {enemy} enemy, {behaviour readable in silhouette}, {scrap details: riveted plates, staples}, {eye glow colour}, same family as the reference skeleton` |
+| **Мини-босс / босс** | PixelLab `create-character-pro`, `create_from_concept`, reference = Рыцарь | 96 / 160 | `giant {boss} boss, {phase-relevant parts: detachable arms, visible heart core}, {silhouette}, scrap riveted armor, ember core glow` |
+| **Анимации** | PixelLab: шаблонные анимации персонажа / `animate-with-text-v3` ◆ | как у персонажа | `{action}: {key poses in order}, {frames} frames, weight on {foot}, keep silhouette and proportions identical every frame` (кадры — Art Bible §5; ИИ-кадры чистим вручную, D10) |
+| **Оружие** | PixelLab `generate-with-style-v2` (проверено: 64 варианта за 10 генераций) | холст класса: S 16, M 28→32, L 40→48 | `{weapon} weapon, single item, diagonal: hilt at bottom-left, tip at top-right. {blade/barrel shape}, {guard/stock}, {grip: leather wrap with brass staples}, {rarity accent colour}` + style_description `same pixel art as the knight: 1px dark outline, light from top-left`; style_images = вырезка Рыцаря + готовый меч, оба в холсте класса |
+| **Деталь гибрида** | то же, что оружие ◆ | 8–16 px | `{part: barrel / blade / crystal / stock} of {weapon}, isolated part, same style` |
+| **Пропсы** | PixelLab `create-1-direction-object` (10–25 генераций) или `create-object-pro-flash` ◆ | 32–64 | `{prop}, game-ready top-down 3/4 prop, {function readable: healing / curse / breakable}, {forge details: pipes, valves, gears, rivets}` |
+| **Тайлы** | PixelLab `create-tileset` / `create-room` (R3 сделан так) | 32 | `castle-forge {floor / wall} tiles, cold blue-grey stone with rusty iron plates, embers in cracks, seamless` |
+| **Пикапы** | PixelLab `generate-with-style-v2` ◆ | 16 | `{item} pickup icon, chunky readable silhouette, {material}, {glow colour}` |
+| **VFX** | PixelLab `vfx` или покадрово через `generate-with-style-v2` ◆ | 16–48, 3–6 кадров | `{effect} effect, {frames} frames: {start → peak → fade}, {element colours}, no outline, transparent background` |
+| **UI / HUD** | PixelLab `create-ui-asset` / `generate-ui-v2` ◆; шрифт — `generate-font-pro` ◆ | сетка 640×360 | `steampunk forge HUD {element}: brass, copper pipes, valves, pressure gauges with needles, riveted dark steel, ember glass; {layout role}; pixel-perfect at 640x360` |
+| **Иконки** (пассивки, статусы, баффы) ◆ | PixelLab `generate-with-style-v2` | 16 | `{effect} icon, simple symbol on a brass riveted badge, readable at 16 px` |
+| **Ключ-арт, меню, капсула Steam** | Codex | 16:9 / размеры Steam | `key art: {scene}, the Heart glowing below, riveted rusty metal logo with a gear, room left for UI/logo` (основа — `v2/m1.jpg`) |
+| **SFX** ◆ | ElevenLabs Sound Effects (по `Research/08`; в GDD сейчас «лицензионные паки» — выбрать) | 0.2–2 с | `{action} sound for a pixel-art game: {material: steel / brass / stone / ember}, {character: punchy, short, dry}, {duration} s, no music, no voice` |
+| **Музыка** ◆ | Suno Pro (вручную) | луп 1–3 мин | `dark fairy-tale forge dungeon music, {biome}, {layer: calm exploration / combat drums}, steampunk percussion (anvils, pipes, steam hiss), low brass, warm, loopable, instrumental, {BPM}` |
+| **«Бубнение» голосов** ◆ | ElevenLabs / синтез | 0.3–1 с | `gibberish mumbling voice, {character: old blacksmith / merchant}, {mood}, no real words` |
+
+Пример (проверен, сабля 1a): `duelist sabre weapon, single item, diagonal: hilt at bottom-left, blade tip at top-right. Curved steel blade with a blue-tinted edge, brass knuckle-bow guard with rivets, leather-wrapped grip stitched with brass staples, small blue ribbon` → `Research/concepts/sheets/10_test_sabre_ingame_x4.png`.
+
 ---
 
 ## 11. Версия 1.0 (после уника, п.67)
