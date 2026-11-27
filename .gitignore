@@ -28,3 +28,7 @@ Screenshots/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Google service account keys (balance sheet access) — never commit
+*service-account*.json
+*.key.json
