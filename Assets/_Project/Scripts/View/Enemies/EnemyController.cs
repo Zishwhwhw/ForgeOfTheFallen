@@ -33,11 +33,42 @@ namespace FotF.View.Enemies
         [SerializeField] BalanceConstants constants;
         [SerializeField] float knockbackSpeed = 3f;
         [SerializeField] float knockbackSeconds = 0.08f;
+        [Tooltip("Особое поведение (лучник, щитоносец, слизень…). Пусто — ближний бой по EnemyBrain")]
+        [SerializeField] EnemyBehaviour behaviour;
 
         public EnemyDefinition Definition => definition;
         public EnemyState State { get; } = new EnemyState();
         public Team Team => Team.Enemy;
         public event Action<EnemyController> Died;
+        /// <summary>Враг породил другого (деление слизня, призыв): комната должна его учесть.</summary>
+        public event Action<EnemyController> Spawned;
+
+        public HeroController Target => _target;
+        public DirectionalSpriteAnimator Body => body;
+        public SpriteRenderer Telegraph => telegraph;
+        public Rigidbody2D Rigidbody => _rb;
+        /// <summary>Скорость с учётом замедления статусом.</summary>
+        public float MoveSpeed => definition.moveSpeed * (1f - _slow);
+        public EnemyBehaviour Behaviour => behaviour;
+
+        /// <summary>Переопределить HP (осколки слизня, химеры).</summary>
+        public void OverrideMaxHp(int hp) { State.MaxHp = State.Hp = Mathf.Max(1, hp); }
+
+        public void Heal(int amount) { if (!State.IsDead) State.Hp = Mathf.Min(State.MaxHp, State.Hp + Mathf.Max(0, amount)); }
+
+        public EnemyController SpawnChild(EnemyController prefab, Vector3 at)
+        {
+            var child = Instantiate(prefab, at, Quaternion.identity, transform.parent);
+            child.SetTarget(_target);
+            Spawned?.Invoke(child);
+            return child;
+        }
+
+        /// <summary>Удар по герою (ближний или особый).</summary>
+        public void HitHero(HeroController hero, int damage, Vector2 dir, Element[] elements = null, float statusChance = 0f)
+        {
+            if (hero) hero.TakeHit(new HitInfo(damage, false, dir, 0f, Team.Enemy, elements, statusChance, 0f));
+        }
 
         Rigidbody2D _rb;
         HeroController _target;
@@ -57,6 +88,7 @@ namespace FotF.View.Enemies
             _rb = GetComponent<Rigidbody2D>();
             _cfg = new EnemyConfig(definition.maxHp, definition.attackRange, definition.aggroRange, definition.windupSeconds, definition.recoverSeconds);
             EnemyBrain.Init(State, _cfg);
+            State.IsBoss = definition.tier == EnemyTier.MiniBoss;   // мини-босс сопротивляется статусам
             if (telegraph) telegraph.enabled = false;
         }
 
@@ -67,8 +99,9 @@ namespace FotF.View.Enemies
             if (State.IsDead) return;
             TickStatuses(Time.deltaTime);
             if (State.IsDead) return;
-            if (_disabled) { if (telegraph) telegraph.enabled = false; _desired = Vector2.zero; return; }
-            if (_target == null) _target = FindFirstObjectByType<HeroController>();
+            if (_disabled) { if (telegraph) telegraph.enabled = false; _desired = Vector2.zero; if (behaviour) behaviour.OnDisabled(); return; }
+            if (_target == null) _target = FindAnyObjectByType<HeroController>();
+            if (behaviour && behaviour.Tick(Time.deltaTime, out var wish)) { _desired = wish; return; }
             Vector2 to = _target ? (Vector2)_target.transform.position - (Vector2)transform.position : Vector2.zero;
             float dist = _target && !_target.State.IsDead ? to.magnitude : float.MaxValue;
 
@@ -109,7 +142,9 @@ namespace FotF.View.Enemies
                 if (hero == null) continue;
                 Vector2 to = (Vector2)hero.transform.position - (Vector2)transform.position;
                 if (Vector2.Angle(_strikeDir, to) > definition.strikeArcDegrees * 0.5f) continue;
-                hero.TakeHit(new HitInfo(definition.attackDamage, false, to.normalized, 0f, Team.Enemy));
+                float poison = definition.special != null ? definition.special.values.Number("poisonChance", 0f) : 0f;   // крыса: яд 20%
+                hero.TakeHit(new HitInfo(definition.attackDamage, false, to.normalized, 0f, Team.Enemy,
+                    poison > 0f ? new[] { Element.Poison } : null, poison, 0f));
                 break;
             }
         }
@@ -117,9 +152,13 @@ namespace FotF.View.Enemies
         public void TakeHit(in HitInfo hit)
         {
             if (State.IsDead) return;
-            bool died = EnemyBrain.ApplyDamage(State, hit.Amount);
+            if (behaviour && behaviour.Blocks(hit)) { behaviour.OnBlocked(hit); return; }
+            int amount = hit.Amount;
+            if (State.Shield > 0) { int absorbed = Mathf.Min(State.Shield, amount); State.Shield -= absorbed; amount -= absorbed; }
+            if (behaviour) behaviour.OnHit(hit);
+            bool died = amount > 0 && EnemyBrain.ApplyDamage(State, amount);
             if (damageNumberPrefab)
-                Instantiate(damageNumberPrefab, transform.position + numberOffset + (Vector3)(UnityEngine.Random.insideUnitCircle * 0.2f), Quaternion.identity).Show(hit.Amount, hit.IsCrit);
+                Instantiate(damageNumberPrefab, transform.position + numberOffset + (Vector3)(UnityEngine.Random.insideUnitCircle * 0.2f), Quaternion.identity).Show(amount, hit.IsCrit);
             if (flash) flash.Flash();
             if (died) { Die(); return; }
             ApplyStatuses(hit);
@@ -135,6 +174,7 @@ namespace FotF.View.Enemies
             if (deathView) deathView.Play();          // GDD §10.2: мерцание → сплющивание → труп
             else if (body) body.Play("death", true);
             HitStop.Request(deathView && deathView.Feel ? deathView.Feel.killMicroPauseSeconds : 0.025f); // микропауза на убийстве
+            if (behaviour) behaviour.OnDeath();
             DropLoot();
             Died?.Invoke(this);                       // труп остаётся до конца этажа (GDD §10.2)
         }
@@ -180,6 +220,7 @@ namespace FotF.View.Enemies
         void DropLoot()
         {
             var parent = transform.parent;
+            if (behaviour && !behaviour.DropsLoot) return;
             if (coinPrefab)
             {
                 int gold = UnityEngine.Random.Range(definition.goldMin, definition.goldMax + 1);

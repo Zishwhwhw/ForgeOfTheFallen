@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908f231ebb5f3b64e847a6ae7a98de38, type: 3}
+  m_Name: encounter_castle_archers
+  m_EditorClassIdentifier: FotF.Data::FotF.Data.EncounterDefinition
+  id: encounter.castle_archers
+  pool: 0
+  minFloor: 1
+  maxFloor: 3
+  waves:
+  - groups:
+    - enemy: {fileID: 11400000, guid: 7ad584b1c80c7954ba4ffc7e04c4bfee, type: 2}
+      count: 2
+    - enemy: {fileID: 11400000, guid: a46b30a6eeeff9447b7cb59e0475813d, type: 2}
+      count: 1
+  - groups:
+    - enemy: {fileID: 11400000, guid: a46b30a6eeeff9447b7cb59e0475813d, type: 2}
+      count: 2
+    - enemy: {fileID: 11400000, guid: f5426e8cb2a3cbe4295234bc5953aa25, type: 2}
+      count: 4
+  delayBetweenWaves: 0.8

@@ -26,6 +26,10 @@ namespace FotF.View.World
         [SerializeField] WeaponCatalog catalog;
         [Tooltip("Зелья, сердце, бомба (id из consumables.json)")]
         [SerializeField] ConsumableDefinition[] consumables = System.Array.Empty<ConsumableDefinition>();
+        [Tooltip("Встречи Замка (пул и этажи — в данных)")]
+        [SerializeField] EncounterDefinition[] encounters = System.Array.Empty<EncounterDefinition>();
+        [Tooltip("Префабы всех врагов: встреча находит префаб по EnemyDefinition")]
+        [SerializeField] EnemyController[] enemyPrefabs = System.Array.Empty<EnemyController>();
 
         [Header("Сцена")]
         [SerializeField] HeroController hero;
@@ -143,6 +147,7 @@ namespace FotF.View.World
             {
                 var fight = kv.Value.fight;
                 if (fight == null) continue;
+                fight.Configure(PickEncounter(kv.Key.Kind, rng), enemyPrefabs);
                 fight.SetDoors(doors.TryGetValue(kv.Key, out var list) ? list.ToArray() : System.Array.Empty<DoorView>());
                 if (hud) fight.Announce += hud.ShowAnnouncement;
                 if (kv.Key.RequiredForPortal) { _required.Add(fight); fight.Cleared += OnRoomCleared; }
@@ -152,6 +157,16 @@ namespace FotF.View.World
             hero.transform.position = start.heroSpawn ? start.heroSpawn.position : start.transform.position;
             if (hud) hud.ShowAnnouncement($"Этаж {FloorNumber} / {floor.floorsPerBiome}");
             FloorBuilt?.Invoke(this);
+        }
+
+        /// <summary>Встреча по типу комнаты и номеру этажа; нет подходящей — оставляем ту, что в шаблоне.</summary>
+        EncounterDefinition PickEncounter(RoomKind kind, IRandom rng)
+        {
+            var pool = kind == RoomKind.Elite ? EncounterPool.Elite : kind == RoomKind.MiniBoss ? EncounterPool.MiniBoss : EncounterPool.Combat;
+            var fits = new List<EncounterDefinition>();
+            foreach (var e in encounters)
+                if (e && e.pool == pool && FloorNumber >= e.minFloor && FloorNumber <= e.maxFloor && e.id != "encounter.greybox") fits.Add(e);
+            return fits.Count == 0 ? null : fits[rng.NextInt(0, fits.Count)];
         }
 
         RoomTemplate Pick(RoomKind kind, IRandom rng)

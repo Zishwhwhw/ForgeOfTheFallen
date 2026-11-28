@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: encounter_greybox
   m_EditorClassIdentifier: FotF.Data::FotF.Data.EncounterDefinition
   id: encounter.greybox
+  pool: 0
+  minFloor: 1
+  maxFloor: 1
   waves:
   - groups:
     - enemy: {fileID: 11400000, guid: 7ad584b1c80c7954ba4ffc7e04c4bfee, type: 2}

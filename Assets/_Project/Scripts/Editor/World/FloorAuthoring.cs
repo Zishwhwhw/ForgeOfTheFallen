@@ -51,7 +51,7 @@ namespace FotF.EditorTools.World
             new Spec { name = "room_fountain", w = 10, h = 10, kinds = new[] { RoomKind.Fountain }, decor = "prop_fountain", label = "Фонтан\n(следующая поставка)" },
             new Spec { name = "room_shrine", w = 10, h = 10, kinds = new[] { RoomKind.Shrine }, decor = "prop_shrine", label = "Святилище\n(следующая поставка)" },
             new Spec { name = "room_cage", w = 10, h = 10, kinds = new[] { RoomKind.Cage }, decor = "prop_helper_cage", label = "Клетка помощника\n(следующая поставка)" },
-            new Spec { name = "room_miniboss", w = 20, h = 14, cut = 3, kinds = new[] { RoomKind.MiniBoss }, label = "Арена Капитана стражи\n(мини-босс — следующая поставка)" },
+            new Spec { name = "room_miniboss", w = 20, h = 14, cut = 3, kinds = new[] { RoomKind.MiniBoss }, fight = true },
             new Spec { name = "room_secret", w = 10, h = 8, kinds = new[] { RoomKind.Secret }, label = "Секрет" },
         };
 

@@ -32,8 +32,14 @@ namespace FotF.Logic.Status
         {
             if (s.IsDead) return false;
             if (s.IsBoss && rng.NextFloat() < c.BossResist) return false;
-            var st = Find(s, c.Element);
-            if (st == null) { st = new StatusInstance { Element = c.Element }; s.Statuses.Add(st); }
+            return Apply(s.Statuses, c);
+        }
+
+        /// <summary>Наложить на любой список статусов (герой — яд крыс и т.п.).</summary>
+        public static bool Apply(System.Collections.Generic.List<StatusInstance> list, in StatusConfig c)
+        {
+            var st = Find(list, c.Element);
+            if (st == null) { st = new StatusInstance { Element = c.Element }; list.Add(st); }
             if (st.Frozen) return false;
             st.Stacks = c.Stacking == Stacking.Accumulate ? System.Math.Min(c.MaxStacks, st.Stacks + 1) : 1;
             st.TimeLeft = c.Stacking == Stacking.None ? c.StunSeconds : c.DurationSeconds;
@@ -42,12 +48,14 @@ namespace FotF.Logic.Status
             return true;
         }
 
-        public static StatusTick Tick(EnemyState s, StatusConfig[] configs, float dt)
+        public static StatusTick Tick(EnemyState s, StatusConfig[] configs, float dt) => Tick(s.Statuses, configs, dt);
+
+        public static StatusTick Tick(System.Collections.Generic.List<StatusInstance> list, StatusConfig[] configs, float dt)
         {
             var r = new StatusTick();
-            for (int i = s.Statuses.Count - 1; i >= 0; i--)
+            for (int i = list.Count - 1; i >= 0; i--)
             {
-                var st = s.Statuses[i];
+                var st = list[i];
                 var c = ConfigFor(configs, st.Element);
                 st.TimeLeft -= dt;
                 if (c.TickDamage > 0f && c.TickSeconds > 0f && !st.Frozen)
@@ -59,16 +67,18 @@ namespace FotF.Logic.Status
                         r.Damage += (int)System.Math.Round(c.TickDamage * st.Stacks);
                     }
                 }
-                if (st.TimeLeft <= 1e-5f) { s.Statuses.RemoveAt(i); continue; }
+                if (st.TimeLeft <= 1e-5f) { list.RemoveAt(i); continue; }
                 if (st.Frozen || c.Stacking == Stacking.None) r.Disabled = true;
                 if (c.SlowFraction > 0f && !st.Frozen) r.SlowFraction = System.Math.Min(0.9f, r.SlowFraction + c.SlowFraction * st.Stacks);
             }
             return r;
         }
 
-        public static StatusInstance Find(EnemyState s, Element e)
+        public static StatusInstance Find(EnemyState s, Element e) => Find(s.Statuses, e);
+
+        public static StatusInstance Find(System.Collections.Generic.List<StatusInstance> list, Element e)
         {
-            foreach (var st in s.Statuses) if (st.Element == e) return st;
+            foreach (var st in list) if (st.Element == e) return st;
             return null;
         }
 

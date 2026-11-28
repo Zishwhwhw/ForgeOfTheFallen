@@ -26,4 +26,7 @@ namespace FotF.Data
 
     /// <summary>Форма атаки босса (GDD §7.7).</summary>
     public enum AttackShape { Circle, Ring, Fan, Line }
+
+    /// <summary>Пул боевых встреч: обычная комната, элита (химеры), мини-босс.</summary>
+    public enum EncounterPool { Combat, Elite, MiniBoss }
 }

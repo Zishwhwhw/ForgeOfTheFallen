@@ -16,9 +16,9 @@ MonoBehaviour:
   nameKey: enemy.chimera_rat_bat.name
   tier: 1
   maxHp: 22
-  attackDamage: 12
+  attackDamage: 7
   windupSeconds: 0.5
-  moveSpeed: 2.2
+  moveSpeed: 3.2
   attackRange: 1.1
   strikeRadius: 1.3
   strikeArcDegrees: 110
@@ -27,9 +27,33 @@ MonoBehaviour:
   goldMin: 8
   goldMax: 12
   special:
-    type: 
+    type: Dive
     values:
-      entries: []
+      entries:
+      - key: poisonChance
+        kind: 0
+        number: 0.2
+        text: 
+      - key: diveDamage
+        kind: 0
+        number: 7
+        text: 
+      - key: orbitRadius
+        kind: 0
+        number: 2.5
+        text: 
+      - key: diveCooldown
+        kind: 0
+        number: 2
+        text: 
+      - key: diveSpeed
+        kind: 0
+        number: 11
+        text: 
+      - key: diveSeconds
+        kind: 0
+        number: 0.35
+        text: 
   parents:
   - {fileID: 11400000, guid: f5426e8cb2a3cbe4295234bc5953aa25, type: 2}
   - {fileID: 11400000, guid: b9c16e81fcad7104293b66435af72b70, type: 2}

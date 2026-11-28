@@ -18,7 +18,7 @@ MonoBehaviour:
   maxHp: 35
   attackDamage: 10
   windupSeconds: 0.5
-  moveSpeed: 2.2
+  moveSpeed: 2
   attackRange: 1.1
   strikeRadius: 1.3
   strikeArcDegrees: 110
@@ -31,11 +31,23 @@ MonoBehaviour:
     values:
       entries:
       - key: healPerSecond
-        kind: 3
-        number: 0
+        kind: 0
+        number: 6
         text: 
       - key: shield
-        kind: 3
-        number: 0
+        kind: 0
+        number: 10
+        text: 
+      - key: beamRange
+        kind: 0
+        number: 7
+        text: 
+      - key: keepDistance
+        kind: 0
+        number: 6
+        text: 
+      - key: interruptSeconds
+        kind: 0
+        number: 1.5
         text: 
   parents: []

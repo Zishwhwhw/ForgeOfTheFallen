@@ -1,7 +1,7 @@
 {
   "kind": "encounter",
   "version": 1,
-  "_note": "Значения серой коробки",
+  "_note": "Встречи по этажам и пулам — черновик Claude 28.11 (GDD задаёт врагов, но не составы волн); encounter.greybox — серая коробка",
   "items": [
     {
       "id": "encounter.greybox",
@@ -20,6 +20,389 @@
             {
               "enemy": "enemy.skeleton_swordsman",
               "count": 3
+            }
+          ]
+        }
+      ],
+      "pool": "Combat",
+      "minFloor": 1,
+      "maxFloor": 1
+    },
+    {
+      "id": "encounter.castle_swords_rats",
+      "pool": "Combat",
+      "minFloor": 1,
+      "maxFloor": 2,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.rat",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.rat",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "encounter.castle_archers",
+      "pool": "Combat",
+      "minFloor": 1,
+      "maxFloor": 3,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.skeleton_archer",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_archer",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.rat",
+              "count": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "encounter.castle_bats",
+      "pool": "Combat",
+      "minFloor": 1,
+      "maxFloor": 4,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.bat",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.bat",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "encounter.castle_slimes",
+      "pool": "Combat",
+      "minFloor": 2,
+      "maxFloor": 4,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.slime",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.slime",
+              "count": 1
+            },
+            {
+              "enemy": "enemy.skeleton_archer",
+              "count": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "encounter.castle_shields",
+      "pool": "Combat",
+      "minFloor": 2,
+      "maxFloor": 4,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_shieldbearer",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.skeleton_archer",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_shieldbearer",
+              "count": 1
+            },
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.rat",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "encounter.castle_cult",
+      "pool": "Combat",
+      "minFloor": 3,
+      "maxFloor": 4,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 3
+            },
+            {
+              "enemy": "enemy.cultist",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_shieldbearer",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.cultist",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.bat",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "encounter.castle_gargoyle",
+      "pool": "Combat",
+      "minFloor": 3,
+      "maxFloor": 4,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.gargoyle",
+              "count": 1
+            },
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.rat",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_archer",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.slime",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "encounter.castle_mimic",
+      "pool": "Combat",
+      "minFloor": 2,
+      "maxFloor": 4,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.mimic",
+              "count": 1
+            },
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.bat",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.skeleton_archer",
+              "count": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "encounter.elite_rat_bat",
+      "pool": "Elite",
+      "minFloor": 1,
+      "maxFloor": 4,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.chimera_rat_bat",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.chimera_rat_bat",
+              "count": 3
+            },
+            {
+              "enemy": "enemy.rat",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "encounter.elite_shield_gargoyle",
+      "pool": "Elite",
+      "minFloor": 2,
+      "maxFloor": 4,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.chimera_shield_gargoyle",
+              "count": 1
+            },
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.skeleton_archer",
+              "count": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "encounter.elite_archer_cultist",
+      "pool": "Elite",
+      "minFloor": 1,
+      "maxFloor": 4,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.chimera_archer_cultist",
+              "count": 2
+            },
+            {
+              "enemy": "enemy.skeleton_shieldbearer",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "enemy": "enemy.chimera_archer_cultist",
+              "count": 1
+            },
+            {
+              "enemy": "enemy.skeleton_swordsman",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "encounter.miniboss_captain",
+      "pool": "MiniBoss",
+      "minFloor": 1,
+      "maxFloor": 4,
+      "delayBetweenWaves": 0.8,
+      "waves": [
+        {
+          "groups": [
+            {
+              "enemy": "enemy.captain_of_the_guard",
+              "count": 1
             }
           ]
         }

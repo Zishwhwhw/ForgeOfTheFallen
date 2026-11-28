@@ -30,6 +30,8 @@ namespace FotF.View.Heroes
         [SerializeField] WeaponView weapon;
         [SerializeField] Camera worldCamera;
         [SerializeField] SpriteFlash flash;
+        [Tooltip("Статусы, которые герой может получить от врагов (GDD §7.3)")]
+        [SerializeField] FotF.Data.StatusCatalog statuses;
         [Tooltip("Радиус взаимодействия клавишей E, юниты")]
         [SerializeField] float interactRadius = 1.4f;
         [SerializeField] int seed = 12345;
@@ -109,6 +111,7 @@ namespace FotF.View.Heroes
             Vitals.Tick(State, _vitals, dt);
             Dash.Tick(State, _dashCfg, dt);
             foreach (var s in State.Weapons) WeaponAttack.Tick(s, dt);
+            if (!State.IsDead) TickStatuses(dt);
             if (State.IsDead)
             {
                 // GDD §3.1: быстрый перезапуск; в срезе — панель итогов и «В убежище», здесь — рестарт сцены
@@ -172,7 +175,7 @@ namespace FotF.View.Heroes
             if (State.IsDead) { _rb.linearVelocity = Vector2.zero; return; }
             _rb.linearVelocity = State.IsDashing
                 ? _dashDir * (hero.dashDistance / Mathf.Max(0.01f, hero.dashDuration))
-                : _moveInput * hero.moveSpeed;
+                : _moveInput * hero.moveSpeed * (1f - _statusSlow);
         }
 
         public void TakeHit(in HitInfo hit)
@@ -180,6 +183,7 @@ namespace FotF.View.Heroes
             if (State.IsDead) return;
             var result = Vitals.ApplyDamage(State, hit.Amount, _vitals);
             if (!result.Blocked && flash) flash.Flash();
+            if (!result.Blocked && !result.Killed) ApplyStatuses(hit);
             Damaged?.Invoke(hit, result);
             if (result.Killed) { body.Play("idle", true); Died?.Invoke(); }
         }
@@ -200,6 +204,29 @@ namespace FotF.View.Heroes
 
         /// <summary>Сколько секунд натянут лук (0 — не натянут).</summary>
         public float ChargeSeconds { get; private set; }
+
+        /// <summary>Статусы на герое (яд крыс и т.п.).</summary>
+        public readonly System.Collections.Generic.List<FotF.State.StatusInstance> Statuses = new System.Collections.Generic.List<FotF.State.StatusInstance>();
+        FotF.Logic.Status.StatusConfig[] _statusConfigs;
+        float _statusSlow;
+
+        void TickStatuses(float dt)
+        {
+            if (Statuses.Count == 0) { _statusSlow = 0f; return; }
+            if (_statusConfigs == null) _statusConfigs = Combat.StatusConfigs.From(statuses);
+            var t = FotF.Logic.Status.StatusEffects.Tick(Statuses, _statusConfigs, dt);
+            _statusSlow = t.SlowFraction;
+            if (t.Damage > 0) TakeHit(new Combat.HitInfo(t.Damage, false, Vector2.zero, 0f, Combat.Team.Enemy));
+        }
+
+        void ApplyStatuses(in Combat.HitInfo hit)
+        {
+            if (hit.Elements == null || hit.StatusChance <= 0f || statuses == null) return;
+            if (_statusConfigs == null) _statusConfigs = Combat.StatusConfigs.From(statuses);
+            foreach (var e in hit.Elements)
+                if (FotF.Logic.Status.StatusEffects.Exists(_statusConfigs, e) && _rng.NextFloat() < hit.StatusChance)
+                    FotF.Logic.Status.StatusEffects.Apply(Statuses, FotF.Logic.Status.StatusEffects.ConfigFor(_statusConfigs, e));
+        }
 
         public void AddGold(int amount) => State.Gold += Mathf.Max(0, amount);
 

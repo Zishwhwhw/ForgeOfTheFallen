@@ -16,9 +16,9 @@ MonoBehaviour:
   nameKey: enemy.chimera_shield_gargoyle.name
   tier: 1
   maxHp: 120
-  attackDamage: 12
+  attackDamage: 14
   windupSeconds: 0.5
-  moveSpeed: 2.2
+  moveSpeed: 1.6
   attackRange: 1.1
   strikeRadius: 1.3
   strikeArcDegrees: 110
@@ -27,9 +27,29 @@ MonoBehaviour:
   goldMin: 8
   goldMax: 12
   special:
-    type: 
+    type: StatueUntilLast
     values:
-      entries: []
+      entries:
+      - key: diveDamage
+        kind: 0
+        number: 18
+        text: 
+      - key: orbitRadius
+        kind: 0
+        number: 3
+        text: 
+      - key: diveCooldown
+        kind: 0
+        number: 2.2
+        text: 
+      - key: diveSpeed
+        kind: 0
+        number: 11
+        text: 
+      - key: diveSeconds
+        kind: 0
+        number: 0.35
+        text: 
   parents:
   - {fileID: 11400000, guid: 5b6972c960ac6b34b8f797c612162769, type: 2}
   - {fileID: 11400000, guid: 290de405ac7472948afea3f15fa81c29, type: 2}

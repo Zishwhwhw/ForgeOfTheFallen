@@ -334,6 +334,7 @@ MonoBehaviour:
   weapon: {fileID: 3625781101647176681}
   worldCamera: {fileID: 0}
   flash: {fileID: 1590156249172094371}
+  statuses: {fileID: 11400000, guid: a1744aa9fe6660d49b8872f55e05a27c, type: 2}
   interactRadius: 1.4
   seed: 12345
 --- !u!210 &3385270013259935701

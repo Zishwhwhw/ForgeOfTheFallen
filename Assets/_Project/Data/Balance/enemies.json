@@ -28,22 +28,27 @@
       "tier": "Normal",
       "maxHp": 30,
       "attackDamage": 10,
-      "windupSeconds": null,
-      "moveSpeed": null,
+      "windupSeconds": 0.7,
+      "moveSpeed": 2.0,
       "attackRange": null,
       "strikeRadius": null,
       "strikeArcDegrees": null,
-      "recoverSeconds": null,
+      "recoverSeconds": 0.5,
       "aggroRange": null,
       "goldMin": 1,
       "goldMax": 3,
       "special": {
         "type": "KeepDistance",
         "values": {
-          "aimLine": true
+          "aimLine": true,
+          "keepDistance": 5,
+          "shootRange": 8,
+          "projectileSpeed": 9,
+          "aimLockSeconds": 0.2
         }
       },
-      "parents": null
+      "parents": null,
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     },
     {
       "id": "enemy.skeleton_shieldbearer",
@@ -51,8 +56,8 @@
       "tier": "Normal",
       "maxHp": 70,
       "attackDamage": 14,
-      "windupSeconds": null,
-      "moveSpeed": null,
+      "windupSeconds": 0.7,
+      "moveSpeed": 1.5,
       "attackRange": null,
       "strikeRadius": null,
       "strikeArcDegrees": null,
@@ -66,7 +71,8 @@
           "blocksProjectiles": true
         }
       },
-      "parents": null
+      "parents": null,
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     },
     {
       "id": "enemy.rat",
@@ -74,12 +80,12 @@
       "tier": "Normal",
       "maxHp": 12,
       "attackDamage": 6,
-      "windupSeconds": null,
-      "moveSpeed": null,
-      "attackRange": null,
-      "strikeRadius": null,
+      "windupSeconds": 0.4,
+      "moveSpeed": 3.6,
+      "attackRange": 0.8,
+      "strikeRadius": 0.9,
       "strikeArcDegrees": null,
-      "recoverSeconds": null,
+      "recoverSeconds": 0.4,
       "aggroRange": null,
       "goldMin": 1,
       "goldMax": 3,
@@ -91,7 +97,8 @@
           "poisonChance": 0.2
         }
       },
-      "parents": null
+      "parents": null,
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     },
     {
       "id": "enemy.bat",
@@ -99,20 +106,27 @@
       "tier": "Normal",
       "maxHp": 15,
       "attackDamage": 8,
-      "windupSeconds": null,
-      "moveSpeed": null,
+      "windupSeconds": 0.45,
+      "moveSpeed": 3.2,
       "attackRange": null,
       "strikeRadius": null,
       "strikeArcDegrees": null,
-      "recoverSeconds": null,
+      "recoverSeconds": 0.5,
       "aggroRange": null,
       "goldMin": 1,
       "goldMax": 3,
       "special": {
         "type": "Dive",
-        "values": {}
+        "values": {
+          "orbitRadius": 3,
+          "diveCooldown": 2.5,
+          "diveSpeed": 10,
+          "diveSeconds": 0.35,
+          "diveDamage": 8
+        }
       },
-      "parents": null
+      "parents": null,
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     },
     {
       "id": "enemy.slime",
@@ -120,8 +134,8 @@
       "tier": "Normal",
       "maxHp": 50,
       "attackDamage": 8,
-      "windupSeconds": null,
-      "moveSpeed": null,
+      "windupSeconds": 0.5,
+      "moveSpeed": 2.4,
       "attackRange": null,
       "strikeRadius": null,
       "strikeArcDegrees": null,
@@ -144,7 +158,8 @@
           ]
         }
       },
-      "parents": null
+      "parents": null,
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     },
     {
       "id": "enemy.cultist",
@@ -153,7 +168,7 @@
       "maxHp": 35,
       "attackDamage": 10,
       "windupSeconds": null,
-      "moveSpeed": null,
+      "moveSpeed": 2.0,
       "attackRange": null,
       "strikeRadius": null,
       "strikeArcDegrees": null,
@@ -164,11 +179,15 @@
       "special": {
         "type": "HealBeam",
         "values": {
-          "healPerSecond": null,
-          "shield": null
+          "healPerSecond": 6,
+          "shield": 10,
+          "beamRange": 7,
+          "keepDistance": 6,
+          "interruptSeconds": 1.5
         }
       },
-      "parents": null
+      "parents": null,
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     },
     {
       "id": "enemy.mimic",
@@ -176,8 +195,8 @@
       "tier": "Normal",
       "maxHp": 90,
       "attackDamage": 20,
-      "windupSeconds": null,
-      "moveSpeed": null,
+      "windupSeconds": 0.5,
+      "moveSpeed": 2.6,
       "attackRange": null,
       "strikeRadius": null,
       "strikeArcDegrees": null,
@@ -191,7 +210,8 @@
           "chestReward": false
         }
       },
-      "parents": null
+      "parents": null,
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     },
     {
       "id": "enemy.gargoyle",
@@ -199,31 +219,38 @@
       "tier": "Normal",
       "maxHp": 80,
       "attackDamage": 10,
-      "windupSeconds": null,
-      "moveSpeed": null,
+      "windupSeconds": 0.5,
+      "moveSpeed": 3.0,
       "attackRange": null,
       "strikeRadius": null,
       "strikeArcDegrees": null,
-      "recoverSeconds": null,
+      "recoverSeconds": 0.6,
       "aggroRange": null,
       "goldMin": 1,
       "goldMax": 3,
       "special": {
         "type": "StatueUntilLast",
         "values": {
-          "diveDamage": 18
+          "diveDamage": 18,
+          "spitCooldown": 2,
+          "projectileSpeed": 7,
+          "orbitRadius": 3,
+          "diveCooldown": 2.2,
+          "diveSpeed": 11,
+          "diveSeconds": 0.35
         }
       },
-      "parents": null
+      "parents": null,
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     },
     {
       "id": "enemy.chimera_rat_bat",
       "nameKey": "enemy.chimera_rat_bat.name",
       "tier": "Elite",
       "maxHp": 22,
-      "attackDamage": null,
+      "attackDamage": 7,
       "windupSeconds": null,
-      "moveSpeed": null,
+      "moveSpeed": 3.2,
       "attackRange": null,
       "strikeRadius": null,
       "strikeArcDegrees": null,
@@ -231,21 +258,32 @@
       "aggroRange": null,
       "goldMin": 8,
       "goldMax": 12,
-      "special": null,
+      "special": {
+        "type": "Dive",
+        "values": {
+          "poisonChance": 0.2,
+          "diveDamage": 7,
+          "orbitRadius": 2.5,
+          "diveCooldown": 2.0,
+          "diveSpeed": 11,
+          "diveSeconds": 0.35
+        }
+      },
       "parents": [
         "enemy.rat",
         "enemy.bat"
       ],
-      "_note": "HP = сумма родителей × 0.8"
+      "_note": "HP = сумма родителей × 0.8",
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     },
     {
       "id": "enemy.chimera_shield_gargoyle",
       "nameKey": "enemy.chimera_shield_gargoyle.name",
       "tier": "Elite",
       "maxHp": 120,
-      "attackDamage": null,
+      "attackDamage": 14,
       "windupSeconds": null,
-      "moveSpeed": null,
+      "moveSpeed": 1.6,
       "attackRange": null,
       "strikeRadius": null,
       "strikeArcDegrees": null,
@@ -253,20 +291,30 @@
       "aggroRange": null,
       "goldMin": 8,
       "goldMax": 12,
-      "special": null,
+      "special": {
+        "type": "StatueUntilLast",
+        "values": {
+          "diveDamage": 18,
+          "orbitRadius": 3,
+          "diveCooldown": 2.2,
+          "diveSpeed": 11,
+          "diveSeconds": 0.35
+        }
+      },
       "parents": [
         "enemy.skeleton_shieldbearer",
         "enemy.gargoyle"
-      ]
+      ],
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     },
     {
       "id": "enemy.chimera_archer_cultist",
       "nameKey": "enemy.chimera_archer_cultist.name",
       "tier": "Elite",
       "maxHp": 52,
-      "attackDamage": null,
+      "attackDamage": 10,
       "windupSeconds": null,
-      "moveSpeed": null,
+      "moveSpeed": 2.0,
       "attackRange": null,
       "strikeRadius": null,
       "strikeArcDegrees": null,
@@ -274,11 +322,23 @@
       "aggroRange": null,
       "goldMin": 8,
       "goldMax": 12,
-      "special": null,
+      "special": {
+        "type": "KeepDistance",
+        "values": {
+          "keepDistance": 5,
+          "shootRange": 8,
+          "projectileSpeed": 9,
+          "aimLockSeconds": 0.2,
+          "healOnHit": 8,
+          "shieldOnHit": 6,
+          "healRadius": 3
+        }
+      },
       "parents": [
         "enemy.skeleton_archer",
         "enemy.cultist"
-      ]
+      ],
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     },
     {
       "id": "enemy.captain_of_the_guard",
@@ -286,12 +346,12 @@
       "tier": "MiniBoss",
       "maxHp": 400,
       "attackDamage": 18,
-      "windupSeconds": null,
-      "moveSpeed": null,
+      "windupSeconds": 0.7,
+      "moveSpeed": 2.4,
       "attackRange": null,
       "strikeRadius": null,
       "strikeArcDegrees": null,
-      "recoverSeconds": null,
+      "recoverSeconds": 0.7,
       "aggroRange": null,
       "goldMin": 40,
       "goldMax": 40,
@@ -301,11 +361,15 @@
           "maxDamage": 25,
           "summonAtHpFraction": 0.5,
           "summonCount": 2,
-          "summon": "enemy.skeleton_swordsman"
+          "summon": "enemy.skeleton_swordsman",
+          "lungeDistance": 5,
+          "lungeSeconds": 0.3,
+          "spinRadius": 2.2
         }
       },
       "parents": null,
-      "_note": "Шансовая комната ~30% этажей"
+      "_note": "Шансовая комната ~30% этажей",
+      "_note_draft": "Пустые параметры поведения/скорости — черновик Claude 28.11, калибровать"
     }
   ]
 }

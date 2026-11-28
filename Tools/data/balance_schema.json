@@ -61,6 +61,11 @@
    "Ring",
    "Fan",
    "Line"
+  ],
+  "EncounterPool": [
+   "Combat",
+   "Elite",
+   "MiniBoss"
   ]
  },
  "kinds": {
@@ -727,6 +732,18 @@
        }
       }
      }
+    },
+    "pool": {
+     "type": "enum",
+     "enum": "EncounterPool"
+    },
+    "minFloor": {
+     "type": "int",
+     "min": 1
+    },
+    "maxFloor": {
+     "type": "int",
+     "min": 1
     }
    }
   },

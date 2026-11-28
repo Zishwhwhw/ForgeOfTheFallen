@@ -21,6 +21,11 @@ namespace FotF.Data
         }
 
         public string id;
+        [Tooltip("Для какой комнаты: обычный бой, элита, мини-босс")]
+        public EncounterPool pool;
+        [Tooltip("Этажи, на которых встреча может выпасть")]
+        public int minFloor = 1;
+        public int maxFloor = 4;
         public Wave[] waves = Array.Empty<Wave>();
         [Tooltip("Пауза между волнами, с (калибровать)")]
         public float delayBetweenWaves = 0.8f;

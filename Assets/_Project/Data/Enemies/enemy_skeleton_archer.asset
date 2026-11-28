@@ -17,12 +17,12 @@ MonoBehaviour:
   tier: 0
   maxHp: 30
   attackDamage: 10
-  windupSeconds: 0.5
-  moveSpeed: 2.2
+  windupSeconds: 0.7
+  moveSpeed: 2
   attackRange: 1.1
   strikeRadius: 1.3
   strikeArcDegrees: 110
-  recoverSeconds: 0.6
+  recoverSeconds: 0.5
   aggroRange: 12
   goldMin: 1
   goldMax: 3
@@ -33,5 +33,21 @@ MonoBehaviour:
       - key: aimLine
         kind: 2
         number: 1
+        text: 
+      - key: keepDistance
+        kind: 0
+        number: 5
+        text: 
+      - key: shootRange
+        kind: 0
+        number: 8
+        text: 
+      - key: projectileSpeed
+        kind: 0
+        number: 9
+        text: 
+      - key: aimLockSeconds
+        kind: 0
+        number: 0.2
         text: 
   parents: []

@@ -14,6 +14,8 @@ namespace FotF.State
         public readonly System.Collections.Generic.List<StatusInstance> Statuses = new System.Collections.Generic.List<StatusInstance>();
         /// <summary>Босс/мини-босс: сопротивление статусам (StatusDefinition.bossResist).</summary>
         public bool IsBoss;
+        /// <summary>Временный щит (луч культиста): поглощает урон раньше HP.</summary>
+        public int Shield;
     }
 
     /// <summary>Наложенный статус: стихия, стаки, остаток времени.</summary>

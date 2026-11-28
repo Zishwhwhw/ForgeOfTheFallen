@@ -70,6 +70,25 @@ namespace FotF.View.World
             }
         }
 
+        void Register(EnemyController e)
+        {
+            e.SetTarget(_hero);
+            e.Died += _ => Encounter.OnEnemyDied(State);
+            e.Spawned += child => { Register(child); Encounter.OnWaveSpawned(State, 1); };
+        }
+
+        /// <summary>Живые враги комнаты.</summary>
+        public int AliveCount => State.Alive;
+        /// <summary>Впереди ещё волны (гаргулья остаётся статуей).</summary>
+        public bool HasMoreWaves => encounter != null && State.Phase != EncounterPhase.Cleared && State.WaveIndex + 1 < encounter.waves.Length;
+
+        /// <summary>Встречу и префабы врагов задаёт сборщик этажа (по этажу и типу комнаты).</summary>
+        public void Configure(EncounterDefinition enc, EnemyController[] prefabs)
+        {
+            if (enc) encounter = enc;
+            if (prefabs != null && prefabs.Length > 0) enemyPrefabs = prefabs;
+        }
+
         void SpawnWave(EncounterDefinition.Wave wave)
         {
             int spawned = 0;
@@ -81,8 +100,7 @@ namespace FotF.View.World
                 {
                     var point = spawnPoints.Length > 0 ? spawnPoints[_spawnCursor++ % spawnPoints.Length].position : transform.position;
                     var e = Instantiate(prefab, point + (Vector3)(UnityEngine.Random.insideUnitCircle * 0.4f), Quaternion.identity, transform);
-                    e.SetTarget(_hero);
-                    e.Died += _ => Encounter.OnEnemyDied(State);
+                    Register(e);
                     spawned++;
                 }
             }

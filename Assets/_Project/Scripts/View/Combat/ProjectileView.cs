@@ -13,6 +13,7 @@ namespace FotF.View.Combat
         public float ChainRange;
         public float Knockback;              // отбрасывание попаданием
         public float KnockbackMaxDistance;   // 0 — всегда; иначе только вблизи (обрез)
+        public System.Action<Vector3> OnImpact; // попадание в цель (химера лучник + культист)
     }
 
     /// <summary>Снаряд: летит прямо (или доворачивает к врагу), попадает в IDamageable другой команды, гаснет о стену или по времени.</summary>
@@ -37,7 +38,7 @@ namespace FotF.View.Combat
 
         public void Launch(Vector2 direction, float speed, float lifetime, in HitInfo hit, in ProjectileMods mods)
         {
-            _hit = hit; _mods = mods; _lifeLeft = lifetime; _speed = speed; _origin = transform.position;
+            _hit = hit.AsProjectile(true); _mods = mods; _lifeLeft = lifetime; _speed = speed; _origin = transform.position;
             transform.right = direction;
             _body.linearVelocity = direction.normalized * speed;
         }
@@ -69,6 +70,7 @@ namespace FotF.View.Combat
             if (target == null || target.Team == _hit.Source || !_hitAlready.Add(target)) return;
             bool close = _mods.KnockbackMaxDistance <= 0f || (transform.position - _origin).magnitude <= _mods.KnockbackMaxDistance;
             target.TakeHit(_hit.WithDirection(_body.linearVelocity.normalized).WithKnockback(close ? _mods.Knockback : 0f));
+            _mods.OnImpact?.Invoke(((Component)target).transform.position);
             if (_mods.ChainTargets > 1) Chain(target);
             if (_mods.Pierce > 0) { _mods.Pierce--; return; }
             Explode();
@@ -102,7 +104,7 @@ namespace FotF.View.Combat
             {
                 var t = c.GetComponentInParent<IDamageable>();
                 if (t == null || t.Team == _hit.Source || !done.Add(t)) continue;
-                t.TakeHit(_hit.WithDirection((c.transform.position - transform.position).normalized));
+                t.TakeHit(_hit.AsProjectile(false).WithDirection((c.transform.position - transform.position).normalized));
             }
         }
 
