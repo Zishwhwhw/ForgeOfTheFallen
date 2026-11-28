@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 1493238047259315082}
   - component: {fileID: 3865827223080418628}
   - component: {fileID: 8892349529952524671}
+  - component: {fileID: 6810699190741390214}
   m_Layer: 10
   m_Name: enemy_skeleton_swordsman
   m_TagString: Untagged
@@ -334,6 +335,7 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 2339075091278687532, guid: cbce712fd19bde8499ccfe1a8145a72d, type: 3}
   numberOffset: {x: 0, y: 1, z: 0}
   bodyCollider: {fileID: 1493238047259315082}
+  deathView: {fileID: 6810699190741390214}
   knockbackSpeed: 3
   knockbackSeconds: 0.08
 --- !u!210 &8892349529952524671
@@ -349,3 +351,21 @@ SortingGroup:
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
+--- !u!114 &6810699190741390214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5167580963778197323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb62518bf0e08c14688a70dd47d5003b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FotF.View::FotF.View.Enemies.EnemyDeathView
+  feel: {fileID: 11400000, guid: 924e4c61cabdf6d458b600804b7924bf, type: 2}
+  body: {fileID: 8401377269223504824}
+  animator: {fileID: 4580222371104607987}
+  flash: {fileID: 8368416025239430478}
+  sortingGroup: {fileID: 8892349529952524671}
+  corpseSortingOrder: -5

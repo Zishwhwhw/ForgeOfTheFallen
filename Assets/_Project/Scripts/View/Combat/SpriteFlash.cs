@@ -13,10 +13,13 @@ namespace FotF.View.Combat
 
         void Awake() { if (target) _normal = target.sharedMaterial; }
 
-        public void Flash()
+        public void Flash() => Flash(seconds);
+
+        /// <summary>Вспышка заданной длительности (например, мерцание смерти 0.15 с).</summary>
+        public void Flash(float duration)
         {
             if (!target || !flashMaterial) return;
-            target.sharedMaterial = flashMaterial; _left = seconds;
+            target.sharedMaterial = flashMaterial; _left = Mathf.Max(_left, duration);
         }
 
         void Update()

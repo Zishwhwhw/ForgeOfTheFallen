@@ -24,6 +24,7 @@ namespace FotF.View.Enemies
         [SerializeField] DamageNumberView damageNumberPrefab;
         [SerializeField] Vector3 numberOffset = new Vector3(0f, 1f, 0f);
         [SerializeField] Collider2D bodyCollider;
+        [SerializeField] EnemyDeathView deathView;
         [SerializeField] float knockbackSpeed = 3f;
         [SerializeField] float knockbackSeconds = 0.08f;
 
@@ -115,8 +116,9 @@ namespace FotF.View.Enemies
             if (telegraph) telegraph.enabled = false;
             if (bodyCollider) bodyCollider.enabled = false;
             _rb.linearVelocity = Vector2.zero; _rb.simulated = false;
-            if (body) body.Play("death", true);
-            HitStop.Request(0.025f);                  // GDD §10.2: микропауза на убийстве
+            if (deathView) deathView.Play();          // GDD §10.2: мерцание → сплющивание → труп
+            else if (body) body.Play("death", true);
+            HitStop.Request(deathView && deathView.Feel ? deathView.Feel.killMicroPauseSeconds : 0.025f); // микропауза на убийстве
             Died?.Invoke(this);                       // труп остаётся до конца этажа (GDD §10.2)
         }
 
