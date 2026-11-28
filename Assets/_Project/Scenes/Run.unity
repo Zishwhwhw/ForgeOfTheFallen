@@ -2614,6 +2614,7 @@ RectTransform:
   - {fileID: 1121724891}
   - {fileID: 775372331}
   - {fileID: 217847036}
+  - {fileID: 2107506945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2826,6 +2827,65 @@ RectTransform:
   m_AnchoredPosition: {x: 46, y: 1}
   m_SizeDelta: {x: 42, y: 10}
   m_Pivot: {x: 1, y: 1}
+--- !u!1 &2107506944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2107506945}
+  - component: {fileID: 2107506946}
+  m_Layer: 0
+  m_Name: MiniMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2107506945
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107506944}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1997134894}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -60, y: -50}
+  m_SizeDelta: {x: 100, y: 80}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2107506946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107506944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf71f2520016214fb6a2a4a8490f9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FotF.View::FotF.View.UI.MiniMapView
+  runner: {fileID: 267514692}
+  hero: {fileID: 2051618151}
+  container: {fileID: 2107506945}
+  cellPrefab: {fileID: 2600348861903318354, guid: 699cf2582890ca347a97bc17824840ba, type: 3}
+  linkPrefab: {fileID: 5760936568105412431, guid: 1a6b1e4b65d6eba4186fd0459c8f357f, type: 3}
+  cellSize: 9
+  spacing: 13
+  seen: {r: 0.35, g: 0.36, b: 0.45, a: 0.6}
+  visited: {r: 0.55, g: 0.57, b: 0.68, a: 0.95}
+  current: {r: 1, g: 0.85, b: 0.45, a: 1}
+  portal: {r: 0.62, g: 0.4, b: 1, a: 1}
 --- !u!1 &2123029139
 GameObject:
   m_ObjectHideFlags: 0

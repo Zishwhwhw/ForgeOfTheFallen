@@ -225,10 +225,49 @@ namespace FotF.EditorTools.World
             so.FindProperty("portalPrefab").objectReferenceValue = AssetDatabase.LoadAssetAtPath<PortalView>(PortalPath);
             so.ApplyModifiedPropertiesWithoutUndo();
 
+            EnsureMiniMap(runner, hud);
             EditorSceneManager.SaveScene(scene);
             var list = EditorBuildSettings.scenes.Where(s => s.path != RunScene).ToList();
             list.Insert(0, new EditorBuildSettingsScene(RunScene, true));
             EditorBuildSettings.scenes = list.ToArray();
+        }
+
+        const string UiDir = "Assets/_Project/Prefabs/UI";
+
+        static void EnsureMiniMap(FloorRunner runner, HeroHudView hud)
+        {
+            if (hud == null) return;
+            string cellPath = UiDir + "/ui_minimap_room.prefab", linkPath = UiDir + "/ui_minimap_link.prefab";
+            if (!File.Exists(cellPath))
+            {
+                var cell = new GameObject("ui_minimap_room", typeof(RectTransform), typeof(UnityEngine.UI.Image));
+                var txt = new GameObject("Icon", typeof(RectTransform)); txt.transform.SetParent(cell.transform, false);
+                var tmp = txt.AddComponent<TextMeshProUGUI>();
+                tmp.font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/_Project/Art/UI/Fonts/font_ui_dynamic.asset");
+                tmp.fontSize = 8; tmp.alignment = TextAlignmentOptions.Center; tmp.color = new Color(0.1f, 0.1f, 0.15f); tmp.raycastTarget = false;
+                var rt = tmp.rectTransform; rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one; rt.offsetMin = rt.offsetMax = Vector2.zero;
+                cell.GetComponent<UnityEngine.UI.Image>().raycastTarget = false;
+                PrefabUtility.SaveAsPrefabAsset(cell, cellPath); Object.DestroyImmediate(cell);
+            }
+            if (!File.Exists(linkPath))
+            {
+                var link = new GameObject("ui_minimap_link", typeof(RectTransform), typeof(UnityEngine.UI.Image));
+                var img = link.GetComponent<UnityEngine.UI.Image>(); img.color = new Color(0.45f, 0.47f, 0.58f, 0.8f); img.raycastTarget = false;
+                PrefabUtility.SaveAsPrefabAsset(link, linkPath); Object.DestroyImmediate(link);
+            }
+            var existing = hud.transform.Find("MiniMap");
+            var go = existing ? existing.gameObject : new GameObject("MiniMap", typeof(RectTransform));
+            go.transform.SetParent(hud.transform, false);
+            var r = (RectTransform)go.transform;
+            r.anchorMin = r.anchorMax = new Vector2(1f, 1f); r.anchoredPosition = new Vector2(-60f, -50f); r.sizeDelta = new Vector2(100f, 80f);
+            if (!go.TryGetComponent(out MiniMapView map)) map = go.AddComponent<MiniMapView>();
+            var so = new SerializedObject(map);
+            so.FindProperty("runner").objectReferenceValue = runner;
+            so.FindProperty("hero").objectReferenceValue = Object.FindAnyObjectByType<HeroController>();
+            so.FindProperty("container").objectReferenceValue = r;
+            so.FindProperty("cellPrefab").objectReferenceValue = AssetDatabase.LoadAssetAtPath<UnityEngine.UI.Image>(cellPath);
+            so.FindProperty("linkPrefab").objectReferenceValue = AssetDatabase.LoadAssetAtPath<UnityEngine.UI.Image>(linkPath);
+            so.ApplyModifiedPropertiesWithoutUndo();
         }
     }
 }

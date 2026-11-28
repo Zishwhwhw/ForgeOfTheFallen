@@ -6,6 +6,7 @@
         "FotF.View",
         "FotF.Logic",
         "Unity.TextMeshPro",
+        "UnityEngine.UI",
         "Unity.RenderPipelines.Universal.Runtime"
     ],
     "includePlatforms": [

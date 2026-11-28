@@ -51,6 +51,18 @@ namespace FotF.View.World
         readonly Dictionary<FloorRoom, RoomTemplate> _rooms = new Dictionary<FloorRoom, RoomTemplate>();
         readonly HashSet<RoomController> _required = new HashSet<RoomController>();
         PortalView _portal;
+        FloorLayout _layout;
+        /// <summary>Комната, где открыт портал (для мини-карты); null — ещё нет.</summary>
+        public FloorRoom PortalRoom { get; private set; }
+
+        /// <summary>Комната, в границах которой точка (коридоры — null).</summary>
+        public FloorRoom RoomAt(Vector3 world)
+        {
+            if (_layout == null) return null;
+            var c = new Vector3Int(Mathf.FloorToInt(world.x), Mathf.FloorToInt(world.y), 0);
+            foreach (var kv in _layout.Rooms) if (kv.Value.Bounds.Contains(c)) return kv.Key;
+            return null;
+        }
 
         void Start() => Build(1);
 
@@ -70,7 +82,7 @@ namespace FotF.View.World
             var rng = new SeededRandom(Seed);
             Plan = FloorGenerator.Generate(Rules(), rng);
 
-            var layout = FloorLayout.Compute(Plan, r => Pick(r.Kind, rng), pitch, corridorHalfWidth);
+            var layout = _layout = FloorLayout.Compute(Plan, r => Pick(r.Kind, rng), pitch, corridorHalfWidth);
             foreach (var room in Plan.Rooms)
                 if (!room.Hidden && !layout.Rooms.ContainsKey(room)) Debug.LogError($"[Этаж] нет шаблона для {room.Kind}", this);
             foreach (var kv in layout.Rooms)
@@ -124,7 +136,7 @@ namespace FotF.View.World
             _required.Remove(room);
             if (_required.Count > 0) { if (hud) hud.ShowAnnouncement($"Комната зачищена · осталось {_required.Count}"); return; }
             RoomTemplate t = null;
-            foreach (var kv in _rooms) if (kv.Value.fight == room) t = kv.Value;
+            foreach (var kv in _rooms) if (kv.Value.fight == room) { t = kv.Value; PortalRoom = kv.Key; }
             var at = t && t.portalPoint ? t.portalPoint.position : room.transform.position;
             _portal = Instantiate(portalPrefab, at, Quaternion.identity, contentRoot);
             _portal.Used += _ => Next();
@@ -145,7 +157,7 @@ namespace FotF.View.World
 
         public void Clear()
         {
-            _required.Clear(); _rooms.Clear(); _portal = null;
+            _required.Clear(); _rooms.Clear(); _portal = null; PortalRoom = null; _layout = null;
             if (contentRoot) for (int i = contentRoot.childCount - 1; i >= 0; i--) Destroy(contentRoot.GetChild(i).gameObject);
             foreach (var p in FindObjectsByType<WeaponPickupView>(FindObjectsInactive.Exclude)) Destroy(p.gameObject);
             foreach (var p in FindObjectsByType<ProjectileView>(FindObjectsInactive.Exclude)) Destroy(p.gameObject);
