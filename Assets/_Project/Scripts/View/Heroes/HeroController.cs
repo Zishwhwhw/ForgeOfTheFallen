@@ -133,17 +133,35 @@ namespace FotF.View.Heroes
             if (_swap.WasPressedThisFrame())
             {
                 WeaponAttack.Swap(State);
+                ChargeSeconds = 0f;
                 weapon.Show(State.ActiveWeapon.Instance);
             }
             if (_dash.WasPressedThisFrame() && Dash.TryStart(State, _dashCfg))
                 _dashDir = _moveInput.sqrMagnitude > 0.01f ? _moveInput.normalized : _aimDir;
 
+            foreach (var slot in State.Weapons) WeaponSpecials.Tick(slot.Instance, dt);
             var w = State.ActiveWeapon.Instance;
-            if (w != null && _fire.IsPressed() && !State.IsDashing)
+            var charge = w?.Special(WeaponSpecials.Charge);
+            if (charge != null)
+            {
+                // Натяжение (лук, GDD §7.1): держим — копится, отпустили — выстрел силой натяжения
+                if (_fire.IsPressed() && !State.IsDashing) ChargeSeconds += dt;
+                else if (ChargeSeconds > 0f)
+                {
+                    var stats = new WeaponStats(w.Damage, w.AttacksPerSecond, w.ManaCost, w.CritChance);
+                    if (WeaponAttack.TryAttack(State, State.ActiveWeapon, stats) == WeaponAttack.Result.Fired)
+                        weapon.Attack(_aimDir, Team, _rng, ChargeSeconds);
+                    ChargeSeconds = 0f;
+                }
+            }
+            else if (w != null && _fire.IsPressed() && !State.IsDashing && WeaponSpecials.CanFire(w))
             {
                 var stats = new WeaponStats(w.Damage, w.AttacksPerSecond, w.ManaCost, w.CritChance);
                 if (WeaponAttack.TryAttack(State, State.ActiveWeapon, stats) == WeaponAttack.Result.Fired)
+                {
                     weapon.Attack(_aimDir, Team, _rng);
+                    WeaponSpecials.OnFired(w);
+                }
             }
 
             body.Play(State.IsDashing ? "dash" : _moveInput.sqrMagnitude > 0.01f ? "run" : "idle");
@@ -179,6 +197,9 @@ namespace FotF.View.Heroes
                 default: return hero.handSouthPixels / ppu;
             }
         }
+
+        /// <summary>Сколько секунд натянут лук (0 — не натянут).</summary>
+        public float ChargeSeconds { get; private set; }
 
         public void AddGold(int amount) => State.Gold += Mathf.Max(0, amount);
 

@@ -40,6 +40,14 @@ MonoBehaviour:
         kind: 2
         number: 1
         text: 
+      - key: force
+        kind: 0
+        number: 6
+        text: 
+      - key: closeRange
+        kind: 0
+        number: 2.5
+        text: 
   holdType: 3
   sizeClass: 1
   sprite: {fileID: 21300000, guid: 2476edc7337b93641a335dbcd53e286b, type: 3}

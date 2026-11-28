@@ -40,6 +40,10 @@ MonoBehaviour:
         kind: 2
         number: 1
         text: 
+      - key: force
+        kind: 0
+        number: 8
+        text: 
   holdType: 1
   sizeClass: 2
   sprite: {fileID: 21300000, guid: cd816e50da9432940bc8bfc98aefc022, type: 3}

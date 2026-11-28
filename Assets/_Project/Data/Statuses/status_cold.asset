@@ -17,11 +17,11 @@ MonoBehaviour:
   tickDamage: 0
   tickSeconds: 0.5
   durationSeconds: 3
-  slowFraction: 0
+  slowFraction: 0.15
   stunSeconds: 0
   stacking: 2
   maxStacks: 3
   freezeAtStacks: 3
-  freezeSeconds: 0
-  bossResist: 0
+  freezeSeconds: 1.5
+  bossResist: 0.7
   icon: {fileID: 0}

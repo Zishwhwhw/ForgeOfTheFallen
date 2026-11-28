@@ -80,6 +80,8 @@ namespace FotF.Logic.Fusion
             // способности обоих переходят (GDD §6.2: «смешиваются способности»)
             h.CutsProjectiles = a.CutsProjectiles || b.CutsProjectiles;
             h.StunSeconds = Math.Max(a.StunSeconds, b.StunSeconds);
+            h.StatusChance = Math.Max(a.StatusChance, b.StatusChance);
+            h.Specials = Combat.WeaponSpecials.Merge(rare, other, h.AttackType);
             if (h.AttackType == AttackType.Melee) h.ManaCost = 0;        // GDD §5.3: ближнее без снаряда — 0 маны
 
             // гибрид не слабее лучшего родителя −10%

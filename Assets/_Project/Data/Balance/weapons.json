@@ -81,7 +81,8 @@
       "special": {
         "type": "Knockback",
         "values": {
-          "hitStop": true
+          "hitStop": true,
+          "force": 8
         }
       },
       "_note": "Медленно, отбрасывание, hit-stop"
@@ -138,7 +139,9 @@
       "special": {
         "type": "Knockback",
         "values": {
-          "closeRangeOnly": true
+          "closeRangeOnly": true,
+          "force": 6,
+          "closeRange": 2.5
         }
       },
       "_note": "GDD «5×6» прочитано как 5 дробин × 6 урона (как у арбалета 3×12 и посоха инея 3×6) — подтвердить у владельца"
@@ -169,11 +172,12 @@
       "special": {
         "type": "Overheat",
         "values": {
-          "heatPerShot": null,
-          "coolPerSecond": null
+          "heatPerShot": 0.06,
+          "coolPerSecond": 0.5
         }
       },
-      "_note": "Перегрев вместо маны"
+      "_note": "Перегрев вместо маны",
+      "_note_draft": "Пустые параметры особенности — черновик Claude 28.11"
     },
     {
       "id": "weapon.hunting_bow",
@@ -203,10 +207,11 @@
         "values": {
           "minDamage": 10,
           "maxDamage": 30,
-          "chargeSeconds": null,
+          "chargeSeconds": 1.0,
           "pierceAtFull": true
         }
-      }
+      },
+      "_note_draft": "Пустые параметры особенности — черновик Claude 28.11"
     },
     {
       "id": "weapon.repeating_crossbow",
@@ -235,7 +240,8 @@
         "type": "Burst",
         "values": {
           "shots": 3,
-          "pierce": false
+          "pierce": false,
+          "intervalSeconds": 0.08
         }
       },
       "_note": "GDD «3×12»: очередь из 3 болтов по 12"
@@ -292,10 +298,11 @@
       "special": {
         "type": "Explosion",
         "values": {
-          "radius": null
+          "radius": 1.5
         }
       },
-      "_note": "Огненный шар, взрыв по площади, горение"
+      "_note": "Огненный шар, взрыв по площади, горение",
+      "_note_draft": "Пустые параметры особенности — черновик Claude 28.11"
     },
     {
       "id": "weapon.frost_staff",
@@ -323,10 +330,11 @@
       "special": {
         "type": "Homing",
         "values": {
-          "turnRate": null
+          "turnRate": 360
         }
       },
-      "_note": "3 самонаводящихся осколка × 6, холод (3 стака → заморозка)"
+      "_note": "3 самонаводящихся осколка × 6, холод (3 стака → заморозка)",
+      "_note_draft": "Пустые параметры особенности — черновик Claude 28.11"
     },
     {
       "id": "weapon.storm_staff",
@@ -348,16 +356,18 @@
       "meleeRadius": null,
       "meleeArcDegrees": null,
       "cutsProjectiles": false,
-      "statusChance": null,
+      "statusChance": 0.3,
       "holdType": "Staff",
       "sizeClass": "M",
       "special": {
         "type": "ChainLightning",
         "values": {
-          "targets": 3
+          "targets": 3,
+          "range": 4
         }
       },
-      "_note": "Цепная молния на 3 цели, шок"
+      "_note": "Цепная молния на 3 цели, шок",
+      "_note_draft": "statusChance 0.3 — черновик (GDD: «шок» без числа)"
     },
     {
       "id": "weapon.golem_fist",

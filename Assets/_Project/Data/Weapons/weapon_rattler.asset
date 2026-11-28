@@ -37,12 +37,12 @@ MonoBehaviour:
     values:
       entries:
       - key: heatPerShot
-        kind: 3
-        number: 0
+        kind: 0
+        number: 0.06
         text: 
       - key: coolPerSecond
-        kind: 3
-        number: 0
+        kind: 0
+        number: 0.5
         text: 
   holdType: 3
   sizeClass: 2

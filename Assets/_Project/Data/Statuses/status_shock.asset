@@ -18,10 +18,10 @@ MonoBehaviour:
   tickSeconds: 0.5
   durationSeconds: 3
   slowFraction: 0
-  stunSeconds: 0
+  stunSeconds: 0.6
   stacking: 0
   maxStacks: 1
   freezeAtStacks: 0
   freezeSeconds: 0
-  bossResist: 0
+  bossResist: 0.7
   icon: {fileID: 0}

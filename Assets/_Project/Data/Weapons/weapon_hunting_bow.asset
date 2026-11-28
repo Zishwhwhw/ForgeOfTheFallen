@@ -45,8 +45,8 @@ MonoBehaviour:
         number: 30
         text: 
       - key: chargeSeconds
-        kind: 3
-        number: 0
+        kind: 0
+        number: 1
         text: 
       - key: pierceAtFull
         kind: 2

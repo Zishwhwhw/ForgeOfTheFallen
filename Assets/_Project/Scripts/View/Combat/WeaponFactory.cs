@@ -19,6 +19,14 @@ namespace FotF.View.Combat
                 MeleeRadius = d.meleeRadius, MeleeArcDegrees = d.meleeArcDegrees, CutsProjectiles = d.cutsProjectiles,
             };
             w.Elements.Add(d.element);
+            w.StatusChance = d.statusChance;
+            if (d.special != null && d.special.IsSet)
+            {
+                var s = new WeaponSpecial { Type = d.special.type };
+                foreach (var e in d.special.values.entries)
+                    if (e.kind == ValueMap.Kind.Number || e.kind == ValueMap.Kind.Bool) s.Values[e.key] = e.number;
+                w.Specials.Add(s);
+            }
             if (!string.IsNullOrEmpty(d.displayName)) w.DisplayName = d.displayName;
             return w;
         }

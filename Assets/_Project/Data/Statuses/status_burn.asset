@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: FotF.Data::FotF.Data.StatusDefinition
   id: status.burn
   element: 1
-  tickDamage: 0
+  tickDamage: 3
   tickSeconds: 0.5
   durationSeconds: 3
   slowFraction: 0
@@ -23,5 +23,5 @@ MonoBehaviour:
   maxStacks: 1
   freezeAtStacks: 0
   freezeSeconds: 0
-  bossResist: 0
+  bossResist: 0.3
   icon: {fileID: 0}

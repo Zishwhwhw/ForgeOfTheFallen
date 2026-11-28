@@ -37,8 +37,8 @@ MonoBehaviour:
     values:
       entries:
       - key: turnRate
-        kind: 3
-        number: 0
+        kind: 0
+        number: 360
         text: 
   holdType: 4
   sizeClass: 1

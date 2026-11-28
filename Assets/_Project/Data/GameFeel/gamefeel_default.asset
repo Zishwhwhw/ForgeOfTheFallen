@@ -15,7 +15,7 @@ MonoBehaviour:
   id: gamefeel.default
   enemyHitFlashSeconds: 0.05
   killMicroPauseSeconds: 0.025
-  hitStopSeconds: 0
+  hitStopSeconds: 0.05
   death:
     flashSeconds: 0.15
     squashSeconds: 0.15

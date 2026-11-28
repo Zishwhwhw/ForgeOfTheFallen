@@ -19,6 +19,8 @@ namespace FotF.View.Combat
         [SerializeField] SpriteRenderer detailRenderer;
         [SerializeField] Transform muzzle;
         [SerializeField] ProjectileView projectilePrefab;
+        [Tooltip("Hit-stop кувалды и ближних критов (GDD §10.2)")]
+        [SerializeField] GameFeelDefinition feel;
         [SerializeField] SpriteRenderer swingEffect;
         [SerializeField] float swingEffectSeconds = 0.08f;
         [SerializeField] LayerMask hittableMask = ~0;
@@ -122,6 +124,7 @@ namespace FotF.View.Combat
 
         public void Aim(Vector2 aimDir)
         {
+            _lastAim = aimDir;
             float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
             transform.localRotation = Quaternion.Euler(0, 0, angle);
             Vector2 anchor = _hasHand ? _hand : Vector2.up * _pivotHeight;
@@ -136,29 +139,57 @@ namespace FotF.View.Combat
         }
 
         float _pivotHeight;
+        Vector2 _lastAim = Vector2.right;
+
         void Awake() { _pivotHeight = transform.localPosition.y; }
 
-        public void Attack(Vector2 aimDir, Team team, IRandom rng)
+        /// <summary>Атака. heldSeconds — сколько держали кнопку (натяжение лука), иначе −1.</summary>
+        public void Attack(Vector2 aimDir, Team team, IRandom rng, float heldSeconds = -1f)
         {
             if (_weapon == null) return;
-            if (_weapon.AttackType == AttackType.Melee) Swing(aimDir, team, rng);
-            else Shoot(aimDir, team, rng);
+            if (_weapon.AttackType == AttackType.Melee) { Swing(aimDir, team, rng); return; }
+            var burst = _weapon.Special(WeaponSpecials.Burst);
+            int shots = burst != null ? Mathf.Max(1, (int)burst.Get("shots", 3)) : 1;
+            Volley(aimDir, team, rng, heldSeconds);
+            if (shots > 1) StartCoroutine(BurstRest(team, rng, shots - 1, burst.Get("intervalSeconds", 0.08f)));
         }
 
-        void Shoot(Vector2 aimDir, Team team, IRandom rng)
+        System.Collections.IEnumerator BurstRest(Team team, IRandom rng, int left, float interval)
+        {
+            var weapon = _weapon;
+            for (int i = 0; i < left; i++)
+            {
+                yield return new WaitForSeconds(interval);
+                if (_weapon != weapon) yield break;                 // сменили оружие — очередь обрывается
+                Volley(_lastAim, team, rng, -1f);
+            }
+        }
+
+        void Volley(Vector2 aimDir, Team team, IRandom rng, float heldSeconds)
         {
             if (projectilePrefab == null) return;
             Vector3 origin = MuzzleWorld;
             int count = Mathf.Max(1, _weapon.ProjectilesPerShot);
+            var charge = _weapon.Special(WeaponSpecials.Charge);
+            int baseDamage = charge != null && heldSeconds >= 0f ? WeaponSpecials.ChargedDamage(charge, heldSeconds, _weapon.Damage) : _weapon.Damage;
+            var mods = new ProjectileMods();
+            if (charge != null && charge.Get("pierceAtFull", 0f) > 0f && WeaponSpecials.FullyCharged(charge, heldSeconds)) mods.Pierce = 10;
+            var homing = _weapon.Special(WeaponSpecials.Homing); if (homing != null) mods.HomingDegreesPerSecond = homing.Get("turnRate", 360f);
+            var boom = _weapon.Special(WeaponSpecials.Explosion); if (boom != null) mods.ExplosionRadius = boom.Get("radius", 1.5f);
+            var chain = _weapon.Special(WeaponSpecials.ChainLightning); if (chain != null) { mods.ChainTargets = (int)chain.Get("targets", 3); mods.ChainRange = chain.Get("range", 4f); }
+            var knock = _weapon.Special(WeaponSpecials.Knockback);
+            if (knock != null) { mods.Knockback = knock.Get("force", 6f); mods.KnockbackMaxDistance = knock.Get("closeRangeOnly", 0f) > 0f ? knock.Get("closeRange", 2.5f) : 0f; }
+            var elements = _weapon.Elements.ToArray();
             for (int i = 0; i < count; i++)
             {
                 float spread = count > 1
                     ? Mathf.Lerp(-_weapon.SpreadDegrees * 0.5f, _weapon.SpreadDegrees * 0.5f, i / (float)(count - 1))
                     : (rng.NextFloat() - 0.5f) * _weapon.SpreadDegrees;
                 Vector2 dir = Quaternion.Euler(0, 0, spread) * aimDir;
-                var roll = WeaponAttack.RollDamage(_weapon.Damage, _weapon.CritChance, rng);
+                var roll = WeaponAttack.RollDamage(baseDamage, _weapon.CritChance, rng);
                 var p = Instantiate(projectilePrefab, origin, Quaternion.identity);
-                p.Launch(dir, _weapon.ProjectileSpeed, _weapon.ProjectileLifetime, new HitInfo(roll.Amount, roll.IsCrit, dir, _weapon.StunSeconds, team));
+                p.Launch(dir, _weapon.ProjectileSpeed, _weapon.ProjectileLifetime,
+                    new HitInfo(roll.Amount, roll.IsCrit, dir, _weapon.StunSeconds, team, elements, _weapon.StatusChance, 0f), mods);
             }
         }
 
@@ -169,6 +200,11 @@ namespace FotF.View.Combat
             Vector2 center = transform.parent.position + Vector3.up * _pivotHeight;
             Physics2D.OverlapCircle(center, _weapon.MeleeRadius, filter, _overlaps);
             float half = _weapon.MeleeArcDegrees * 0.5f;
+            float knock = WeaponSpecials.KnockbackForce(_weapon, 0f);
+            var knockSpecial = _weapon.Special(WeaponSpecials.Knockback);
+            bool heavy = knockSpecial != null && knockSpecial.Get("hitStop", 0f) > 0f;
+            var elements = _weapon.Elements.ToArray();
+            bool hitSomething = false, crit = false;
             foreach (var col in _overlaps)
             {
                 Vector2 to = (Vector2)col.bounds.center - center;
@@ -177,8 +213,11 @@ namespace FotF.View.Combat
                 var target = col.GetComponentInParent<IDamageable>();
                 if (target == null || target.Team == team || !_hitThisSwing.Add(target)) continue;
                 var roll = WeaponAttack.RollDamage(_weapon.Damage, _weapon.CritChance, rng);
-                target.TakeHit(new HitInfo(roll.Amount, roll.IsCrit, to.normalized, _weapon.StunSeconds, team));
+                target.TakeHit(new HitInfo(roll.Amount, roll.IsCrit, to.normalized, _weapon.StunSeconds, team, elements, _weapon.StatusChance, knock));
+                hitSomething = true; crit |= roll.IsCrit;
             }
+            // GDD §10.2: hit-stop на кувалде и критах в ближнем бою
+            if (hitSomething && (heavy || crit) && feel && feel.hitStopSeconds > 0f) HitStop.Request(feel.hitStopSeconds);
             if (swingEffect) { swingEffect.enabled = true; _swingFxLeft = swingEffectSeconds; }
         }
 

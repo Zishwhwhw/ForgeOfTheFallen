@@ -26,6 +26,19 @@ namespace FotF.State
         public float SpreadDegrees, ProjectileSpeed, ProjectileLifetime, StunSeconds;
         public float MeleeRadius, MeleeArcDegrees;
         public bool CutsProjectiles;
+        /// <summary>Шанс наложить статус своей стихии (GDD §5.4).</summary>
+        public float StatusChance;
+        /// <summary>Особенности оружия (перегрев, натяжение, очередь…), у гибрида — от обоих родителей.</summary>
+        public List<WeaponSpecial> Specials = new List<WeaponSpecial>();
+        /// <summary>Перегрев «Тарахтелки»: 0..1, при 1 — стрелять нельзя до остывания.</summary>
+        public float Heat;
+        public bool Overheated;
+
+        public WeaponSpecial Special(string type)
+        {
+            foreach (var s in Specials) if (s.Type == type) return s;
+            return null;
+        }
 
         public bool IsHybrid;              // GDD §6.2: пересплава нет
         public bool IsJackpot;             // идеальный сплав
@@ -38,7 +51,16 @@ namespace FotF.State
         {
             var c = (WeaponInstance)MemberwiseClone();
             c.Elements = new List<Element>(Elements);
+            c.Specials = new List<WeaponSpecial>(Specials);
             return c;
         }
+    }
+
+    /// <summary>Особенность оружия: тип + числа (из WeaponDefinition.special).</summary>
+    public sealed class WeaponSpecial
+    {
+        public string Type;
+        public Dictionary<string, float> Values = new Dictionary<string, float>();
+        public float Get(string key, float fallback) => Values.TryGetValue(key, out var v) ? v : fallback;
     }
 }

@@ -37,8 +37,8 @@ MonoBehaviour:
     values:
       entries:
       - key: radius
-        kind: 3
-        number: 0
+        kind: 0
+        number: 1.5
         text: 
   holdType: 4
   sizeClass: 1

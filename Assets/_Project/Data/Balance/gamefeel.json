@@ -7,7 +7,7 @@
       "id": "gamefeel.default",
       "enemyHitFlashSeconds": 0.05,
       "killMicroPauseSeconds": 0.025,
-      "hitStopSeconds": null,
+      "hitStopSeconds": 0.05,
       "death": {
         "flashSeconds": 0.15,
         "squashSeconds": 0.15,
@@ -17,7 +17,8 @@
         "bossLieSeconds": 1.5,
         "bossDissolveSeconds": 1.0
       },
-      "_note": "GDD §10.2 (решение 27.11)"
+      "_note": "GDD §10.2 (решение 27.11)",
+      "_note_draft": "hitStopSeconds 0.05 — черновик Claude 28.11"
     }
   ]
 }

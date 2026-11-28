@@ -402,6 +402,7 @@ MonoBehaviour:
   detailRenderer: {fileID: 2486630679357032522}
   muzzle: {fileID: 6304164670876405314}
   projectilePrefab: {fileID: 6644834321328211477, guid: d87f85c34c5acd743943b0909e29edb3, type: 3}
+  feel: {fileID: 11400000, guid: 924e4c61cabdf6d458b600804b7924bf, type: 2}
   swingEffect: {fileID: 365483092318012725}
   swingEffectSeconds: 0.08
   hittableMask:

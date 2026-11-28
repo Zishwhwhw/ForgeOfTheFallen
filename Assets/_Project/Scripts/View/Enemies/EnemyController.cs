@@ -25,6 +25,8 @@ namespace FotF.View.Enemies
         [SerializeField] Vector3 numberOffset = new Vector3(0f, 1f, 0f);
         [SerializeField] Collider2D bodyCollider;
         [SerializeField] EnemyDeathView deathView;
+        [Tooltip("Статусы стихий (GDD §7.3)")]
+        [SerializeField] StatusCatalog statuses;
         [Header("Дроп (GDD §7.9): золото и сферы маны")]
         [SerializeField] World.LootPickupView coinPrefab;
         [SerializeField] World.LootPickupView manaOrbPrefab;
@@ -44,8 +46,14 @@ namespace FotF.View.Enemies
         float _knockbackLeft;
         readonly List<Collider2D> _hits = new List<Collider2D>();
 
+        FotF.Logic.Status.StatusConfig[] _statusConfigs;
+        readonly FotF.Logic.SeededRandom _statusRng = new FotF.Logic.SeededRandom(System.Environment.TickCount);
+        bool _disabled; float _slow; Color _baseColor = Color.white; SpriteRenderer _bodyRenderer;
+
         void Awake()
         {
+            _statusConfigs = StatusConfigs.From(statuses);
+            if (body) { _bodyRenderer = body.GetComponent<SpriteRenderer>(); if (_bodyRenderer) _baseColor = _bodyRenderer.color; }
             _rb = GetComponent<Rigidbody2D>();
             _cfg = new EnemyConfig(definition.maxHp, definition.attackRange, definition.aggroRange, definition.windupSeconds, definition.recoverSeconds);
             EnemyBrain.Init(State, _cfg);
@@ -57,6 +65,9 @@ namespace FotF.View.Enemies
         void Update()
         {
             if (State.IsDead) return;
+            TickStatuses(Time.deltaTime);
+            if (State.IsDead) return;
+            if (_disabled) { if (telegraph) telegraph.enabled = false; _desired = Vector2.zero; return; }
             if (_target == null) _target = FindFirstObjectByType<HeroController>();
             Vector2 to = _target ? (Vector2)_target.transform.position - (Vector2)transform.position : Vector2.zero;
             float dist = _target && !_target.State.IsDead ? to.magnitude : float.MaxValue;
@@ -77,7 +88,7 @@ namespace FotF.View.Enemies
                 body.SetFacing(winding || State.Phase == EnemyPhase.Recover ? _strikeDir : (intent == EnemyIntent.MoveToTarget ? to : Vector2.zero));
                 body.Play(winding ? "windup" : State.Phase == EnemyPhase.Recover ? "attack" : intent == EnemyIntent.MoveToTarget ? "walk" : "idle");
             }
-            _desired = intent == EnemyIntent.MoveToTarget && dist > 0.01f ? to / dist * definition.moveSpeed : Vector2.zero;
+            _desired = intent == EnemyIntent.MoveToTarget && dist > 0.01f ? to / dist * definition.moveSpeed * (1f - _slow) : Vector2.zero;
         }
 
         Vector2 _desired;
@@ -111,8 +122,9 @@ namespace FotF.View.Enemies
                 Instantiate(damageNumberPrefab, transform.position + numberOffset + (Vector3)(UnityEngine.Random.insideUnitCircle * 0.2f), Quaternion.identity).Show(hit.Amount, hit.IsCrit);
             if (flash) flash.Flash();
             if (died) { Die(); return; }
+            ApplyStatuses(hit);
             if (hit.StunSeconds > 0f) EnemyBrain.Stun(State, hit.StunSeconds);
-            _knockback = hit.Direction * knockbackSpeed; _knockbackLeft = knockbackSeconds;
+            _knockback = hit.Direction * (hit.Knockback > 0f ? hit.Knockback : knockbackSpeed); _knockbackLeft = knockbackSeconds;
         }
 
         void Die()
@@ -125,6 +137,44 @@ namespace FotF.View.Enemies
             HitStop.Request(deathView && deathView.Feel ? deathView.Feel.killMicroPauseSeconds : 0.025f); // микропауза на убийстве
             DropLoot();
             Died?.Invoke(this);                       // труп остаётся до конца этажа (GDD §10.2)
+        }
+
+        void ApplyStatuses(in HitInfo hit)
+        {
+            if (hit.Elements == null || hit.StatusChance <= 0f || _statusConfigs == null) return;
+            foreach (var e in hit.Elements)
+                if (FotF.Logic.Status.StatusEffects.Exists(_statusConfigs, e) && _statusRng.NextFloat() < hit.StatusChance)
+                    FotF.Logic.Status.StatusEffects.Apply(State, FotF.Logic.Status.StatusEffects.ConfigFor(_statusConfigs, e), _statusRng);
+        }
+
+        void TickStatuses(float dt)
+        {
+            if (State.Statuses.Count == 0) { if (_disabled || _slow > 0f) { _disabled = false; _slow = 0f; Tint(); } return; }
+            var t = FotF.Logic.Status.StatusEffects.Tick(State, _statusConfigs, dt);
+            _disabled = t.Disabled; _slow = t.SlowFraction;
+            if (t.Damage > 0)
+            {
+                if (damageNumberPrefab) Instantiate(damageNumberPrefab, transform.position + numberOffset, Quaternion.identity).Show(t.Damage, false);
+                if (EnemyBrain.ApplyDamage(State, t.Damage)) { Die(); return; }
+            }
+            Tint();
+        }
+
+        /// <summary>Цвет статуса на теле (до иконок статусов): огонь — оранжевый, холод — голубой, шок — жёлтый, яд — зелёный.</summary>
+        void Tint()
+        {
+            if (!_bodyRenderer || State.IsDead) return;
+            Color c = _baseColor;
+            foreach (var st in State.Statuses)
+                c = st.Element switch
+                {
+                    Element.Fire => new Color32(0xfe, 0xae, 0x34, 0xff),
+                    Element.Ice => st.Frozen ? new Color32(0x2c, 0xe8, 0xf5, 0xff) : new Color32(0x9e, 0xd8, 0xff, 0xff),
+                    Element.Lightning => new Color32(0xfe, 0xe7, 0x61, 0xff),
+                    Element.Poison => new Color32(0x63, 0xc7, 0x4d, 0xff),
+                    _ => c,
+                };
+            _bodyRenderer.color = c;
         }
 
         void DropLoot()
