@@ -125,7 +125,10 @@ namespace FotF.EditorTools.World
             {
                 t.heroSpawn = Child(root.transform, "HeroSpawn", center + Vector3.down * 2f);
                 var pickup = AssetDatabase.LoadAssetAtPath<GameObject>(Interact + "/pickup_weapon.prefab");
-                if (pickup) { var p = (GameObject)PrefabUtility.InstantiatePrefab(pickup, root.transform); p.transform.localPosition = center + new Vector3(-3f, 0f, 0f); }
+                if (pickup) { var p = (GameObject)PrefabUtility.InstantiatePrefab(pickup, root.transform); p.transform.localPosition = center + new Vector3(-3f, 0f, 0f);
+                    var pso = new SerializedObject(p.GetComponent<WeaponPickupView>());
+                    pso.FindProperty("initialWeapon").objectReferenceValue = AssetDatabase.LoadAssetAtPath<WeaponDefinition>("Assets/_Project/Data/Weapons/weapon_nailgun.asset");
+                    pso.ApplyModifiedPropertiesWithoutUndo(); }
             }
             if (s.prop != null)
             {

@@ -650,6 +650,9 @@
     "passiveChoicesPerFloor": {
      "type": "int",
      "min": 0
+    },
+    "drops": {
+     "type": "map"
     }
    }
   },

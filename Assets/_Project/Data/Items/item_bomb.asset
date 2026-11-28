@@ -19,4 +19,4 @@ MonoBehaviour:
   price: 40
   areaDamage: 40
   breaksSecretWalls: 1
-  icon: {fileID: 0}
+  icon: {fileID: 4488132338292622504, guid: b601d2be183ba4f4091a700ba1418158, type: 3}

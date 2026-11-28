@@ -650,6 +650,14 @@ MonoBehaviour:
   - {fileID: 406274287532193, guid: 2ad5f091d14ad214f886f3ab1e990689, type: 3}
   - {fileID: 2574436884075066300, guid: cf4936ede415b3b4cba29f7c8df4ac99, type: 3}
   - {fileID: 4076432007843102488, guid: f0390da69dbd6674bb8c6d0520fa5179, type: 3}
+  catalog: {fileID: 11400000, guid: 26fded2d4a6eafd4b887ccf09a4690fd, type: 2}
+  consumables:
+  - {fileID: 11400000, guid: 526357ff9db82df40934cd4a5cbba1ab, type: 2}
+  - {fileID: 11400000, guid: c2f785037cfce9144b9fae5dd01d1694, type: 2}
+  - {fileID: 11400000, guid: e71eb62a8dad1244888889df1c9168ca, type: 2}
+  - {fileID: 11400000, guid: 50b228be45218fc43acd85ea1523c609, type: 2}
+  - {fileID: 11400000, guid: a29114bd9cd83974dbe674fba26e3e5b, type: 2}
+  - {fileID: 11400000, guid: 1c359ab689083044ba4fa600fe9ac6b6, type: 2}
   hero: {fileID: 2051618151}
   hud: {fileID: 1997134891}
   floorMap: {fileID: 381515596}

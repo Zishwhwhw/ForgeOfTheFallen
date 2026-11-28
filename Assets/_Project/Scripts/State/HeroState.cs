@@ -31,6 +31,8 @@ namespace FotF.State
 
         /// <summary>Золото забега (GDD §9.3: только внутри забега).</summary>
         public int Gold;
+        /// <summary>Бомбы в запасе (GDD §7.9).</summary>
+        public int Bombs;
 
         public readonly WeaponSlotState[] Weapons = { new WeaponSlotState(), new WeaponSlotState() };
         public int ActiveSlot;

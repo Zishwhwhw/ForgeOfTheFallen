@@ -19,5 +19,7 @@ namespace FotF.Data
         [Tooltip("Общий лимит трупов на этаж (GDD §10.2, п.165)")]
         public int corpseLimitPerFloor = 300;
         public int passiveChoicesPerFloor = 3;
+        [Tooltip("Дроп с врагов: manaOrbMin, manaOrbMax, manaPerOrb (черновик)")]
+        public ValueMap drops = new ValueMap();
     }
 }

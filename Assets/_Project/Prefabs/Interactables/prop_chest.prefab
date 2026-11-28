@@ -156,3 +156,5 @@ MonoBehaviour:
   openedSprite: {fileID: 0}
   floatingTextPrefab: {fileID: 2339075091278687532, guid: cbce712fd19bde8499ccfe1a8145a72d, type: 3}
   goldRange: {x: 10, y: 25}
+  itemPrefab: {fileID: 877393754998019969, guid: 1f496612a69e99f429e612ed0ec9de53, type: 3}
+  weaponPrefab: {fileID: 1126880843108304624, guid: bff869e9181826e43a633c02ac66dee6, type: 3}

@@ -28,7 +28,18 @@
         "goldOrPotion": 0.6,
         "weapon": 0.3,
         "bombOrRare": 0.1,
-        "maxWeaponsPerFloor": 2
+        "maxWeaponsPerFloor": 2,
+        "potionShareOfGoldOrPotion": 0.5,
+        "potionSmall": 0.5,
+        "potionMana": 0.25,
+        "potionMixed": 0.15,
+        "potionBig": 0.1,
+        "rareBomb": 0.4,
+        "rareHeart": 0.3,
+        "rareWeapon": 0.3,
+        "weaponCommon": 0.55,
+        "weaponRare": 0.35,
+        "weaponEpic": 0.1
       },
       "healing": {
         "afterBossFraction": 0.5,
@@ -36,7 +47,13 @@
       },
       "miniBossRoomChance": 0.3,
       "corpseLimitPerFloor": 300,
-      "passiveChoicesPerFloor": 3
+      "passiveChoicesPerFloor": 3,
+      "drops": {
+        "manaOrbMin": 1,
+        "manaOrbMax": 2,
+        "manaPerOrb": 6
+      },
+      "_note_loot": "chestLoot: goldOrPotion/weapon/bombOrRare/maxWeaponsPerFloor — GDD §7.9; доли внутри веток и редкость оружия — черновик Claude 28.11. drops — черновик (сферы маны в GDD без чисел)"
     }
   ]
 }

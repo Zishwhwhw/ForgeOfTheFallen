@@ -1496,6 +1496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pickup_weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 1126880843108304624, guid: bff869e9181826e43a633c02ac66dee6, type: 3}
+      propertyPath: initialWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: e90e6873b060e174db123d4af6bc3754, type: 2}
     - target: {fileID: 8093369933366035351, guid: bff869e9181826e43a633c02ac66dee6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.5

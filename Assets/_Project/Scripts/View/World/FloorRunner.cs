@@ -22,6 +22,10 @@ namespace FotF.View.World
         [SerializeField] FloorDefinition floor;
         [SerializeField] BalanceConstants constants;
         [SerializeField] RoomTemplate[] templates = System.Array.Empty<RoomTemplate>();
+        [Tooltip("Оружие для сундуков и поиска по id")]
+        [SerializeField] WeaponCatalog catalog;
+        [Tooltip("Зелья, сердце, бомба (id из consumables.json)")]
+        [SerializeField] ConsumableDefinition[] consumables = System.Array.Empty<ConsumableDefinition>();
 
         [Header("Сцена")]
         [SerializeField] HeroController hero;
@@ -47,6 +51,40 @@ namespace FotF.View.World
         public FloorPlan Plan { get; private set; }
         public IReadOnlyDictionary<FloorRoom, RoomTemplate> Rooms => _rooms;
         public event System.Action<FloorRunner> FloorBuilt;
+        public WeaponCatalog Catalog => catalog;
+        public int WeaponsFromChestsThisFloor { get; private set; }
+        IRandom _lootRng;
+
+        public ConsumableDefinition Consumable(string id)
+        {
+            foreach (var c in consumables) if (c && c.id == id) return c;
+            return null;
+        }
+
+        /// <summary>Содержимое сундука (GDD §7.9) с учётом лимита оружия на этаж.</summary>
+        public FotF.Logic.Loot.LootRoll RollChest()
+        {
+            var pool = new List<(string, Rarity)>();
+            if (catalog) foreach (var w in catalog.weapons)
+                if (w && FotF.Logic.Loot.ChestLoot.InChestPool(w.rarity)) pool.Add((w.id, w.rarity));
+            var roll = FotF.Logic.Loot.ChestLoot.Roll(LootTable(), pool, WeaponsFromChestsThisFloor, _lootRng ?? new SeededRandom(1));
+            if (roll.Kind == FotF.Logic.Loot.LootKind.Weapon) WeaponsFromChestsThisFloor++;
+            return roll;
+        }
+
+        public FotF.Logic.Loot.ChestLootTable LootTable()
+        {
+            var l = constants ? constants.chestLoot : new ValueMap(); var g = constants ? constants.gold : new ValueMap();
+            return new FotF.Logic.Loot.ChestLootTable
+            {
+                GoldOrPotion = l.Number("goldOrPotion", 0.6f), Weapon = l.Number("weapon", 0.3f), BombOrRare = l.Number("bombOrRare", 0.1f),
+                MaxWeaponsPerFloor = l.Int("maxWeaponsPerFloor", 2), ChestGoldMin = g.Int("chestMin", 10), ChestGoldMax = g.Int("chestMax", 25),
+                PotionShare = l.Number("potionShareOfGoldOrPotion", 0.5f), PotionSmall = l.Number("potionSmall", 0.5f), PotionMana = l.Number("potionMana", 0.25f),
+                PotionMixed = l.Number("potionMixed", 0.15f), PotionBig = l.Number("potionBig", 0.1f),
+                RareBomb = l.Number("rareBomb", 0.4f), RareHeart = l.Number("rareHeart", 0.3f), RareWeapon = l.Number("rareWeapon", 0.3f),
+                WeaponCommon = l.Number("weaponCommon", 0.55f), WeaponRare = l.Number("weaponRare", 0.35f), WeaponEpic = l.Number("weaponEpic", 0.1f),
+            };
+        }
 
         readonly Dictionary<FloorRoom, RoomTemplate> _rooms = new Dictionary<FloorRoom, RoomTemplate>();
         readonly HashSet<RoomController> _required = new HashSet<RoomController>();
@@ -80,6 +118,8 @@ namespace FotF.View.World
             FloorNumber = floorNumber;
             Seed = fixedSeed != 0 ? fixedSeed + floorNumber : System.Environment.TickCount ^ (floorNumber * 7919);
             var rng = new SeededRandom(Seed);
+            _lootRng = new SeededRandom(Seed ^ 0x5bd1e995);
+            WeaponsFromChestsThisFloor = 0;
             Plan = FloorGenerator.Generate(Rules(), rng);
 
             var layout = _layout = FloorLayout.Compute(Plan, r => Pick(r.Kind, rng), pitch, corridorHalfWidth);

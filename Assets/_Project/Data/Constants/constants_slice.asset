@@ -86,6 +86,50 @@ MonoBehaviour:
       kind: 0
       number: 2
       text: 
+    - key: potionShareOfGoldOrPotion
+      kind: 0
+      number: 0.5
+      text: 
+    - key: potionSmall
+      kind: 0
+      number: 0.5
+      text: 
+    - key: potionMana
+      kind: 0
+      number: 0.25
+      text: 
+    - key: potionMixed
+      kind: 0
+      number: 0.15
+      text: 
+    - key: potionBig
+      kind: 0
+      number: 0.1
+      text: 
+    - key: rareBomb
+      kind: 0
+      number: 0.4
+      text: 
+    - key: rareHeart
+      kind: 0
+      number: 0.3
+      text: 
+    - key: rareWeapon
+      kind: 0
+      number: 0.3
+      text: 
+    - key: weaponCommon
+      kind: 0
+      number: 0.55
+      text: 
+    - key: weaponRare
+      kind: 0
+      number: 0.35
+      text: 
+    - key: weaponEpic
+      kind: 0
+      number: 0.1
+      text: 
   healing:
     entries:
     - key: afterBossFraction
@@ -99,3 +143,17 @@ MonoBehaviour:
   miniBossRoomChance: 0.3
   corpseLimitPerFloor: 300
   passiveChoicesPerFloor: 3
+  drops:
+    entries:
+    - key: manaOrbMin
+      kind: 0
+      number: 1
+      text: 
+    - key: manaOrbMax
+      kind: 0
+      number: 2
+      text: 
+    - key: manaPerOrb
+      kind: 0
+      number: 6
+      text: 

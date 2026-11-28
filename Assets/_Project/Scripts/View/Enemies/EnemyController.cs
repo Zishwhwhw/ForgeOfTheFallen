@@ -25,6 +25,10 @@ namespace FotF.View.Enemies
         [SerializeField] Vector3 numberOffset = new Vector3(0f, 1f, 0f);
         [SerializeField] Collider2D bodyCollider;
         [SerializeField] EnemyDeathView deathView;
+        [Header("Дроп (GDD §7.9): золото и сферы маны")]
+        [SerializeField] World.LootPickupView coinPrefab;
+        [SerializeField] World.LootPickupView manaOrbPrefab;
+        [SerializeField] BalanceConstants constants;
         [SerializeField] float knockbackSpeed = 3f;
         [SerializeField] float knockbackSeconds = 0.08f;
 
@@ -119,7 +123,25 @@ namespace FotF.View.Enemies
             if (deathView) deathView.Play();          // GDD §10.2: мерцание → сплющивание → труп
             else if (body) body.Play("death", true);
             HitStop.Request(deathView && deathView.Feel ? deathView.Feel.killMicroPauseSeconds : 0.025f); // микропауза на убийстве
+            DropLoot();
             Died?.Invoke(this);                       // труп остаётся до конца этажа (GDD §10.2)
+        }
+
+        void DropLoot()
+        {
+            var parent = transform.parent;
+            if (coinPrefab)
+            {
+                int gold = UnityEngine.Random.Range(definition.goldMin, definition.goldMax + 1);
+                if (gold > 0) Instantiate(coinPrefab, transform.position + (Vector3)(UnityEngine.Random.insideUnitCircle * 0.3f), Quaternion.identity, parent).InitAmount(gold);
+            }
+            if (manaOrbPrefab && constants)
+            {
+                var d = constants.drops;
+                int orbs = UnityEngine.Random.Range(d.Int("manaOrbMin", 1), d.Int("manaOrbMax", 2) + 1);
+                for (int i = 0; i < orbs; i++)
+                    Instantiate(manaOrbPrefab, transform.position + (Vector3)(UnityEngine.Random.insideUnitCircle * 0.5f), Quaternion.identity, parent).InitAmount(d.Int("manaPerOrb", 6));
+            }
         }
 
         void OnDrawGizmosSelected()

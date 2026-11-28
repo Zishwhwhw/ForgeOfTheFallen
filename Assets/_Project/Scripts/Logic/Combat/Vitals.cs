@@ -81,5 +81,12 @@ namespace FotF.Logic.Combat
         }
 
         public static void AddMana(HeroState s, int amount) => s.Mana = Math.Min(s.MaxMana, s.Mana + Math.Max(0, amount));
+
+        /// <summary>Лечение зельем/сердцем: HP не выше максимума, мёртвого не лечит.</summary>
+        public static void Heal(HeroState s, int amount)
+        {
+            if (s.Hp <= 0) return;
+            s.Hp = Math.Min(s.MaxHp, s.Hp + Math.Max(0, amount));
+        }
     }
 }

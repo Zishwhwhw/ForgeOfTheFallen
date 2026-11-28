@@ -336,6 +336,9 @@ MonoBehaviour:
   numberOffset: {x: 0, y: 1, z: 0}
   bodyCollider: {fileID: 1493238047259315082}
   deathView: {fileID: 6810699190741390214}
+  coinPrefab: {fileID: 7404841737115960659, guid: f93c43051440e0f49a2ecfb922d3682a, type: 3}
+  manaOrbPrefab: {fileID: 1615840408892652677, guid: fb6c0c58b45e3734db1ba4dd80241a6c, type: 3}
+  constants: {fileID: 11400000, guid: 12e0e59384ef8bf4ead646ba4e083dc2, type: 2}
   knockbackSpeed: 3
   knockbackSeconds: 0.08
 --- !u!210 &8892349529952524671

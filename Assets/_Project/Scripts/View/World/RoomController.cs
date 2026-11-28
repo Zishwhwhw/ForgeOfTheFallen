@@ -64,6 +64,7 @@ namespace FotF.View.World
                     foreach (var d in doors) d.SetLocked(false);
                     if (chestPrefab) Instantiate(chestPrefab, chestPoint ? chestPoint.position : transform.position, Quaternion.identity, transform);
                     Announce?.Invoke("Комната зачищена");
+                    foreach (var loot in GetComponentsInChildren<LootPickupView>()) loot.Magnetize();   // GDD §7.9: сферы притягиваются после зачистки
                     Cleared?.Invoke(this);
                     break;
             }
