@@ -31,6 +31,13 @@ MonoBehaviour:
   meleeRadius: 1.6
   meleeArcDegrees: 130
   cutsProjectiles: 1
+  statusChance: 0
+  special:
+    type: 
+    values:
+      entries: []
+  holdType: 0
+  sizeClass: 1
   sprite: {fileID: 21300000, guid: cd816e50da9432940bc8bfc98aefc022, type: 3}
   spriteForwardAngle: 225
   gripPixel: {x: 24, y: 25}

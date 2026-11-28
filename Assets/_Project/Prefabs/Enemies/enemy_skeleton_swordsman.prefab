@@ -364,6 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: FotF.View::FotF.View.Enemies.EnemyDeathView
   feel: {fileID: 11400000, guid: 924e4c61cabdf6d458b600804b7924bf, type: 2}
+  constants: {fileID: 11400000, guid: 12e0e59384ef8bf4ead646ba4e083dc2, type: 2}
   body: {fileID: 8401377269223504824}
   animator: {fileID: 4580222371104607987}
   flash: {fileID: 8368416025239430478}

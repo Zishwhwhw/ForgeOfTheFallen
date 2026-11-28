@@ -729,7 +729,7 @@
   },
   "gamefeel": {
    "file": "gamefeel.json",
-   "so": "GameFeelSettings",
+   "so": "GameFeelDefinition",
    "fields": {
     "id": {
      "type": "id"

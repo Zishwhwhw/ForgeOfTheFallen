@@ -31,6 +31,12 @@ namespace FotF.Data
         [Tooltip("Неуязвимость во время и сразу после рывка, с (калибровать)")]
         public float dashInvulnerability = 0.25f;
 
+        [Header("Ульта и открытие (GDD §4.1, §4.3)")]
+        [Tooltip("Перезарядка ульты, с")]
+        public float ultimateCooldown = 60f;
+        [Tooltip("Доступен с начала игры (иначе — открытие за кристаллы)")]
+        public bool unlockedFromStart = true;
+
         [Header("Рука с оружием (Art Bible §5.1), пиксели от точки опоры у ног")]
         [Tooltip("Лицом к камере: правая рука героя — слева от зрителя")]
         public Vector2 handSouthPixels = new Vector2(-9, 12);

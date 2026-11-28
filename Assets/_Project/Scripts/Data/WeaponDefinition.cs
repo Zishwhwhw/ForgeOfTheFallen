@@ -47,6 +47,16 @@ namespace FotF.Data
         [Tooltip("Срезает вражеские пули во взмахе (Вечный меч)")]
         public bool cutsProjectiles;
 
+        [Header("Статус и механика (GDD §5.4, §7.1)")]
+        [Range(0f, 1f), Tooltip("Шанс наложить статус стихии (калибровать)")]
+        public float statusChance;
+        [Tooltip("Нестандартная механика: перегрев, натяжение, очередь, самонаводка…")]
+        public SpecialMechanic special = new SpecialMechanic();
+
+        [Header("Хват (Art Bible §5.1)")]
+        public HoldType holdType;
+        public SizeClass sizeClass = SizeClass.M;
+
         [Header("Вид")]
         public Sprite sprite;
         [Tooltip("Куда смотрит ствол/клинок на картинке, градусы (0 — вправо, 225 — вниз-влево)")]

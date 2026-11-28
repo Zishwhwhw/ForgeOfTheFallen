@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8e151fb0da713429fb4cc27f6cb5bd, type: 3}
+  m_Name: enemy_chimera_shield_gargoyle
+  m_EditorClassIdentifier: FotF.Data::FotF.Data.EnemyDefinition
+  id: enemy.chimera_shield_gargoyle
+  nameKey: enemy.chimera_shield_gargoyle.name
+  tier: 1
+  maxHp: 120
+  attackDamage: 12
+  windupSeconds: 0.5
+  moveSpeed: 2.2
+  attackRange: 1.1
+  strikeRadius: 1.3
+  strikeArcDegrees: 110
+  recoverSeconds: 0.6
+  aggroRange: 12
+  goldMin: 8
+  goldMax: 12
+  special:
+    type: 
+    values:
+      entries: []
+  parents:
+  - {fileID: 11400000, guid: 5b6972c960ac6b34b8f797c612162769, type: 2}
+  - {fileID: 11400000, guid: 290de405ac7472948afea3f15fa81c29, type: 2}

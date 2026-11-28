@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a769f49e403cc0488df40432b36aff6, type: 3}
+  m_Name: hero_mage
+  m_EditorClassIdentifier: FotF.Data::FotF.Data.HeroDefinition
+  id: hero.mage
+  nameKey: hero.mage.name
+  maxHp: 80
+  maxArmor: 30
+  maxMana: 250
+  armorRegenDelay: 3
+  armorRegenPerSecond: 30
+  moveSpeed: 5
+  dashCharges: 1
+  dashCooldown: 1
+  dashDuration: 0.18
+  dashDistance: 3
+  dashInvulnerability: 0.25
+  ultimateCooldown: 60
+  unlockedFromStart: 0
+  handSouthPixels: {x: -9, y: 12}
+  handSidePixels: {x: 4, y: 12}
+  handNorthPixels: {x: 8, y: 12}
+  startWeapon: {fileID: 11400000, guid: fe57c7ab18b40e7459ce85e45bb68c10, type: 2}

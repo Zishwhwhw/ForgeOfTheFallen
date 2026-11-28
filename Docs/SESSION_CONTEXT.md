@@ -106,3 +106,9 @@ PixelLab (подписка). Рыцарь X2 (рогатый латунный ш
 - Тесты 57/57, консоль чистая; проверено в Play: скелет сплющивается в тёмный «блин».
 - Плейтест через computer use: клавиатура от инструмента не доходит до Input System (мышь доходит) — клавиши жать через `InputSystem.QueueStateEvent` в `script eval`. Game view на Scale 1.3x обрезает HUD по краям.
 - Не сделано: смерть босса (растворение, Shader Graph) и героя (6 кадров из PixelLab — нужна генерация, ждёт «go»).
+- **ARCHITECTURE §8.6 шаги 2–3 (28.11):** Newtonsoft — прямая зависимость; поля схемы добавлены в SO (`statusChance`, `special`, `holdType`, `sizeClass`, `ultimateCooldown`, `unlockedFromStart`, `tier`, `parents`, `reforgeLimit/Price`, `id` у сплава); новые SO: `BossDefinition`, `PassiveDefinition`, `StatusDefinition`, `CurseDefinition`, `ConsumableDefinition`, `BalanceConstants`; `GameFeelDefinition` — вложенный `death` как в JSON. Поля-«map» → `ValueMap` (ключ → число/текст/bool/null), механики → `SpecialMechanic`, эффекты → `EffectSpec`.
+  - Импортёр: `Editor/Data/BalanceImporter.cs`, меню **FotF/Данные/Импорт баланса** + авто-импорт при изменении JSON. SO по `id`, новые — `Data/<Папка>/<id_с_подчёркиваниями>.asset`; ссылки по id; `null` у чисел = значение SO, у объектов/списков = «нет»; новое оружие добавляется в `weapon_catalog`.
+  - Первый прогон: 62 сущности, создано 55 SO, числа старых ассетов (2 оружия, Рыцарь, скелет, сплав, волны, game feel) не изменились — проверено дампом до/после. У гвоздомёта из JSON проставились хват Pistol / класс S.
+  - Тесты `BalanceDataTests`: enum'ы схемы = C#, каждое поле схемы есть в SO с подходящим типом, каждый id имеет SO, значения SO = JSON (если упал — запустить импорт). Всего 60/60, валидатор OK.
+  - У новых SO нет арта (спрайты, иконки) — проставить при производстве (§2.4 п.4).
+- Следующее: §8.6 шаг 4 — `profile.json`/`settings.json` с версиями, атомарной записью, `SaveSchemaSnapshot`.

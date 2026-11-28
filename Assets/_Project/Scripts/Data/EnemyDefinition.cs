@@ -8,6 +8,7 @@ namespace FotF.Data
     {
         public string id;
         public string nameKey;
+        public EnemyTier tier;
 
         [Header("GDD §7.4")]
         public int maxHp = 40;
@@ -31,5 +32,11 @@ namespace FotF.Data
         [Header("Награда (GDD §7.9: обычный враг 1–3 золота)")]
         public int goldMin = 1;
         public int goldMax = 3;
+
+        [Header("Механика и химеры (GDD §7.4–7.5)")]
+        [Tooltip("Нестандартное поведение: прыжки, деление, призыв…")]
+        public SpecialMechanic special = new SpecialMechanic();
+        [Tooltip("Родители химеры (пусто — обычный враг)")]
+        public EnemyDefinition[] parents = System.Array.Empty<EnemyDefinition>();
     }
 }

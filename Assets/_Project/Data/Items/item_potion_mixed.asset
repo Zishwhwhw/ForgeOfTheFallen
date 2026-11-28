@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ebde76648cf9a4ab960ae7ab37c1cb, type: 3}
+  m_Name: item_potion_mixed
+  m_EditorClassIdentifier: FotF.Data::FotF.Data.ConsumableDefinition
+  id: item.potion_mixed
+  nameKey: item.potion_mixed.name
+  heal: 30
+  mana: 40
+  price: 50
+  areaDamage: 0
+  breaksSecretWalls: 0
+  icon: {fileID: 0}

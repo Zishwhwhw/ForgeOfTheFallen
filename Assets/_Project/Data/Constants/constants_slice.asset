@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3530637547838478fb4eecbd41674d, type: 3}
+  m_Name: constants_slice
+  m_EditorClassIdentifier: FotF.Data::FotF.Data.BalanceConstants
+  id: constants.slice
+  critChance: 0.05
+  critMultiplier: 2
+  weaponPrice:
+    entries:
+    - key: Common
+      kind: 0
+      number: 60
+      text: 
+    - key: Rare
+      kind: 0
+      number: 120
+      text: 
+    - key: Epic
+      kind: 0
+      number: 220
+      text: 
+  weaponSellbackFraction: 0.5
+  gold:
+    entries:
+    - key: normalMin
+      kind: 0
+      number: 1
+      text: 
+    - key: normalMax
+      kind: 0
+      number: 3
+      text: 
+    - key: eliteMin
+      kind: 0
+      number: 8
+      text: 
+    - key: eliteMax
+      kind: 0
+      number: 12
+      text: 
+    - key: miniBoss
+      kind: 0
+      number: 40
+      text: 
+    - key: chestMin
+      kind: 0
+      number: 10
+      text: 
+    - key: chestMax
+      kind: 0
+      number: 25
+      text: 
+    - key: expectedPerFloorMin
+      kind: 0
+      number: 150
+      text: 
+    - key: expectedPerFloorMax
+      kind: 0
+      number: 200
+      text: 
+  chestLoot:
+    entries:
+    - key: goldOrPotion
+      kind: 0
+      number: 0.6
+      text: 
+    - key: weapon
+      kind: 0
+      number: 0.3
+      text: 
+    - key: bombOrRare
+      kind: 0
+      number: 0.1
+      text: 
+    - key: maxWeaponsPerFloor
+      kind: 0
+      number: 2
+      text: 
+  healing:
+    entries:
+    - key: afterBossFraction
+      kind: 0
+      number: 0.5
+      text: 
+    - key: fountainMaxHpBonus
+      kind: 0
+      number: 15
+      text: 
+  miniBossRoomChance: 0.3
+  corpseLimitPerFloor: 300
+  passiveChoicesPerFloor: 3

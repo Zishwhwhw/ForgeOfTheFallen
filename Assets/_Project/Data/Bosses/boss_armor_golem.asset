@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9e9946f5aeab3438c6493b16aab61b, type: 3}
+  m_Name: boss_armor_golem
+  m_EditorClassIdentifier: FotF.Data::FotF.Data.BossDefinition
+  id: boss.armor_golem
+  nameKey: boss.armor_golem.name
+  maxHp: 1500
+  rageAtHpFraction: 0.15
+  rageSpeedMultiplier: 1.25
+  phases:
+  - untilHpFraction: 0.66
+    minions:
+      count: 0
+      maxHp: 0
+    attacks:
+    - id: fist_slam
+      damage: 30
+      windupSeconds: 1
+      shape: 0
+      count: 1
+    - id: shockwave
+      damage: 20
+      windupSeconds: 1
+      shape: 1
+      count: 1
+    - id: helmet_throw
+      damage: 15
+      windupSeconds: 1
+      shape: 2
+      count: 3
+  - untilHpFraction: 0.33
+    minions:
+      count: 2
+      maxHp: 150
+    attacks:
+    - id: shield_ram
+      damage: 20
+      windupSeconds: 1
+      shape: 3
+      count: 1
+    - id: stomp
+      damage: 25
+      windupSeconds: 1
+      shape: 0
+      count: 1
+  - untilHpFraction: 0
+    minions:
+      count: 0
+      maxHp: 0
+    attacks:
+    - id: bullet_ring
+      damage: 10
+      windupSeconds: 1
+      shape: 1
+      count: 1
+    - id: core_dash
+      damage: 35
+      windupSeconds: 1
+      shape: 3
+      count: 1
+  reward:
+    healFraction: 0.5
+    passiveChoices: 3
+    fistDropChance: 0
+    crystals: 0

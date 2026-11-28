@@ -14,6 +14,8 @@ namespace FotF.View.Enemies
     public sealed class EnemyDeathView : MonoBehaviour
     {
         [SerializeField] GameFeelDefinition feel;
+        [Tooltip("Лимит трупов на этаж")]
+        [SerializeField] BalanceConstants constants;
         [Tooltip("Спрайт тела: его масштабируем (pivot у ног) и затемняем")]
         [SerializeField] SpriteRenderer body;
         [SerializeField] DirectionalSpriteAnimator animator;
@@ -37,7 +39,7 @@ namespace FotF.View.Enemies
             if (animator) animator.enabled = false;           // кадр замирает: покадровой смерти у мобов нет
             _startScale = body.transform.localScale;
             _phase = Phase.Flash; _t = 0f;
-            if (flash) flash.Flash(feel.deathFlashSeconds);
+            if (flash) flash.Flash(feel.death.flashSeconds);
         }
 
         void Update()
@@ -46,14 +48,15 @@ namespace FotF.View.Enemies
             _t += Time.deltaTime;
             if (_phase == Phase.Flash)
             {
-                if (_t < feel.deathFlashSeconds) return;
+                if (_t < feel.death.flashSeconds) return;
                 _phase = Phase.Squash; _t = 0f;
             }
-            float k = feel.deathSquashSeconds > 0f ? Mathf.Clamp01(_t / feel.deathSquashSeconds) : 1f;
+            var d = feel.death;
+            float k = d.squashSeconds > 0f ? Mathf.Clamp01(_t / d.squashSeconds) : 1f;
             k = 1f - (1f - k) * (1f - k);                      // ease-out: быстро плющится, мягко ложится
             body.transform.localScale = new Vector3(
-                _startScale.x * Mathf.Lerp(1f, feel.deathSquashScaleX, k),
-                _startScale.y * Mathf.Lerp(1f, feel.deathSquashScaleY, k),
+                _startScale.x * Mathf.Lerp(1f, d.squashScaleX, k),
+                _startScale.y * Mathf.Lerp(1f, d.squashScaleY, k),
                 _startScale.z);
             if (k >= 1f) BecomeCorpse();
         }
@@ -61,9 +64,9 @@ namespace FotF.View.Enemies
         void BecomeCorpse()
         {
             _phase = Phase.Corpse;
-            body.color = Color.Lerp(Color.white, feel.corpseTint, feel.corpseDarken);
+            body.color = Color.Lerp(Color.white, feel.corpseTint, feel.death.corpseDarken);
             if (sortingGroup) sortingGroup.sortingOrder = corpseSortingOrder;
-            CorpseRegistry.Add(gameObject, feel.corpseLimitPerFloor);
+            CorpseRegistry.Add(gameObject, constants ? constants.corpseLimitPerFloor : 300);
             enabled = false;
         }
     }
