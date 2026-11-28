@@ -25,6 +25,11 @@ namespace FotF.View.World
 
         public EncounterState State { get; } = new EncounterState();
         public event Action<string> Announce;
+        /// <summary>Комната зачищена (портал этажа считает такие события).</summary>
+        public event Action<RoomController> Cleared;
+
+        /// <summary>Двери комнаты задаёт сборщик этажа: только там, где подходит коридор.</summary>
+        public void SetDoors(DoorView[] roomDoors) { doors = roomDoors ?? Array.Empty<DoorView>(); }
 
         HeroController _hero;
         int _spawnCursor;
@@ -57,8 +62,9 @@ namespace FotF.View.World
                     break;
                 case EncounterEvent.Cleared:
                     foreach (var d in doors) d.SetLocked(false);
-                    if (chestPrefab) Instantiate(chestPrefab, chestPoint ? chestPoint.position : transform.position, Quaternion.identity);
+                    if (chestPrefab) Instantiate(chestPrefab, chestPoint ? chestPoint.position : transform.position, Quaternion.identity, transform);
                     Announce?.Invoke("Комната зачищена");
+                    Cleared?.Invoke(this);
                     break;
             }
         }
@@ -73,7 +79,7 @@ namespace FotF.View.World
                 for (int i = 0; i < g.count; i++)
                 {
                     var point = spawnPoints.Length > 0 ? spawnPoints[_spawnCursor++ % spawnPoints.Length].position : transform.position;
-                    var e = Instantiate(prefab, point + (Vector3)(UnityEngine.Random.insideUnitCircle * 0.4f), Quaternion.identity);
+                    var e = Instantiate(prefab, point + (Vector3)(UnityEngine.Random.insideUnitCircle * 0.4f), Quaternion.identity, transform);
                     e.SetTarget(_hero);
                     e.Died += _ => Encounter.OnEnemyDied(State);
                     spawned++;

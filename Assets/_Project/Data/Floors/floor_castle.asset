@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38b905ad4e1268429b972deefe4da7a, type: 3}
+  m_Name: floor_castle
+  m_EditorClassIdentifier: FotF.Data::FotF.Data.FloorDefinition
+  id: floor.castle
+  floorsPerBiome: 4
+  combatRoomsMin: 4
+  combatRoomsMax: 5
+  forgeChance: 0.4
+  merchantChance: 1
+  fountainChance: 0.25
+  shrineChance: 0.35
+  cageChance: 0.25
+  secretChance: 0.4
+  eliteChance: 0.5
+  chestRoomChance: 0.3
+  maxBranches: 5

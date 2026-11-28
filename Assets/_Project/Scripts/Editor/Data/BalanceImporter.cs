@@ -28,7 +28,7 @@ namespace FotF.EditorTools.Data
         {
             ["weapon"] = "Weapons", ["hero"] = "Heroes", ["enemy"] = "Enemies", ["boss"] = "Bosses",
             ["passive"] = "Passives", ["status"] = "Statuses", ["curse"] = "Curses", ["item"] = "Items",
-            ["constants"] = "Constants", ["fusion"] = "Fusion", ["encounter"] = "Rooms", ["gamefeel"] = "GameFeel",
+            ["constants"] = "Constants", ["fusion"] = "Fusion", ["encounter"] = "Rooms", ["gamefeel"] = "GameFeel", ["floor"] = "Floors",
         };
 
         public sealed class Report

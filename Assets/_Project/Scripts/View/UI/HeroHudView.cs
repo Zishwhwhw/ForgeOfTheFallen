@@ -21,6 +21,9 @@ namespace FotF.View.UI
         void OnEnable() { if (room) room.Announce += OnAnnounce; }
         void OnDisable() { if (room) room.Announce -= OnAnnounce; }
 
+        /// <summary>Короткое объявление по центру сверху (комнаты, этаж).</summary>
+        public void ShowAnnouncement(string text) => OnAnnounce(text);
+
         void OnAnnounce(string text)
         {
             if (!announceText) return;

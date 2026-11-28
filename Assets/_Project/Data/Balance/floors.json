@@ -1,0 +1,23 @@
+{
+  "kind": "floor",
+  "version": 1,
+  "_note": "GDD §3.1, §8 + решения владельца 28.11: 4–5 боевых, сетка + коридоры, кузница — ответвление; шансы спец-комнат — черновик (калибровать)",
+  "items": [
+    {
+      "id": "floor.castle",
+      "floorsPerBiome": 4,
+      "combatRoomsMin": 4,
+      "combatRoomsMax": 5,
+      "forgeChance": 0.4,
+      "merchantChance": 1.0,
+      "fountainChance": 0.25,
+      "shrineChance": 0.35,
+      "cageChance": 0.25,
+      "secretChance": 0.4,
+      "eliteChance": 0.5,
+      "chestRoomChance": 0.3,
+      "maxBranches": 5,
+      "_note": "forgeChance — GDD 30–50% этажей. Мини-босс — constants.miniBossRoomChance. Остальные шансы — черновик Claude 28.11"
+    }
+  ]
+}

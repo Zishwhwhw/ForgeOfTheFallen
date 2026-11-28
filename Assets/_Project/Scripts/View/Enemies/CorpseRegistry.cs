@@ -26,6 +26,9 @@ namespace FotF.View.Enemies
 
         static void OnSceneUnloaded(Scene _) => Queue.Clear();
 
+        /// <summary>Новый этаж в той же сцене: трупы уже убраны вместе с комнатами, список очищается.</summary>
+        public static void ClearFloor() => Queue.Clear();
+
         public static void Add(GameObject corpse, int limit)
         {
             Queue.Limit = limit;

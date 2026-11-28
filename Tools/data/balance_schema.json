@@ -751,6 +751,79 @@
      "type": "map"
     }
    }
+  },
+  "floor": {
+   "file": "floors.json",
+   "so": "FloorDefinition",
+   "fields": {
+    "id": {
+     "type": "id"
+    },
+    "floorsPerBiome": {
+     "type": "int",
+     "min": 1
+    },
+    "combatRoomsMin": {
+     "type": "int",
+     "min": 1
+    },
+    "combatRoomsMax": {
+     "type": "int",
+     "min": 1
+    },
+    "forgeChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1,
+     "calibrate": true
+    },
+    "merchantChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1,
+     "calibrate": true
+    },
+    "fountainChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1,
+     "calibrate": true
+    },
+    "shrineChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1,
+     "calibrate": true
+    },
+    "cageChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1,
+     "calibrate": true
+    },
+    "secretChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1,
+     "calibrate": true
+    },
+    "eliteChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1,
+     "calibrate": true
+    },
+    "chestRoomChance": {
+     "type": "number",
+     "min": 0,
+     "max": 1,
+     "calibrate": true
+    },
+    "maxBranches": {
+     "type": "int",
+     "min": 0
+    }
+   }
   }
  }
 }

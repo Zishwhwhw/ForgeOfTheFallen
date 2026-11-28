@@ -3,7 +3,10 @@
     "rootNamespace": "FotF.EditorTools",
     "references": [
         "FotF.Data",
-        "FotF.View"
+        "FotF.View",
+        "FotF.Logic",
+        "Unity.TextMeshPro",
+        "Unity.RenderPipelines.Universal.Runtime"
     ],
     "includePlatforms": [
         "Editor"

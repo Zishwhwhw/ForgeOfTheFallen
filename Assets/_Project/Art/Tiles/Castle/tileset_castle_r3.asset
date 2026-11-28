@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e0eb6e68945034aa1a87ccf1ac8e23, type: 3}
+  m_Name: tileset_castle_r3
+  m_EditorClassIdentifier: FotF.View::FotF.View.World.TerrainTileset
+  tiles:
+  - {fileID: 11400000, guid: 005a6614ae9ffea41be2fb1b6670fde5, type: 2}
+  - {fileID: 11400000, guid: 3d67a48c9ea9e294d9e34de7ea0386ae, type: 2}
+  - {fileID: 11400000, guid: 67be97185de342c4a8b3147ea26e6fad, type: 2}
+  - {fileID: 11400000, guid: ec480422d6697e349950f6498ecfe92d, type: 2}
+  - {fileID: 11400000, guid: bb86e5b89b7a63f4b8f316531fd74af3, type: 2}
+  - {fileID: 11400000, guid: 87c302770dc4ba043bcd50b65c382ca1, type: 2}
+  - {fileID: 11400000, guid: e5526b73659cfde43a5b0bade2cba54e, type: 2}
+  - {fileID: 11400000, guid: ae382c4eb8b507c42b701f5fb41f68d2, type: 2}
+  - {fileID: 11400000, guid: 766b273ca5388864db809e1ecce3d912, type: 2}
+  - {fileID: 11400000, guid: 499623c30386965468d8eab9f20e7328, type: 2}
+  - {fileID: 11400000, guid: eb751d3ac432bb949bf2d75886e527c2, type: 2}
+  - {fileID: 11400000, guid: 6f05057a3bd767941b94b538cb0ce9be, type: 2}
+  - {fileID: 11400000, guid: 184c949fa85a95246aceacefcd82aa3e, type: 2}
+  - {fileID: 11400000, guid: da480547f5849ed408045e8856c351b1, type: 2}
+  - {fileID: 11400000, guid: ce1acb4f4f247534eb316cb3b4e22f68, type: 2}
+  - {fileID: 11400000, guid: 6a2a23278c82e3341b701f29ca0a1710, type: 2}
+  - {fileID: 11400000, guid: 67bd9178e26a3194c9bbacd0aa0bf674, type: 2}
+  - {fileID: 11400000, guid: 384d1d02c039feb4f9c892c065645600, type: 2}
+  - {fileID: 11400000, guid: ba0af7bc48444f642815bf9eb94713fe, type: 2}
+  - {fileID: 11400000, guid: fb2c81c3256fae741b729362e6c4d6d7, type: 2}
+  - {fileID: 11400000, guid: 3b2de373197218c4f83cab50d920bd8e, type: 2}
+  collisionTile: {fileID: 11400000, guid: eacf3e6ad190d1c44bfe32fe50ad8120, type: 2}
