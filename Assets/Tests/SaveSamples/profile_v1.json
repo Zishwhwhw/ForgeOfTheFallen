@@ -1,0 +1,10 @@
+{
+  "saveVersion": 1,
+  "crystals": 42,
+  "unlockedHeroes": [ "hero.mage" ],
+  "fusionDiary": [
+    { "parentA": "weapon.eternal_sword", "parentB": "weapon.nailgun", "timesForged": 2, "jackpot": false }
+  ],
+  "stats": { "runs": 5, "deaths": 4, "victories": 1, "kills": 230, "bestFloor": 3, "playSeconds": 5400.5 },
+  "refugeUnlocks": []
+}

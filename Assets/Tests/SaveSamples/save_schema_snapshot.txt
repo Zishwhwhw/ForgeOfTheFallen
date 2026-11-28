@@ -1,0 +1,28 @@
+# Снимок полей сейва (ARCHITECTURE §8.5). Проверяет SaveTests.SaveSchemaSnapshot_MatchesCode.
+# Добавили поле — допишите строку. Переименовали/удалили/сменили тип — saveVersion + 1 и миграция.
+ProfileState.CurrentVersion=1
+ProfileState.saveVersion:Int32
+ProfileState.crystals:Int32
+ProfileState.unlockedHeroes:List<String>
+ProfileState.fusionDiary:List<FusionRecord>
+ProfileState.stats:ProfileStats
+ProfileState.refugeUnlocks:List<String>
+FusionRecord.parentA:String
+FusionRecord.parentB:String
+FusionRecord.timesForged:Int32
+FusionRecord.jackpot:Boolean
+ProfileStats.runs:Int32
+ProfileStats.deaths:Int32
+ProfileStats.victories:Int32
+ProfileStats.kills:Int32
+ProfileStats.bestFloor:Int32
+ProfileStats.playSeconds:Double
+SettingsState.CurrentVersion=1
+SettingsState.saveVersion:Int32
+SettingsState.masterVolume:Single
+SettingsState.musicVolume:Single
+SettingsState.sfxVolume:Single
+SettingsState.language:String
+SettingsState.gameFeel:Single
+SettingsState.screenShake:Boolean
+SettingsState.bindingOverrides:String

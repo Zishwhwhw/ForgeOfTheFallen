@@ -1,0 +1,10 @@
+{
+  "saveVersion": 1,
+  "masterVolume": 0.8,
+  "musicVolume": 0.5,
+  "sfxVolume": 1.0,
+  "language": "ru",
+  "gameFeel": 0.7,
+  "screenShake": false,
+  "bindingOverrides": ""
+}

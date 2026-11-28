@@ -131,4 +131,4 @@ ScriptableObject-ы (Data-слой, §2)    — числа перезаписа�
 1. ✅ (Mac, 27.11) JSON баланса среза из GDD §4, §6, §7, §10.2 + значения серой коробки; схема; валидатор + 11 тестов.
 2. ✅ (28.11) Пакет Newtonsoft JSON; поля из схемы, которых ещё нет в SO (`holdType`, `sizeClass`, `statusChance`, `special`, `tier`, `parents`, `ultimateCooldown`, `unlockedFromStart`…), — добавить в классы SO; новые классы SO для `boss`, `passive`, `status`, `curse`, `item`, `constants`, `gamefeel`.
 3. ✅ (28.11) Editor-импортёр + авто-импорт + EditMode-тест схема ↔ SO; прогнать импорт — существующие 2 оружия, Рыцарь, скелет, сплав, волны должны остаться с теми же числами.
-4. `profile.json`/`settings.json` с версиями, атомарной записью, `SaveSchemaSnapshot` и тестами миграций.
+4. ✅ (28.11) `profile.json`/`settings.json` с версиями, атомарной записью, `SaveSchemaSnapshot` и тестами миграций.
